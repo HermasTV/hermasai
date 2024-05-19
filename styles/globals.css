@@ -1,0 +1,29 @@
+/* globals.css */
+@import url('https://fonts.googleapis.com/css?family=Monoton|Press+Start+2P|Mr+Dafoe|Changa+One');
+
+html, body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background-color: #f0f0f0;
+  color: #333; /* Default text color */
+  height: 100%; /* Full height */
+  width: 100%; /* Full width */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #fff;
+  }
+}
