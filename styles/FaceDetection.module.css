@@ -1,0 +1,6 @@
+.videoFeed {
+  width: 100%;
+  max-width: 720px; /* Adjust based on your layout preferences */
+  border: 2px solid #ccc;
+  border-radius: 8px;
+}
