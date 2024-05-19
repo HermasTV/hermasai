@@ -1,5 +1,5 @@
 import * as ort from 'onnxruntime-web/webgpu';
-import { hardNms } from './utils/faceutils';
+import { hardNms } from './faceutils';
 
 export function preprocess(imageData, targetWidth = 320, targetHeight = 240) {
   const { data, width, height } = imageData;

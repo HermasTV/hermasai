@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../../../components/navbar';
 import Footer from '../../../components/footer';
 import * as ort from 'onnxruntime-web/webgpu';
-import { processOutputs, preprocess } from './ultraface'; // Adjust the import path as needed
+import { processOutputs, preprocess } from '../../../components/ultraface/ultraface'; // Adjust the import path as needed
 
 const FaceDetectionPage = () => {
   const [modelLoaded, setModelLoaded] = useState(false);
