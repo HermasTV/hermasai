@@ -2,10 +2,8 @@ import { useEffect } from 'react';
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 
-
 export default function Home() {
   useEffect(() => {
-
     !(function (a, b) {
       "use strict";
       function c(a) {
@@ -402,34 +400,31 @@ export default function Home() {
     <>
       <>
         <Navbar />
-        <div className="wrapper">
-          <div className="card">
-            <img src="https://cdn.dribbble.com/users/307908/screenshots/4449308/big.gif" />
-            <div className="info">
-              <h1>Face Detection</h1>
-              <p>A real time face detection demo served by onnx.js the model runs on the client side. </p>
-              <button onClick={() => window.location.href = "/projects/realtime-face"}>Demo</button>
+        <div className="content-wrapper">
+          <div className="wrapper">
+            <div className="card">
+              <img src="https://cdn.dribbble.com/users/307908/screenshots/4449308/big.gif" />
+              <div className="info">
+                <h1>Face Detection</h1>
+                <p>A real time face detection demo served by onnx.js the model runs on the client side. </p>
+                <button onClick={() => window.location.href = "/projects/realtime-face"}>Demo</button>
+              </div>
             </div>
-          </div>
-          <div className="card">
-            <img src="https://blogs.mathworks.com/deep-learning/files/2019/01/ball_rolling2.gif.gif" />
-            <div className="info">
-              <h1>Host a Model</h1>
-              <p>
-                serve your AI onnx model and get a UI demo out of the box. 
-              </p>
-              <button>SOON</button>
+            <div className="card">
+              <img src="https://blogs.mathworks.com/deep-learning/files/2019/01/ball_rolling2.gif.gif" />
+              <div className="info">
+                <h1>Host a Model</h1>
+                <p>serve your AI onnx model and get a UI demo out of the box.</p>
+                <button>SOON</button>
+              </div>
             </div>
-          </div>
-          <div className="card">
-            <img src="https://cdn.dribbble.com/users/2681962/screenshots/8971181/media/f0cc14e3d0c4975343da5bd05702a4d0.gif" />
-            <div className="info">
-              <h1>LLM DEMO</h1>
-              <p>
-                This is just a place holder for a really really cool project that is coming soon.
-                Hint : Use me to cheat in your next ?
-              </p>
-              <button>SOON</button>
+            <div className="card">
+              <img src="https://cdn.dribbble.com/users/2681962/screenshots/8971181/media/f0cc14e3d0c4975343da5bd05702a4d0.gif" />
+              <div className="info">
+                <h1>LLM DEMO</h1>
+                <p>This is just a place holder for a really really cool project that is coming soon. Hint : Use me to cheat in your next ?</p>
+                <button>SOON</button>
+              </div>
             </div>
           </div>
         </div>
@@ -437,154 +432,174 @@ export default function Home() {
         <div id="particles-foreground" className="vertical-centered-box" />
       </>
 
-
-
       <style jsx global>{`
         body {
-            -webkit-transform: translate3d(0, 0, 0);
-            transform: translate3d(0, 0, 0);
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -webkit-perspective: 1000;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            left: 0;
-            position: absolute;
-            z-index: -1;
-            overflow: hidden;
-            background: #2c2d44;
-          }
-          body .vertical-centered-box {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            z-index: -1;
-          }
-          body .vertical-centered-box:after {
-            content: '';
-            display: inline-block;
-            height: 100%;
-            vertical-align: middle;
-            margin-right: -0.25em;
-          }
-          body .vertical-centered-box .content {
-            box-sizing: border-box;
-            display: inline-block;
-            vertical-align: middle;
-            text-align: left;
-            font-size: 0;
-          }
-          @font-face {
-            font-family: 'Open Sans';
-            font-style: normal;
-            font-weight: 400;
-            font-stretch: normal;
-            src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVc.ttf) format('truetype');
-          }
-          html {
-            height: 100%;
-            background-image: linear-gradient(to right top, #8e44ad 0%, #3498db 100%);
-          }
-          
-          #particles-foreground {
-            left: -51%;
-            top: -51%;
-            width: 202%;
-            height: 202%;
-            transform: scale3d(0.5, 0.5, 1);
-          }
+          -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          -webkit-perspective: 1000;
+          top: 0;
+          bottom: 0;
+          right: 0;
+          left: 0;
+          position: absolute;
+          z-index: -1;
+          overflow: hidden;
+          background: #2c2d44;
+        }
+        body .vertical-centered-box {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          text-align: center;
+          z-index: -1;
+        }
+        body .vertical-centered-box:after {
+          content: '';
+          display: inline-block;
+          height: 100%;
+          vertical-align: middle;
+          margin-right: -0.25em;
+        }
+        body .vertical-centered-box .content {
+          box-sizing: border-box;
+          display: inline-block;
+          vertical-align: middle;
+          text-align: left;
+          font-size: 0;
+        }
+        @font-face {
+          font-family: 'Open Sans';
+          font-style: normal;
+          font-weight: 400;
+          font-stretch: normal;
+          src: url(https://fonts.gstatic.com/s/opensans/v40/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0B4gaVc.ttf) format('truetype');
+        }
+        html {
+          height: 100%;
+          background-image: linear-gradient(to right top, #8e44ad 0%, #3498db 100%);
+        }
+
+        #particles-foreground {
+          left: -51%;
+          top: -51%;
+          width: 202%;
+          height: 202%;
+          transform: scale3d(0.5, 0.5, 1);
+        }
+        .content-wrapper {
+          overflow-y: auto;
+          height: calc(100vh - 60px); /* Adjust based on Navbar and Footer height */
+        }
+        .wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          width: 90%;
+          margin: 0 auto;
+          justify-content: space-around;
+          flex-direction: row;
+          align-items: center;
+        }
+        .card {
+          width: 280px;
+          height: 360px;
+          border-radius: 15px;
+          padding: 1.5rem;
+          background: white;
+          position: relative;
+          display: flex;
+          align-items: flex-end;
+          transition: 0.4s ease-out;
+          box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
+          margin: 1rem;
+        }
+        .card:hover {
+          transform: translateY(20px);
+        }
+        .card:hover:before {
+          opacity: 1;
+        }
+        .card:hover .info {
+          opacity: 1;
+          transform: translateY(0px);
+        }
+        .card:before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          display: block;
+          width: 100%;
+          height: 100%;
+          border-radius: 15px;
+          background: rgba(0, 0, 0, 0.6);
+          z-index: 2;
+          transition: 0.5s;
+          opacity: 0;
+        }
+        .card img {
+          width: 100%;
+          height: 100%;
+          -o-object-fit: cover;
+          object-fit: cover;
+          position: absolute;
+          top: 0;
+          left: 0;
+          border-radius: 15px;
+        }
+        .card .info {
+          position: relative;
+          z-index: 3;
+          color: white;
+          opacity: 0;
+          transform: translateY(30px);
+          transition: 0.5s;
+        }
+        .card .info h1 {
+          margin: 0px;
+        }
+        .card .info p {
+          letter-spacing: 1px;
+          font-size: 15px;
+          margin-top: 8px;
+        }
+        .card .info button {
+          padding: 0.6rem;
+          outline: none;
+          border: none;
+          border-radius: 3px;
+          background: white;
+          color: black;
+          font-weight: bold;
+          cursor: pointer;
+          transition: 0.4s ease;
+        }
+        .card .info button:hover {
+          background: dodgerblue;
+          color: white;
+        }
+
+        @media (max-width: 768px) {
           .wrapper {
-            display: flex;
-            width: 80%;
-            margin: 0 auto;
-            justify-content: space-around;
-            flex-direction: row;
-            align-items: center;
-            display: flex;
+            flex-direction: column;
           }
           .card {
-            width: 280px;
-            height: 360px;
-            border-radius: 15px;
-            padding: 1.5rem;
-            background: white;
-            position: relative;
-            display: flex;
-            align-items: flex-end;
-            transition: 0.4s ease-out;
-            box-shadow: 0px 7px 10px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            margin-bottom: 2rem;
           }
-          .card:hover {
-            transform: translateY(20px);
-          }
-          .card:hover:before {
-            opacity: 1;
-          }
-          .card:hover .info {
-            opacity: 1;
-            transform: translateY(0px);
-          }
-          .card:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            display: block;
+        }
+
+        @media (max-width: 480px) {
+          .card {
             width: 100%;
-            height: 100%;
-            border-radius: 15px;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 2;
-            transition: 0.5s;
-            opacity: 0;
-          }
-          .card img {
-            width: 100%;
-            height: 100%;
-            -o-object-fit: cover;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            border-radius: 15px;
-          }
-          .card .info {
-            position: relative;
-            z-index: 3;
-            color: white;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: 0.5s;
-          }
-          .card .info h1 {
-            margin: 0px;
-            
+            height: auto;
+            padding: 1rem;
           }
           .card .info p {
-            letter-spacing: 1px;
-            font-size: 15px;
-            margin-top: 8px;
+            font-size: 14px;
           }
-          .card .info button {
-            padding: 0.6rem;
-            outline: none;
-            border: none;
-            border-radius: 3px;
-            background: white;
-            color: black;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.4s ease;
-          }
-          .card .info button:hover {
-            background: dodgerblue;
-            color: white;
-          }
-          
-          
-          
+        }
       `}</style>
     </>
   );

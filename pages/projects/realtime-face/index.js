@@ -24,13 +24,13 @@ const FaceDetectionPage = () => {
     async function loadModel() {
       try {
         ort.env.wasm.wasmPaths = '/';
-        const session = await ort.InferenceSession.create('/ultraface.onnx', { executionProviders: ['webgpu'] });
+        const session = await ort.InferenceSession.create('/ultraface.onnx', { executionProviders: ['webgpu','wasm'] });
         modelRef.current = session;
         setModelLoaded(true);
         console.log('Model loaded successfully:', session);
       } catch (error) {
-        console.error('Failed to load the model:', error);
-        setLoadingError('Failed to load the model: ' + error.message);
+        // display that the model failed to load on the screen
+        setLoadingError('Failed to load the model');
       }
     }
     loadModel();
@@ -122,7 +122,6 @@ const FaceDetectionPage = () => {
           background: rgba(100, 190, 170, 1);
         }
 
-
         .container {
           text-align: center;
         }
@@ -131,7 +130,17 @@ const FaceDetectionPage = () => {
           transition: all 0.5s ease;
         }
 
-        /* Mobile */
+        .description {
+          margin: 20px;
+          padding: 20px;
+          background: rgba(255, 255, 255, 0.8);
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          font-family: "Open Sans", sans-serif;
+          color: #333;
+          text-align: left;
+        }
+
         .device {
           display: inline-block;
           margin: 0 auto;
@@ -273,6 +282,14 @@ const FaceDetectionPage = () => {
 
       <Navbar />
       <div className="container">
+        <div className="description">
+          <h2>Real time Face Detection Demo</h2>
+          <p>
+            In this demo, we use the UltraFace model to detect faces in real-time using your webcam.
+            The model is loaded using ONNX Runtime Web and executed on the GPU using WebGPU, if you are using
+            firefox browser webgl is not supported so the model will be executed on the CPU.
+          </p>
+        </div>
         <div className="device">
           <div className="frame">
             <div className="screen">
