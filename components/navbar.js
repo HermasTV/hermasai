@@ -32,6 +32,8 @@ const Navbar = () => {
           text-align: center;
           background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.2) 25%, rgba(255, 255, 255, 0.2) 75%, rgba(255, 255, 255, 0) 100%);
           box-shadow: 0 0 25px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
+          white-space: nowrap;
+          overflow-x: auto;
         }
         nav ul li {
           display: inline-block;
@@ -49,6 +51,18 @@ const Navbar = () => {
           box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), inset 0 0 1px rgba(255, 255, 255, 0.6);
           background: rgba(255, 255, 255, 0.1);
           color: rgba(0, 35, 122, 0.7);
+        }
+        @media (max-width: 768px) {
+          nav ul li a {
+            padding: 10px;
+            font-size: 16px;
+          }
+        }
+        @media (max-width: 480px) {
+          nav ul li a {
+            padding: 8px;
+            font-size: 14px;
+          }
         }
       `}</style>
     </>
