@@ -13,7 +13,7 @@ RUN npm install
 COPY . .
 
 # Build the Next.js application for production
-RUN yarn run build
+RUN npm run build
 # Set the environment variable to run the Next.js application in production mode
 ENV NODE_ENV production
 ENV PORT 80
@@ -22,4 +22,4 @@ ENV PORT 80
 EXPOSE 80
 
 # Start the application
-CMD ["yarn", "start"]
+CMD ["npm", "start"]
