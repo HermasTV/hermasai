@@ -10,13 +10,13 @@ const Footer = () => {
       </footer>
       <style jsx>{`
         footer {
-            text-align: center;
-            padding: 20px;
-            color: #6c757d;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-          }
+          text-align: center;
+          padding: 20px;
+          color: #6c757d;
+          width: 100%;
+          position: relative;
+          bottom: 0;
+        }
       `}</style>
     </div>
   );
