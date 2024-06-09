@@ -6,9 +6,9 @@ const HomePage = () => {
   const headlineRef = useRef(null);
 
   useEffect(() => {
-    let max_particles = 200;
+    let max_particles = 150;
     let particles = [];
-    let frequency = 1000;
+    let frequency = 20;
     let init_num = max_particles;
     let max_time = frequency * max_particles;
     let time_to_recreate = false;
@@ -66,7 +66,7 @@ const HomePage = () => {
         this.h = window.innerHeight;
         this.radius = random > 0.2 ? Math.random() * 1 : Math.random() * 3;
         this.color = random > 0.2 ? '#694FB9' : '#9B0127';
-        this.radius = random > 0.8 ? Math.random() * 2.2 : this.radius;
+        this.radius = random > 0.8 ? Math.random() * 4.2 : this.radius;
         this.color = random > 0.8 ? '#3CFBFF' : this.color;
       }
 

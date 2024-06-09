@@ -7,9 +7,13 @@ import { processOutputs, preprocess } from '../../../components/ultraface/ultraf
 const FaceDetectionPage = () => {
   const [modelLoaded, setModelLoaded] = useState(false);
   const [loadingError, setLoadingError] = useState('');
+  const [fps, setFps] = useState(0);
+  const [isWebGPUAvailable, setIsWebGPUAvailable] = useState(false);
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const modelRef = useRef(null);
+  const lastUpdateTimeRef = useRef(Date.now());
+  const frameTimes = useRef([]);
   const [spinnerStyle, setSpinnerStyle] = useState({
     display: 'none',
     width: '100px',
@@ -18,18 +22,21 @@ const FaceDetectionPage = () => {
     left: '50%',
     transform: 'translate(-50%, -50%)',
   });
-  const lastUpdateTimeRef = useRef(Date.now());
 
   useEffect(() => {
+    // Check for WebGPU availability
+    if (navigator.gpu) {
+      setIsWebGPUAvailable(true);
+    }
+
     async function loadModel() {
       try {
         ort.env.wasm.wasmPaths = '/';
-        const session = await ort.InferenceSession.create('/ultraface.onnx', { executionProviders: ['webgpu','wasm'] });
+        const session = await ort.InferenceSession.create('/ultraface.onnx', { executionProviders: ['webgpu', 'wasm'] });
         modelRef.current = session;
         setModelLoaded(true);
         console.log('Model loaded successfully:', session);
       } catch (error) {
-        // display that the model failed to load on the screen
         setLoadingError('Failed to load the model');
       }
     }
@@ -56,28 +63,18 @@ const FaceDetectionPage = () => {
       const context = canvas.getContext('2d');
       const session = modelRef.current;
 
-      // Get the actual dimensions of the video element
       const videoRect = video.getBoundingClientRect();
-
-      // Draw the mirrored video frame on the canvas for preprocessing
       context.save();
       context.scale(-1, 1);
       context.drawImage(video, -canvas.width, 0, canvas.width, canvas.height);
       context.restore();
 
-      // Get the mirrored frame image data for preprocessing
       const mirroredFrame = context.getImageData(0, 0, canvas.width, canvas.height);
-
-      // Preprocess the mirrored frame
       const inputTensor = preprocess(mirroredFrame, canvas.width, canvas.height);
-
-      // Run the model
       const detections = await processOutputs(session, inputTensor, canvas);
 
       if (detections.length > 0) {
         const [x1, y1, x2, y2] = detections[0].box;
-
-        // Scale the coordinates based on the actual video dimensions
         const scaleX = videoRect.width / canvas.width;
         const scaleY = videoRect.height / canvas.height;
 
@@ -86,8 +83,7 @@ const FaceDetectionPage = () => {
         const radius = Math.min(((x2 - x1) / 2) * scaleX, ((y2 - y1) / 2) * scaleY);
 
         const now = Date.now();
-        // Update spinner position less frequently
-        if (now - lastUpdateTimeRef.current > 100) { // update every 100ms
+        if (now - lastUpdateTimeRef.current > 100) {
           lastUpdateTimeRef.current = now;
           setSpinnerStyle({
             display: 'block',
@@ -95,14 +91,23 @@ const FaceDetectionPage = () => {
             left: `${centerX - radius}px`,
             width: `${radius * 2}px`,
             height: `${radius * 2}px`,
-            transform: 'translate(0, 0)', // Center spinner at calculated position
+            transform: 'translate(0, 0)',
           });
         }
       } else {
-        setSpinnerStyle({ ...spinnerStyle, display: 'none' });
+        setSpinnerStyle({ display: 'none' });
       }
 
-      // Process the next frame
+      const now = performance.now();
+      frameTimes.current.push(now);
+
+      if (frameTimes.current.length > 60) {
+        frameTimes.current.shift();
+      }
+
+      const fps = frameTimes.current.length / ((frameTimes.current[frameTimes.current.length - 1] - frameTimes.current[0]) / 1000);
+      setFps(fps.toFixed(2));
+
       requestAnimationFrame(processVideo);
     }
   }
@@ -118,7 +123,7 @@ const FaceDetectionPage = () => {
         html, body {
           width: 100%;
           height: 100%;
-          overflow: hidden;
+          overflow: auto;
           background: rgba(100, 190, 170, 1);
         }
 
@@ -131,7 +136,7 @@ const FaceDetectionPage = () => {
         }
 
         .description {
-          margin: 20px;
+          margin: 20px auto;
           padding: 20px;
           background: rgba(255, 255, 255, 0.8);
           border-radius: 10px;
@@ -139,6 +144,19 @@ const FaceDetectionPage = () => {
           font-family: "Open Sans", sans-serif;
           color: #333;
           text-align: left;
+          max-width: 900px; /* Ensuring it matches the display screen width */
+        }
+
+        .stats {
+          margin: 20px auto;
+          padding: 10px;
+          background: rgba(255, 255, 255, 0.8);
+          border-radius: 10px;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          font-family: "Open Sans", sans-serif;
+          color: #333;
+          text-align: left;
+          max-width: 900px; /* Ensuring it matches the display screen width */
         }
 
         .device {
@@ -289,6 +307,11 @@ const FaceDetectionPage = () => {
             The model is loaded using ONNX Runtime Web and executed on the GPU using WebGPU, if you are using
             firefox browser webgl is not supported so the model will be executed on the CPU.
           </p>
+        </div>
+        <div className="stats">
+          <p>Model Status: {modelLoaded ? 'Loaded' : 'Loading...'}</p>
+          <p>Available device  : {isWebGPUAvailable ? 'GPU' : 'CPU'}</p>
+          <p>FPS: {fps}</p>
         </div>
         <div className="device">
           <div className="frame">
