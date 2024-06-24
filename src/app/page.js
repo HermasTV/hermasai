@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from 'react';
-import anime from 'animejs';
+"use client";
 
-const HomePage = () => {
+import { useEffect, useRef } from "react";
+import anime from "animejs";
+
+export default function Page() {
   const canvasRef = useRef(null);
   const headlineRef = useRef(null);
 
@@ -14,14 +16,14 @@ const HomePage = () => {
     let time_to_recreate = false;
 
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
 
     const handleResize = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
     };
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
     handleResize();
 
     // Enable repopolate
@@ -30,7 +32,7 @@ const HomePage = () => {
     }, max_time);
 
     // Popolate particles
-    popolate(max_particles);
+    populate(max_particles);
 
     class Particle {
       constructor(canvas) {
@@ -49,14 +51,10 @@ const HomePage = () => {
         if (Math.random() > 0.5) {
           this.x = window.innerWidth * Math.random();
           this.y =
-            Math.random() > 0.5
-              ? -Math.random() * 100
-              : window.innerHeight + Math.random() * 100;
+            Math.random() > 0.5 ? -Math.random() * 100 : window.innerHeight + Math.random() * 100;
         } else {
           this.x =
-            Math.random() > 0.5
-              ? -Math.random() * 100
-              : window.innerWidth + Math.random() * 100;
+            Math.random() > 0.5 ? -Math.random() * 100 : window.innerWidth + Math.random() * 100;
           this.y = window.innerHeight * Math.random();
         }
 
@@ -65,9 +63,9 @@ const HomePage = () => {
         this.w = window.innerWidth;
         this.h = window.innerHeight;
         this.radius = random > 0.2 ? Math.random() * 1 : Math.random() * 3;
-        this.color = random > 0.2 ? '#694FB9' : '#9B0127';
+        this.color = random > 0.2 ? "#694FB9" : "#9B0127";
         this.radius = random > 0.8 ? Math.random() * 2.2 : this.radius;
-        this.color = random > 0.8 ? '#3CFBFF' : this.color;
+        this.color = random > 0.8 ? "#3CFBFF" : this.color;
       }
 
       calculateDistance(v1, v2) {
@@ -112,28 +110,23 @@ const HomePage = () => {
       }
     }
 
-    function popolate(num) {
+    function populate(num) {
       for (let i = 0; i < num; i++) {
-        setTimeout(function (x) {
-          return function () {
-            particles.push(new Particle(ctx));
-          };
-        }(i), frequency * i);
+        setTimeout(
+          (function (x) {
+            return function () {
+              particles.push(new Particle(ctx));
+            };
+          })(i),
+          frequency * i
+        );
       }
       return particles.length;
     }
 
-    function createSphera() {
-      let radius = 180;
-      let center = {
-        x: window.innerWidth / 2,
-        y: window.innerHeight / 2,
-      };
-    }
-
     function clear() {
       ctx.globalAlpha = 0.08;
-      ctx.fillStyle = '#000000';
+      ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.globalAlpha = 1;
     }
@@ -146,7 +139,7 @@ const HomePage = () => {
       // Recreate particles
       if (time_to_recreate) {
         if (particles.length < init_num) {
-          popolate(1);
+          populate(1);
         }
       }
 
@@ -158,24 +151,25 @@ const HomePage = () => {
 
     const headline = headlineRef.current;
     if (headline) {
-      const textWrapper = headline.querySelector('.text-wrapper');
-      const line1 = headline.querySelector('.line1');
-      const line2 = headline.querySelector('.line2');
-      const lettersLeft = headline.querySelector('.letters-left');
+      const textWrapper = headline.querySelector(".text-wrapper");
+      const line1 = headline.querySelector(".line1");
+      const line2 = headline.querySelector(".line2");
+      const lettersLeft = headline.querySelector(".letters-left");
 
-      anime.timeline()
+      anime
+        .timeline()
         .add({
           targets: [line1, line2],
           opacity: [0.5, 1],
           scaleX: [0, 1],
           easing: "easeInOutExpo",
-          duration: 700
+          duration: 700,
         })
         .add({
           targets: [line1, line2],
           duration: 600,
           easing: "easeOutExpo",
-          translateY: (el, i) => (-0.625 + 0.625 * 2 * i) + "em"
+          translateY: (el, i) => -0.625 + 0.625 * 2 * i + "em",
         })
         .add({
           targets: lettersLeft,
@@ -183,14 +177,14 @@ const HomePage = () => {
           translateX: ["0.5em", 0],
           easing: "easeOutExpo",
           duration: 600,
-          offset: '-=300'
+          offset: "-=300",
         });
     }
 
     // Clean up function
     return () => {
       cancelAnimationFrame(update);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []); // Empty dependency array to run the effect only once
 
@@ -206,14 +200,16 @@ const HomePage = () => {
         </h1>
         <h3>Welcome to my Cloud Garage</h3>
         <div className="buttons">
-          <a href="/projects" className="btn btn-2">Projects</a>
-          <a href="/contact" className="btn btn-2">Contact</a>
+          <a href="/projects" className="btn btn-2">
+            Projects
+          </a>
+          <a href="/contact" className="btn btn-2">
+            Contact
+          </a>
         </div>
       </div>
       <canvas ref={canvasRef} />
       <style jsx>{`
-        @import url('https://fonts.googleapis.com/css?family=Montserrat:200,300,400,600');
-        @import url('https://fonts.googleapis.com/css?family=Roboto:400,100,900');
 
         body {
           margin: 0;
@@ -267,7 +263,6 @@ const HomePage = () => {
           left: 50%;
           top: 50%;
           transform: translateX(-50%) translateY(-50%);
-          font-family: 'Montserrat';
           text-align: center;
           width: 100%;
         }
@@ -357,6 +352,4 @@ const HomePage = () => {
       `}</style>
     </div>
   );
-};
-
-export default HomePage;
+}
