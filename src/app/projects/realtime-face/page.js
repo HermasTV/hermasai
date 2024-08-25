@@ -137,9 +137,7 @@ export default function Page() {
 
         .container {
           text-align: center;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
+          margin: 0 auto;
         }
 
         .container, .device, .frame, .screen {
