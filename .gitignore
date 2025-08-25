@@ -7,7 +7,7 @@
 .yarn/install-state.gz
 
 # ai models 
-/public/sherpa-onnx-whisper-tiny.en/
+/public/sherpa-onnx-whisper-tiny.en
 /public/sherpa-onnx-whisper-tiny.en.tar.bz2
 
 # testing
