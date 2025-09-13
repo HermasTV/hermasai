@@ -32,9 +32,24 @@ export async function POST(req: NextRequest) {
         const arrayBuffer = await resumeFile.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
         
-        // Dynamic import to avoid build issues
-        const pdfParse = (await import('pdf-parse')).default;
-        const parseResult = await pdfParse(buffer);
+        // Use try-catch to handle pdf-parse debug mode issues in deployment
+        let parseResult;
+        try {
+          // Dynamic import to avoid build issues
+          const pdfParse = (await import('pdf-parse')).default;
+          parseResult = await pdfParse(buffer);
+        } catch (importError) {
+          // If pdf-parse fails due to debug mode, try our simple parser
+          console.log('pdf-parse failed, trying simple parser:', importError.message);
+          const { parseSimplePdf } = await import('@/utils/simplePdfParser');
+          const simpleResult = await parseSimplePdf(buffer);
+          parseResult = {
+            text: simpleResult,
+            numpages: 1, // We don't know the actual page count
+            info: {},
+            metadata: {}
+          };
+        }
         
         resumeText = parseResult.text;
         
