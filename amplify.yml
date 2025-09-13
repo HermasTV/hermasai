@@ -12,6 +12,9 @@ frontend:
         - pip install -r pdf-converter-service/requirements.txt
     build:
       commands:
+        # Create test directory and dummy PDF file for pdf-parse library debug mode
+        - mkdir -p test/data
+        - echo "%PDF-1.4" > test/data/05-versions-space.pdf
         - npm run build
   artifacts:
     baseDirectory: .next
