@@ -145,7 +145,38 @@ export default function RealtimeFacePage() {
                 The model is loaded using ONNX Runtime Web and executed on the GPU using WebGPU when available.
                 On Firefox, WebGL is used as a fallback, or CPU execution if neither is supported.
               </p>
-              
+
+              {/* Project Todo List */}
+              <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 mb-6">
+                <h2 className="text-lg font-semibold text-green-400 mb-3">🚀 Project Roadmap</h2>
+                <div className="space-y-2">
+                  <div className="flex items-center space-x-3">
+                    <span className="text-green-400 text-sm">✅</span>
+                    <span className="text-gray-200 line-through text-sm">Implement UltraFace ONNX model integration</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-green-400 text-sm">✅</span>
+                    <span className="text-gray-200 line-through text-sm">Add WebGPU acceleration support</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-green-400 text-sm">✅</span>
+                    <span className="text-gray-200 line-through text-sm">Build real-time video processing pipeline</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-yellow-400 text-sm">🟡</span>
+                    <span className="text-gray-200 text-sm">Add facial landmark detection</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-gray-400 text-sm">⭕</span>
+                    <span className="text-gray-200 text-sm">Implement face recognition features</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-gray-400 text-sm">⭕</span>
+                    <span className="text-gray-200 text-sm">Add emotion detection capabilities</span>
+                  </div>
+                </div>
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <div className="bg-black/20 rounded-lg p-4">
                   <div className="text-sm text-gray-300">Model Status</div>

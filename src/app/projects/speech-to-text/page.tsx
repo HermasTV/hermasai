@@ -37,6 +37,37 @@ export default function SpeechToTextPage() {
                 <h2 className='mt-3 mb-5 px-4 text-center text-1xl font-semibold tracking-tight text-gray-200 sm:text-2xl'>
                   ML-powered speech recognition directly in your browser
                 </h2>
+
+                {/* Project Todo List */}
+                <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-6 mb-8 max-w-2xl">
+                  <h3 className="text-xl font-semibold text-blue-400 mb-4">🚀 Project Roadmap</h3>
+                  <div className="space-y-3 text-left">
+                    <div className="flex items-center space-x-3">
+                      <span className="text-green-400 text-lg">✅</span>
+                      <span className="text-gray-200 line-through">Implement WebGPU-based Whisper model</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <span className="text-green-400 text-lg">✅</span>
+                      <span className="text-gray-200 line-through">Add real-time audio recording</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <span className="text-green-400 text-lg">✅</span>
+                      <span className="text-gray-200 line-through">Build browser-based transcription</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <span className="text-yellow-400 text-lg">🟡</span>
+                      <span className="text-gray-200">Add language detection</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <span className="text-gray-400 text-lg">⭕</span>
+                      <span className="text-gray-200">Implement offline model caching</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <span className="text-gray-400 text-lg">⭕</span>
+                      <span className="text-gray-200">Add export to various formats</span>
+                    </div>
+                  </div>
+                </div>
                 <AudioManager transcriber={transcriber} />
                 <Transcript transcribedData={transcriber.output} />
               </div>

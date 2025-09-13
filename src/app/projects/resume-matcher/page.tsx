@@ -166,6 +166,29 @@ export default function ResumeMatchPage() {
               </p>
             </div>
 
+            {/* Project Todo List */}
+            <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-6 mb-8">
+              <h2 className="text-2xl font-semibold text-purple-400 mb-4">🚀 Project Roadmap</h2>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <span className="text-green-400 text-xl">✅</span>
+                  <span className="text-gray-200 line-through">Add PDF and DOCX reader</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-green-400 text-xl">✅</span>
+                  <span className="text-gray-200 line-through">Add PDF-DOCX debugger and converter</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-green-400 text-xl">✅</span>
+                  <span className="text-gray-200 line-through">Fix PDF loading issue</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-green-400 text-xl">✅</span>
+                  <span className="text-gray-200 line-through">Develop complete analysis and enhancement feature</span>
+                </div>
+              </div>
+            </div>
+
             <div className="bg-white/10 backdrop-blur-lg rounded-lg p-8 space-y-6">
               {/* API Key */}
               <div>

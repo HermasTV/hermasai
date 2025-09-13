@@ -70,6 +70,25 @@ export default function AIMeetingSummaryPage() {
               </p>
             </div>
 
+            {/* Project Todo List */}
+            <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-6 mb-8">
+              <h2 className="text-2xl font-semibold text-blue-400 mb-4">🚀 Project Roadmap</h2>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <span className="text-green-400 text-xl">✅</span>
+                  <span className="text-gray-200 line-through">Add speech to text module using API</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-yellow-400 text-xl">🟡</span>
+                  <span className="text-gray-200">Add speaker diarization</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-gray-400 text-xl">⭕</span>
+                  <span className="text-gray-200">Develop summarization feature</span>
+                </div>
+              </div>
+            </div>
+
             <div className="bg-white/10 backdrop-blur-lg rounded-lg p-8 space-y-6">
               {/* API Key Input */}
               <div>
