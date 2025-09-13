@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
           const simpleResult = await parseSimplePdf(buffer);
           parseResult = {
             text: simpleResult,
-            numpages: 1, // We don't know the actual page count
+            numpages: 1, // We don't know the actual page count from simple parser
             info: {},
             metadata: {}
           };
@@ -87,21 +87,27 @@ export async function POST(req: NextRequest) {
 
     } catch (parseError: any) {
       console.error("File parsing error:", parseError);
-      return NextResponse.json({ 
+      console.error("Full error:", parseError);
+      return NextResponse.json({
         success: false,
-        error: `Failed to parse file: ${parseError.message}`,
+        error: `Failed to parse file: ${parseError.message || 'Unknown error'}`,
         details: parseError.toString(),
-        extractionMethod: extractionMethod,
+        extractionMethod: extractionMethod || 'Unknown',
         fileName: resumeFile.name,
         fileType: resumeFile.type,
-        fileSize: resumeFile.size
+        fileSize: resumeFile.size,
+        errorType: 'parsing_error'
       }, { status: 400 });
     }
 
   } catch (error: any) {
     console.error("Debug resume error:", error);
-    return NextResponse.json({ 
-      error: error.message || "Internal server error" 
+    console.error("Full error details:", error);
+    return NextResponse.json({
+      success: false,
+      error: error.message || "Internal server error",
+      details: error.toString(),
+      errorType: 'server_error'
     }, { status: 500 });
   }
 }

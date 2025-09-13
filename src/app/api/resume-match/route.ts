@@ -45,7 +45,7 @@ export async function POST(req: NextRequest) {
           const simpleResult = await parseSimplePdf(buffer);
           parseResult = {
             text: simpleResult,
-            numpages: 1, // We don't know the actual page count
+            numpages: 1, // We don't know the actual page count from simple parser
             info: {},
             metadata: {}
           };

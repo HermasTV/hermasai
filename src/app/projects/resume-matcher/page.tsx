@@ -179,8 +179,8 @@ export default function ResumeMatchPage() {
                   <span className="text-gray-200 line-through">Add PDF-DOCX debugger and converter</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <span className="text-green-400 text-xl">✅</span>
-                  <span className="text-gray-200 line-through">Fix PDF loading issue</span>
+                  <span className="text-yellow-400 text-xl">🟡</span>
+                  <span className="text-gray-200">Fix PDF loading issue</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <span className="text-green-400 text-xl">✅</span>

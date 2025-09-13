@@ -365,3 +365,9 @@ Please try:
     error: 'Complete extraction failure'
   };
 }
+
+// Backward compatibility export
+export async function parseSimplePdf(buffer: ArrayBuffer): Promise<string> {
+  const result = await extractPDFText(buffer);
+  return result.text;
+}
