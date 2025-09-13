@@ -11,6 +11,7 @@ from fastapi import FastAPI, File, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pdf2docx import Converter
+from mangum import Mangum
 
 app = FastAPI(
     title="PDF to DOCX Converter Service",
@@ -21,11 +22,14 @@ app = FastAPI(
 # Add CORS middleware to allow requests from Next.js frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],  # Next.js dev server
+    allow_origins=["*"],  # Allow all origins for production deployment
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Lambda handler
+handler = Mangum(app)
 
 # Create temp directories
 TEMP_DIR = Path(tempfile.gettempdir()) / "pdf_converter"

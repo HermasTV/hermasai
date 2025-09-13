@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: PDF to DOCX Converter Service
+
+Globals:
+  Function:
+    Timeout: 30
+    MemorySize: 512
+    Runtime: python3.9
+    Environment:
+      Variables:
+        PYTHONPATH: /var/task
+
+Resources:
+  PdfConverterFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: hermasai-pdf-converter
+      CodeUri: .
+      Handler: main.handler
+      Events:
+        ApiEvent:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: any
+            Cors:
+              AllowMethods: "'*'"
+              AllowHeaders: "'*'"
+              AllowOrigin: "'*'"
+        RootApiEvent:
+          Type: Api
+          Properties:
+            Path: /
+            Method: any
+            Cors:
+              AllowMethods: "'*'"
+              AllowHeaders: "'*'"
+              AllowOrigin: "'*'"
+
+Outputs:
+  ApiGatewayUrl:
+    Description: "API Gateway endpoint URL"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+    Export:
+      Name: PdfConverterApiUrl

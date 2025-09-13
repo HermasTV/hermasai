@@ -1,5 +1,6 @@
 import { saveAs } from 'file-saver';
 import jsPDF from 'jspdf';
+import { getApiUrl, API_CONFIG } from './apiConfig';
 
 // Interface for document conversion results
 interface ConversionResult {
@@ -35,8 +36,11 @@ export async function pdfToDocx(pdfFile: File, filename?: string): Promise<Conve
 
     console.log('Uploading PDF to conversion service...');
 
-    // Call Python API service
-    const response = await fetch('http://127.0.0.1:8000/convert/pdf-to-docx', {
+    // Call PDF Converter API service (Lambda or local)
+    const apiUrl = getApiUrl(API_CONFIG.PDF_CONVERTER.ENDPOINTS.CONVERT_PDF_TO_DOCX);
+    console.log('Calling PDF converter API at:', apiUrl);
+
+    const response = await fetch(apiUrl, {
       method: 'POST',
       body: formData,
     });
@@ -71,7 +75,7 @@ export async function pdfToDocx(pdfFile: File, filename?: string): Promise<Conve
 
     return {
       success: true,
-      message: `Successfully converted PDF to DOCX using Python service. Downloaded as ${docxFilename}`
+      message: `Successfully converted PDF to DOCX. Downloaded as ${docxFilename}`
     };
 
   } catch (error: any) {
@@ -79,9 +83,10 @@ export async function pdfToDocx(pdfFile: File, filename?: string): Promise<Conve
     
     // Provide helpful error messages
     if (error.name === 'TypeError' && error.message.includes('fetch')) {
+      const apiUrl = getApiUrl('');
       return {
         success: false,
-        error: 'Cannot connect to PDF conversion service. Please ensure the Python service is running on http://127.0.0.1:8000'
+        error: `Cannot connect to PDF conversion service at ${apiUrl}. Please check if the service is running.`
       };
     }
 
