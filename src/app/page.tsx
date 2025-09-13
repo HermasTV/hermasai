@@ -13,11 +13,10 @@ export default function Home() {
       {/* Hero Section */}
       <section className="text-center py-20">
         <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Senior AI Engineer
+          Hermas.ai
         </h1>
         <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-          Welcome to my portfolio and playground for AI experiments. 
-          Exploring the frontiers of machine learning and artificial intelligence.
+          Welcome to my Virtual Garage for AI experiments.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link 

@@ -6,26 +6,41 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "start-all": "./start-dev.sh",
+    "stop-all": "./stop-dev.sh"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.7",
     "@huggingface/transformers": "^3.0.0-alpha.19",
     "axios": "^1.11.0",
     "buffer": "^6.0.3",
+    "docx": "^9.5.1",
+    "file-saver": "^2.0.5",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.2",
     "next": "15.5.0",
     "onnxruntime-web": "^1.17.3",
+    "pdf-parse": "^1.1.1",
+    "pdf2docx": "^0.0.0",
+    "pdf2pic": "^3.2.0",
+    "pdfjs-dist": "^5.4.149",
+    "pizzip": "^3.2.0",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/file-saver": "^2.0.7",
+    "@types/html2canvas": "^1.0.0",
     "@types/node": "^20",
+    "@types/pdf-parse": "^1.1.5",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.0",
+    "mammoth": "^1.10.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

@@ -58,6 +58,54 @@ export default function ProjectsPage() {
           </div>
         </Link>
         
+        <Link href="/projects/ai-meeting-summary" className="block group">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-transform duration-300 group-hover:scale-105 group-hover:shadow-lg">
+            <div className="flex items-center mb-4">
+              <div className="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center mr-4">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-1">AI Meeting Summary</h3>
+                <span className="inline-block bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded-full">Upload & Transcribe</span>
+              </div>
+            </div>
+            <p className="text-gray-600 dark:text-gray-300 mb-4">
+              Upload audio files and get AI-powered transcriptions using OpenAI's Whisper model. Perfect for meeting notes and audio content analysis.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <span className="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded">OpenAI Whisper</span>
+              <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Transcription</span>
+              <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">File Upload</span>
+            </div>
+          </div>
+        </Link>
+        
+        <Link href="/projects/resume-matcher" className="block group">
+          <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 transition-transform duration-300 group-hover:scale-105 group-hover:shadow-lg">
+            <div className="flex items-center mb-4">
+              <div className="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mr-4">
+                <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+              </div>
+              <div>
+                <h3 className="text-xl font-semibold mb-1">Resume-to-Job Matcher</h3>
+                <span className="inline-block bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">AI Analysis</span>
+              </div>
+            </div>
+            <p className="text-gray-600 dark:text-gray-300 mb-4">
+              Upload your resume and LinkedIn job URL to get AI-powered matching analysis, gap identification, and improvement suggestions.
+            </p>
+            <div className="flex flex-wrap gap-2">
+              <span className="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">Resume Analysis</span>
+              <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Job Matching</span>
+              <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded">Career Insights</span>
+            </div>
+          </div>
+        </Link>
+        
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 opacity-60">
           <h3 className="text-xl font-semibold mb-2">Coming Soon</h3>
           <p className="text-gray-600 dark:text-gray-300">

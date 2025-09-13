@@ -41,15 +41,6 @@ export default function SpeechToTextPage() {
                 <Transcript transcribedData={transcriber.output} />
               </div>
 
-              <div className='absolute bottom-4 text-gray-300'>
-                Made with{" "}
-                <a
-                  className='underline text-blue-400 hover:text-blue-300'
-                  href='https://github.com/xenova/transformers.js'
-                >
-                  🤗 Transformers.js
-                </a>
-              </div>
             </div>
           </div>
         </div>
