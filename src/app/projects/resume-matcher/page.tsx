@@ -179,14 +179,25 @@ export default function ResumeMatchPage() {
                   <span className="text-gray-200 line-through">Add PDF-DOCX debugger and converter</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <span className="text-yellow-400 text-xl">🟡</span>
-                  <span className="text-gray-200">Fix PDF loading issue</span>
+                  <span className="text-red-400 text-xl">🔄</span>
+                  <span className="text-gray-200">Reconnect PDF parsing to documents-services</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <span className="text-green-400 text-xl">✅</span>
-                  <span className="text-gray-200 line-through">Develop complete analysis and enhancement feature</span>
+                  <span className="text-red-400 text-xl">🔄</span>
+                  <span className="text-gray-200">Reconnect analysis API to documents-services</span>
                 </div>
               </div>
+            </div>
+
+            {/* Service Migration Notice */}
+            <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-6 mb-8">
+              <h2 className="text-xl font-semibold text-yellow-400 mb-3">🚧 Service Migration Notice</h2>
+              <p className="text-gray-200 mb-2">
+                PDF processing and resume analysis features have been moved to a separate documents-services repository for better modularity.
+              </p>
+              <p className="text-gray-300 text-sm">
+                These features will be reconnected to the new EC2-hosted service soon. Stay tuned!
+              </p>
             </div>
 
             <div className="bg-white/10 backdrop-blur-lg rounded-lg p-8 space-y-6">

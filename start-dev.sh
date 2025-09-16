@@ -79,8 +79,14 @@ if [ ! -d "node_modules" ]; then
     exit 1
 fi
 
+# Check if python services directory exists
+if [ ! -d "python-services/documents-services" ]; then
+    print_error "❌ python-services/documents-services not found. Please check the repository structure."
+    exit 1
+fi
+
 # Check if Python virtual environment exists
-if [ ! -d "pdf-converter-service/venv" ]; then
+if [ ! -d "python-services/documents-services/venv" ]; then
     print_error "❌ Python virtual environment not found. Please run ./install.sh first."
     exit 1
 fi
@@ -89,11 +95,11 @@ print_status "🌟 Starting services..."
 
 # Start Python PDF service in background
 print_status "🐍 Starting Python PDF converter service..."
-cd pdf-converter-service
+cd python-services/documents-services
 source venv/bin/activate
 python3 main.py &
 PYTHON_PID=$!
-cd ..
+cd ../..
 
 # Wait a moment for Python service to start
 sleep 3

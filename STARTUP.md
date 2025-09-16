@@ -1,5 +1,18 @@
 # 🚀 HermasAI Quick Start Guide
 
+## Prerequisites
+
+### First-time Setup
+1. **Initialize git submodules** (required for documents-services):
+```bash
+git submodule update --init --recursive
+```
+
+2. **Install dependencies**:
+```bash
+./install.sh
+```
+
 ## Single Command Startup
 
 Run the entire development environment (Next.js + Python services) with just one command:
@@ -104,7 +117,9 @@ If you prefer to start services individually:
 
 1. **Start Python PDF Service**:
    ```bash
-   cd pdf-converter-service
+   cd documents-services
+   python3 -m venv venv
+   source venv/bin/activate
    pip install -r requirements.txt
    python main.py
    ```

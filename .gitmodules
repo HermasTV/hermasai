@@ -1,0 +1,3 @@
+[submodule "python-services/documents-services"]
+	path = python-services/documents-services
+	url = https://github.com/HermasTV/documents-services.git

@@ -10,7 +10,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This single command will:
 - Install all Node.js dependencies
-- Set up Python virtual environment
+- Set up Python virtual environment in documents-services submodule
 - Install Python dependencies (pdf2docx, fastapi, etc.)
 - Start Next.js dev server on http://localhost:3000
 - Start Python PDF converter service on http://127.0.0.1:8000
@@ -42,6 +42,8 @@ This is a Next.js 15 TypeScript application focused on AI/ML browser demos, part
   - `useTranscriber.ts`: Speech transcription with Web Workers
   - `useWorker.ts`: Web Worker management
 - `public/`: Static assets including large ML model files (WASM, ONNX)
+- `documents-services/`: Git submodule containing document processing services
+  - FastAPI PDF converter service for PDF to DOCX conversion
 
 ### Technical Stack
 

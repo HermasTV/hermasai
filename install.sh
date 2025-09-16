@@ -107,7 +107,8 @@ fi
 
 # Set up Python virtual environment
 print_status "🐍 Setting up Python virtual environment..."
-cd pdf-converter-service
+
+cd python-services/documents-services
 
 if [ ! -d "venv" ]; then
     python3 -m venv venv
@@ -132,7 +133,7 @@ else
     exit 1
 fi
 
-cd ..
+cd ../..
 
 # Create systemd service files for production deployment (optional)
 print_status "📋 Creating systemd service templates..."
@@ -166,11 +167,11 @@ After=network.target
 [Service]
 Type=simple
 User=$USER
-WorkingDirectory=$(pwd)/pdf-converter-service
-ExecStart=$(pwd)/pdf-converter-service/venv/bin/python main.py
+WorkingDirectory=$(pwd)/python-services/documents-services
+ExecStart=$(pwd)/python-services/documents-services/venv/bin/python main.py
 Restart=always
 RestartSec=10
-Environment=PYTHONPATH=$(pwd)/pdf-converter-service
+Environment=PYTHONPATH=$(pwd)/python-services/documents-services
 
 [Install]
 WantedBy=multi-user.target

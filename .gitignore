@@ -12,6 +12,10 @@
 
 # testing
 /coverage
+/ignore-folder/
+
+# Python services (managed separately)
+/python-services/
 
 # next.js
 /.next/
