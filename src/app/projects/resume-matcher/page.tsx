@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
+import { getApiUrl, API_CONFIG } from "@/utils/apiConfig";
 
 interface AnalysisResult {
   match_percentage?: number;
@@ -122,20 +123,21 @@ export default function ResumeMatchPage() {
 
     setIsDebugging(true);
     setError("");
-    
+
     try {
       const formData = new FormData();
       formData.append("resume", resumeFile);
 
-      const response = await fetch("/api/debug-resume", {
+      const apiUrl = getApiUrl(API_CONFIG.PDF_CONVERTER.ENDPOINTS.DEBUG_RESUME);
+      const response = await fetch(apiUrl, {
         method: "POST",
         body: formData,
       });
 
       const data = await response.json();
-      
+
       if (!response.ok) {
-        throw new Error(data.error || "Failed to parse resume");
+        throw new Error(data.detail || "Failed to parse resume");
       }
 
       setResumeContent(data.content);
