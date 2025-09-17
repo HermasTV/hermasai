@@ -1,36 +1,152 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HermasAI - AI/ML Demo Platform
 
-## Getting Started
+A Next.js 15 TypeScript application showcasing browser-based AI/ML capabilities with microservices architecture for document processing.
 
-First, run the development server:
+## 🚀 Features
 
+### Browser-Based AI/ML Demos
+- **Speech Recognition**: Real-time speech-to-text using Hugging Face Transformers with WebGPU
+- **Computer Vision**: Real-time face detection using UltraFace and ONNX Runtime
+- **Resume Analysis**: AI-powered resume matching and optimization with OpenAI integration
+
+### Document Processing Services
+- **PDF to DOCX Conversion**: Server-side document format conversion
+- **Resume Text Extraction**: Debug-friendly PDF text parsing
+- **AI-Powered Analysis**: Comprehensive resume analysis with improvement suggestions
+
+## 🏗️ Architecture
+
+### Microservices Design
+- **Frontend**: Next.js 15 application (this repository)
+- **Backend Services**: FastAPI-based services (separate repository as git submodule)
+- **Deployment**: AWS Amplify (frontend) + AWS EC2 (backend services)
+
+### Key Technologies
+- **Frontend**: Next.js 15, React 19, TypeScript, TailwindCSS
+- **AI/ML**: Hugging Face Transformers, ONNX Runtime, WebGPU, Web Workers
+- **Backend**: FastAPI, PyPDF2, pdf2docx, Uvicorn
+- **Deployment**: AWS Amplify, AWS EC2, CORS-enabled REST APIs
+
+## 🛠️ Quick Start
+
+### Prerequisites
+1. **Node.js 18+** and **Python 3.8+**
+2. **Git submodules** for backend services
+3. **WebGPU-compatible browser** for AI demos
+
+### Single Command Setup
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# Clone repository with submodules
+git clone --recursive https://github.com/HermasTV/hermasai.git
+cd hermasai
+
+# Start all services (frontend + backend)
+./start-dev.sh
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This will:
+- Install Node.js dependencies
+- Set up Python virtual environment in `python-services/documents-services`
+- Install Python dependencies (FastAPI, PyPDF2, pdf2docx)
+- Start Next.js dev server on http://localhost:3000
+- Start Python document service on http://127.0.0.1:8000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Individual Commands
+```bash
+# Frontend only
+npm run dev
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# Backend only (in python-services/documents-services/)
+cd python-services/documents-services
+python main.py
 
-## Learn More
+# Build for production
+npm run build
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📁 Project Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+hermasai/
+├── src/
+│   ├── app/                    # Next.js App Router
+│   │   ├── api/               # API routes (resume analysis)
+│   │   ├── projects/          # AI/ML demo pages
+│   │   │   ├── speech-to-text/
+│   │   │   ├── realtime-face/
+│   │   │   └── resume-matcher/
+│   ├── components/            # React components
+│   ├── hooks/                # Custom hooks (Web Workers, AI)
+│   └── utils/                # Utilities (API config)
+├── public/                   # Static assets (ML models)
+├── python-services/          # Backend services (git submodule)
+│   └── documents-services/   # FastAPI document processing
+└── ignore-folder/           # Archive/backup files
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🌐 API Endpoints
 
-## Deploy on Vercel
+### Backend Services (`python-services/documents-services`)
+- `GET /` - Service health status
+- `GET /health` - Health check
+- `POST /convert/pdf-to-docx` - PDF to DOCX conversion
+- `POST /debug-resume` - Extract text from PDF resumes
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Frontend APIs (`src/app/api`)
+- `POST /api/resume-match` - AI-powered resume analysis with OpenAI
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 Deployment
+
+### Development
+- **Frontend**: http://localhost:3000
+- **Backend**: http://127.0.0.1:8000
+
+### Production
+- **Frontend**: AWS Amplify (auto-deployment from git)
+- **Backend**: AWS EC2 instances
+- **Environment**: Set `NEXT_PUBLIC_PDF_CONVERTER_API_URL` to your EC2 endpoint
+
+### Environment Variables
+```bash
+# .env.local
+NEXT_PUBLIC_PDF_CONVERTER_API_URL=http://your-ec2-ip:8000
+NEXT_PUBLIC_PDF_CONVERTER_API_URL_DEV=http://127.0.0.1:8000
+```
+
+## 🔧 Development
+
+### Submodule Management
+Backend services are maintained in a separate repository:
+```bash
+# Initialize submodules (first time)
+git submodule update --init --recursive
+
+# Update submodule to latest
+cd python-services/documents-services
+git pull origin master
+cd ../..
+git add python-services/documents-services
+git commit -m "Update documents-services submodule"
+```
+
+### WebGPU Requirements
+- Chrome/Edge 113+ with WebGPU enabled
+- Firefox Nightly with WebGPU flag enabled
+- Required for speech recognition and face detection demos
+
+## 📚 Additional Resources
+
+- [STARTUP.md](./STARTUP.md) - Detailed development guide
+- [CLAUDE.md](./CLAUDE.md) - Claude Code AI assistant instructions
+- [Documents Services Repository](https://github.com/HermasTV/documents-services) - Backend services
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make changes and test locally
+4. Update documentation if needed
+5. Submit a pull request
+
+For backend service changes, contribute to the [documents-services repository](https://github.com/HermasTV/documents-services) separately.

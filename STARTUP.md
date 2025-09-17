@@ -2,13 +2,25 @@
 
 ## Prerequisites
 
+### System Requirements
+- **Node.js 18+** - [Download](https://nodejs.org/)
+- **Python 3.8+** - [Download](https://python.org/)
+- **WebGPU-compatible browser** - Chrome 113+, Edge 113+, or Firefox Nightly
+- **Git** - For submodule management
+
 ### First-time Setup
-1. **Initialize git submodules** (required for documents-services):
+1. **Clone with submodules**:
+```bash
+git clone --recursive https://github.com/HermasTV/hermasai.git
+cd hermasai
+```
+
+2. **Initialize submodules** (if cloned without --recursive):
 ```bash
 git submodule update --init --recursive
 ```
 
-2. **Install dependencies**:
+3. **Install all dependencies**:
 ```bash
 ./install.sh
 ```
@@ -19,18 +31,10 @@ Run the entire development environment (Next.js + Python services) with just one
 
 ### Linux/Mac:
 ```bash
-npm run start-all
-```
-or
-```bash
 ./start-dev.sh
 ```
 
 ### Windows:
-```bash
-npm run start-all-win
-```
-or
 ```bash
 start-dev.bat
 ```
@@ -42,21 +46,22 @@ The startup script automatically:
 1. ✅ **Checks Prerequisites**
    - Verifies Node.js 18+ is installed
    - Verifies Python 3.8+ is installed
+   - Validates git submodule structure
 
 2. 📦 **Installs Dependencies**
    - Installs Node.js packages (`npm install`)
-   - Creates Python virtual environment
-   - Installs Python packages (FastAPI, pdf2docx, etc.)
+   - Creates Python virtual environment in `python-services/documents-services`
+   - Installs Python packages (FastAPI, PyPDF2, pdf2docx, etc.)
 
 3. 🌟 **Starts Services**
    - **Next.js Frontend**: http://localhost:3000
-   - **Python PDF Service**: http://127.0.0.1:8000
+   - **Python Document Service**: http://127.0.0.1:8000
    - **API Documentation**: http://127.0.0.1:8000/docs
 
 4. 🔄 **Process Management**
    - Runs both services concurrently
    - Handles graceful shutdown with Ctrl+C
-   - Monitors service health
+   - Monitors service health and auto-restarts on crashes
 
 ## Service URLs
 
@@ -65,18 +70,25 @@ Once started, you can access:
 | Service | URL | Description |
 |---------|-----|-------------|
 | 🌐 **Frontend** | http://localhost:3000 | Next.js web application |
-| 🐍 **PDF API** | http://127.0.0.1:8000 | Python FastAPI service |
+| 🐍 **Document API** | http://127.0.0.1:8000 | Python FastAPI document service |
 | 📚 **API Docs** | http://127.0.0.1:8000/docs | Interactive API documentation |
+| 🔧 **Health Check** | http://127.0.0.1:8000/health | Service status endpoint |
 
 ## Features Available
 
-With both services running, you can use:
+### AI/ML Browser Demos
+- 🎤 **Speech-to-Text** - Real-time speech recognition with Whisper WebGPU
+- 👁️ **Face Detection** - Real-time computer vision with UltraFace ONNX
 
-- ✨ **AI Resume Matching** - Upload resume and job URL for AI analysis
-- 🔄 **PDF to DOCX Conversion** - High-quality conversion using Python pdf2docx
-- 📄 **Resume Enhancement** - AI-powered resume improvement suggestions
-- 🎤 **Speech-to-Text** - Real-time speech recognition
-- 👁️ **Face Detection** - Real-time computer vision demos
+### Document Processing & AI Analysis
+- ✨ **AI Resume Matching** - Upload resume and job URL for comprehensive AI analysis
+- 🔍 **Resume Debug Parse** - Extract and display PDF text content for debugging
+- 🔄 **PDF to DOCX Conversion** - High-quality document format conversion
+- 📊 **Match Scoring** - Percentage-based compatibility scoring
+- 📝 **Grammar Corrections** - Automated text improvements
+- 💡 **Improvement Suggestions** - AI-powered enhancement recommendations
+- 🎯 **Keyword Optimization** - ATS-friendly keyword suggestions
+- 📚 **Course Recommendations** - Skill development suggestions
 
 ## Stopping Services
 
