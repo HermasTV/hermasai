@@ -26,53 +26,140 @@ export default function SpeechToTextPage() {
   return isWebGPUAvailable ? (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/30">
       <Navbar />
-      <main className="flex-grow">
-        <div className="container mx-auto px-4 pt-20 pb-12">
-          <div className="max-w-4xl mx-auto">
-            <div className='flex justify-center items-center min-h-[80vh]'>
-              <div className='container flex flex-col justify-center items-center'>
-                <h1 className='text-5xl font-extrabold tracking-tight text-white sm:text-7xl text-center mb-2'>
-                  Whisper WebGPU
-                </h1>
-                <h2 className='mt-3 mb-5 px-4 text-center text-1xl font-semibold tracking-tight text-gray-200 sm:text-2xl'>
-                  ML-powered speech recognition directly in your browser
-                </h2>
+      <main className="flex-grow overflow-hidden">
+        <div className="container mx-auto px-4 pt-24 pb-4 h-[calc(100vh-96px)]">
+          {/* Header */}
+          <div className="text-center mb-6">
+            <h1 className='text-3xl font-bold tracking-tight text-white sm:text-4xl mb-2'>
+              Whisper WebGPU
+            </h1>
+            <h2 className='text-lg font-medium tracking-tight text-gray-200'>
+              ML-powered speech recognition directly in your browser
+            </h2>
+          </div>
 
-                {/* Project Todo List */}
-                <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-6 mb-8 max-w-2xl">
-                  <h3 className="text-xl font-semibold text-blue-400 mb-4">🚀 Project Roadmap</h3>
-                  <div className="space-y-3 text-left">
-                    <div className="flex items-center space-x-3">
-                      <span className="text-green-400 text-lg">✅</span>
-                      <span className="text-gray-200 line-through">Implement WebGPU-based Whisper model</span>
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100%-120px)]">
+
+            {/* Left Panel - About Section */}
+            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-5 backdrop-blur-sm overflow-y-auto">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <span className="text-blue-400">🎯</span>
+                About
+              </h3>
+
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-sm font-semibold text-blue-400 mb-2">Technical Overview</h4>
+                  <p className="text-xs text-gray-300 leading-relaxed">
+                    Browser-based AI using OpenAI's Whisper model optimized for WebGPU.
+                    Performs real-time speech-to-text transcription entirely client-side.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-purple-400 mb-2">Key Features</h4>
+                  <ul className="space-y-1 text-xs text-gray-300">
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      Real-time audio processing
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      WebGPU acceleration
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      Offline operation
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      Privacy-preserving
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-emerald-400 mb-2">Tech Stack</h4>
+                  <div className="space-y-2">
+                    <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
+                      <span className="text-blue-300 font-medium text-xs">Frontend:</span>
+                      <p className="text-xs text-gray-400">Next.js 15, React 19, TypeScript</p>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <span className="text-green-400 text-lg">✅</span>
-                      <span className="text-gray-200 line-through">Add real-time audio recording</span>
+                    <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
+                      <span className="text-purple-300 font-medium text-xs">ML Engine:</span>
+                      <p className="text-xs text-gray-400">Transformers.js, ONNX Runtime</p>
                     </div>
-                    <div className="flex items-center space-x-3">
-                      <span className="text-green-400 text-lg">✅</span>
-                      <span className="text-gray-200 line-through">Build browser-based transcription</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <span className="text-yellow-400 text-lg">🟡</span>
-                      <span className="text-gray-200">Add language detection</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <span className="text-gray-400 text-lg">⭕</span>
-                      <span className="text-gray-200">Implement offline model caching</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <span className="text-gray-400 text-lg">⭕</span>
-                      <span className="text-gray-200">Add export to various formats</span>
+                    <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
+                      <span className="text-emerald-300 font-medium text-xs">Performance:</span>
+                      <p className="text-xs text-gray-400">WebGPU, Web Workers, WASM</p>
                     </div>
                   </div>
                 </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-orange-400 mb-2">Architecture</h4>
+                  <p className="text-xs text-gray-300 leading-relaxed">
+                    Uses Web Workers for non-blocking ML inference, custom audio processing pipeline,
+                    and optimized model loading with progressive enhancement for WebGPU-capable browsers.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Center Panel - Controls and Transcript */}
+            <div className="flex flex-col gap-4">
+              {/* Audio Controls */}
+              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 backdrop-blur-sm">
                 <AudioManager transcriber={transcriber} />
-                <Transcript transcribedData={transcriber.output} />
               </div>
 
+              {/* Transcript Area */}
+              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 backdrop-blur-sm flex-1 min-h-0">
+                <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                  <span className="text-green-400">📝</span>
+                  Transcript
+                </h3>
+                <div className="h-full overflow-y-auto">
+                  <Transcript transcribedData={transcriber.output} />
+                </div>
+              </div>
             </div>
+
+            {/* Right Panel - Roadmap */}
+            <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-xl p-5 backdrop-blur-sm overflow-y-auto">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <span className="text-blue-400">🚀</span>
+                Roadmap
+              </h3>
+
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-sm font-semibold text-green-400 mb-2">✅ Completed</h4>
+                  <div className="space-y-1">
+                    <div className="text-xs text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">WebGPU Whisper integration</div>
+                    <div className="text-xs text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">Real-time audio recording</div>
+                    <div className="text-xs text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">Browser transcription engine</div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-yellow-400 mb-2">🔄 In Progress</h4>
+                  <div className="space-y-1">
+                    <div className="text-xs text-gray-300 bg-yellow-500/10 px-2 py-1 rounded-md">Language detection</div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-400 mb-2">⏳ Planned</h4>
+                  <div className="space-y-1">
+                    <div className="text-xs text-gray-300 bg-gray-500/10 px-2 py-1 rounded-md">Offline model caching</div>
+                    <div className="text-xs text-gray-300 bg-gray-500/10 px-2 py-1 rounded-md">Export functionality</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </main>

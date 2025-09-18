@@ -135,152 +135,206 @@ export default function RealtimeFacePage() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/30">
       <Navbar />
-      <main className="flex-grow">
-        <div className="container mx-auto px-4 pt-20 pb-12">
-          <div className="max-w-4xl mx-auto">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8 border border-white/20">
-              <h1 className="text-4xl font-bold mb-4 text-white">Real-time Face Detection Demo</h1>
-              <p className="text-gray-200 mb-4">
-                This demo uses the UltraFace model to detect faces in real-time using your webcam.
-                The model is loaded using ONNX Runtime Web and executed on the GPU using WebGPU when available.
-                On Firefox, WebGL is used as a fallback, or CPU execution if neither is supported.
-              </p>
+      <main className="flex-grow overflow-hidden">
+        <div className="container mx-auto px-4 pt-24 pb-4 h-[calc(100vh-96px)]">
+          {/* Header */}
+          <div className="text-center mb-6">
+            <h1 className='text-3xl font-bold tracking-tight text-white sm:text-4xl mb-2'>
+              UltraFace Detection
+            </h1>
+            <h2 className='text-lg font-medium tracking-tight text-gray-200'>
+              Real-time face detection using WebGPU acceleration
+            </h2>
+          </div>
 
-              {/* Project Todo List */}
-              <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4 mb-6">
-                <h2 className="text-lg font-semibold text-green-400 mb-3">🚀 Project Roadmap</h2>
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-green-400 text-sm">✅</span>
-                    <span className="text-gray-200 line-through text-sm">Implement UltraFace ONNX model integration</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <span className="text-green-400 text-sm">✅</span>
-                    <span className="text-gray-200 line-through text-sm">Add WebGPU acceleration support</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <span className="text-green-400 text-sm">✅</span>
-                    <span className="text-gray-200 line-through text-sm">Build real-time video processing pipeline</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <span className="text-yellow-400 text-sm">🟡</span>
-                    <span className="text-gray-200 text-sm">Add facial landmark detection</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <span className="text-gray-400 text-sm">⭕</span>
-                    <span className="text-gray-200 text-sm">Implement face recognition features</span>
-                  </div>
-                  <div className="flex items-center space-x-3">
-                    <span className="text-gray-400 text-sm">⭕</span>
-                    <span className="text-gray-200 text-sm">Add emotion detection capabilities</span>
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100%-120px)]">
+
+            {/* Left Panel - About Section */}
+            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-5 backdrop-blur-sm overflow-y-auto">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <span className="text-blue-400">🎯</span>
+                About
+              </h3>
+
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-sm font-semibold text-blue-400 mb-2">Technical Overview</h4>
+                  <p className="text-xs text-gray-300 leading-relaxed">
+                    Real-time face detection using UltraFace ONNX model with WebGPU acceleration.
+                    Processes webcam video at 30+ FPS entirely client-side for privacy.
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-purple-400 mb-2">Key Features</h4>
+                  <ul className="space-y-1 text-xs text-gray-300">
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      Real-time video processing
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      WebGPU acceleration
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      Client-side inference
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      Privacy-preserving
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-emerald-400 mb-2">Tech Stack</h4>
+                  <div className="space-y-2">
+                    <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
+                      <span className="text-blue-300 font-medium text-xs">Model:</span>
+                      <p className="text-xs text-gray-400">UltraFace ONNX, 320x240 input</p>
+                    </div>
+                    <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
+                      <span className="text-purple-300 font-medium text-xs">Runtime:</span>
+                      <p className="text-xs text-gray-400">ONNX Runtime Web, WebGPU</p>
+                    </div>
+                    <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
+                      <span className="text-emerald-300 font-medium text-xs">Processing:</span>
+                      <p className="text-xs text-gray-400">NMS, Real-time inference</p>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                <div className="bg-black/20 rounded-lg p-4">
-                  <div className="text-sm text-gray-300">Model Status</div>
-                  <div className="text-lg font-semibold text-white">
+                <div>
+                  <h4 className="text-sm font-semibold text-orange-400 mb-2">Architecture</h4>
+                  <p className="text-xs text-gray-300 leading-relaxed">
+                    Webcam frames are preprocessed, fed to UltraFace model for face detection,
+                    and post-processed with Non-Maximum Suppression for accurate bounding boxes.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Center Panel - Video Feed and Status */}
+            <div className="flex flex-col gap-4">
+              {/* Status Cards */}
+              <div className="grid grid-cols-3 gap-2">
+                <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-3 backdrop-blur-sm">
+                  <div className="text-xs text-gray-400">Status</div>
+                  <div className="text-sm font-semibold text-white">
                     {loadingError ? "Error" : modelLoaded ? "Loaded" : "Loading..."}
                   </div>
                 </div>
-                <div className="bg-black/20 rounded-lg p-4">
-                  <div className="text-sm text-gray-300">Device</div>
-                  <div className="text-lg font-semibold text-white">
+                <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-3 backdrop-blur-sm">
+                  <div className="text-xs text-gray-400">Device</div>
+                  <div className="text-sm font-semibold text-white">
                     {isWebGPUAvailable ? "GPU" : "CPU"}
                   </div>
                 </div>
-                <div className="bg-black/20 rounded-lg p-4">
-                  <div className="text-sm text-gray-300">FPS</div>
-                  <div className="text-lg font-semibold text-white">{fps}</div>
+                <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-3 backdrop-blur-sm">
+                  <div className="text-xs text-gray-400">FPS</div>
+                  <div className="text-sm font-semibold text-white">{fps}</div>
                 </div>
               </div>
 
-              {loadingError && (
-                <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4 mb-6">
-                  <p className="text-red-200">{loadingError}</p>
-                </div>
-              )}
-            </div>
-
-            <div className="flex justify-center">
-              <div className="relative">
-                <div className="bg-gray-800 rounded-2xl p-8 shadow-2xl">
-                  <div className="relative bg-black rounded-lg overflow-hidden" style={{ width: 640, height: 480 }}>
-                    <video 
-                      ref={videoRef} 
-                      autoPlay 
-                      playsInline 
-                      className="w-full h-full object-cover transform -scale-x-100"
-                    />
-                    <div 
-                      className="absolute pointer-events-none"
-                      style={spinnerStyle}
-                    >
-                      <svg viewBox="0 0 100 100" className="w-full h-full">
-                        <defs>
-                          <filter id="shadow">
-                            <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#3b82f6" />
-                          </filter>
-                        </defs>
-                        <circle 
-                          cx="50" 
-                          cy="50" 
-                          r="45"
-                          fill="transparent"
-                          stroke="#3b82f6"
-                          strokeWidth="4"
-                          strokeLinecap="round"
-                          filter="url(#shadow)"
-                          className="animate-spin"
-                          style={{
-                            strokeDasharray: "80 20",
-                            transformOrigin: "center",
-                            animation: "spin 1.2s linear infinite"
-                          }}
+              {/* Video Feed */}
+              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 backdrop-blur-sm flex-1 min-h-0 flex items-center justify-center">
+                {loadingError ? (
+                  <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4">
+                    <p className="text-red-200 text-sm">{loadingError}</p>
+                  </div>
+                ) : (
+                  <div className="relative">
+                    <div className="bg-gray-900 rounded-lg p-4 shadow-xl">
+                      <div className="relative bg-black rounded-lg overflow-hidden" style={{ width: 480, height: 360 }}>
+                        <video
+                          ref={videoRef}
+                          autoPlay
+                          playsInline
+                          className="w-full h-full object-cover transform -scale-x-100"
                         />
-                      </svg>
+                        <div
+                          className="absolute pointer-events-none"
+                          style={spinnerStyle}
+                        >
+                          <svg viewBox="0 0 100 100" className="w-full h-full">
+                            <defs>
+                              <filter id="shadow">
+                                <feDropShadow dx="0" dy="0" stdDeviation="1.5" floodColor="#3b82f6" />
+                              </filter>
+                            </defs>
+                            <circle
+                              cx="50"
+                              cy="50"
+                              r="45"
+                              fill="transparent"
+                              stroke="#3b82f6"
+                              strokeWidth="4"
+                              strokeLinecap="round"
+                              filter="url(#shadow)"
+                              className="animate-spin"
+                              style={{
+                                strokeDasharray: "80 20",
+                                transformOrigin: "center",
+                                animation: "spin 1.2s linear infinite"
+                              }}
+                            />
+                          </svg>
+                        </div>
+                        <canvas
+                          ref={canvasRef}
+                          width="320"
+                          height="240"
+                          className="hidden"
+                        />
+                      </div>
+
+                      <div className="mt-3 flex justify-center space-x-2">
+                        <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                        <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                      </div>
                     </div>
-                    <canvas 
-                      ref={canvasRef} 
-                      width="320" 
-                      height="240" 
-                      className="hidden"
-                    />
                   </div>
-                  
-                  <div className="mt-4 flex justify-center space-x-2">
-                    <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                )}
+              </div>
+            </div>
+
+            {/* Right Panel - Roadmap */}
+            <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-xl p-5 backdrop-blur-sm overflow-y-auto">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <span className="text-green-400">🚀</span>
+                Roadmap
+              </h3>
+
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-sm font-semibold text-green-400 mb-2">✅ Completed</h4>
+                  <div className="space-y-1">
+                    <div className="text-xs text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">UltraFace ONNX integration</div>
+                    <div className="text-xs text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">WebGPU acceleration</div>
+                    <div className="text-xs text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">Real-time video pipeline</div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-yellow-400 mb-2">🔄 In Progress</h4>
+                  <div className="space-y-1">
+                    <div className="text-xs text-gray-300 bg-yellow-500/10 px-2 py-1 rounded-md">Facial landmark detection</div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-sm font-semibold text-gray-400 mb-2">⏳ Planned</h4>
+                  <div className="space-y-1">
+                    <div className="text-xs text-gray-300 bg-gray-500/10 px-2 py-1 rounded-md">Face recognition features</div>
+                    <div className="text-xs text-gray-300 bg-gray-500/10 px-2 py-1 rounded-md">Emotion detection</div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-8 bg-white/10 backdrop-blur-sm rounded-lg p-6 border border-white/20">
-              <h2 className="text-2xl font-semibold text-white mb-4">Technical Details</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-gray-200">
-                <div>
-                  <h3 className="text-lg font-semibold text-blue-300 mb-2">Model Architecture</h3>
-                  <ul className="space-y-1 text-sm">
-                    <li>• UltraFace: Lightweight face detection model</li>
-                    <li>• Input: 320x240 RGB images</li>
-                    <li>• Output: Bounding boxes and confidence scores</li>
-                    <li>• Post-processing: Non-Maximum Suppression</li>
-                  </ul>
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-blue-300 mb-2">Performance</h3>
-                  <ul className="space-y-1 text-sm">
-                    <li>• WebGPU acceleration when available</li>
-                    <li>• WebGL fallback for broader compatibility</li>
-                    <li>• Client-side inference (no server required)</li>
-                    <li>• Real-time processing at ~30 FPS</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </main>

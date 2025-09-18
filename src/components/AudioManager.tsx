@@ -247,20 +247,20 @@ export function AudioManager(props: { transcriber: Transcriber }) {
 
     return (
         <>
-            <div className='flex flex-col justify-center items-center rounded-lg bg-white shadow-xl shadow-black/5 ring-1 ring-slate-700/10'>
-                <div className='flex flex-row space-x-2 py-2 w-full px-2'>
+        <div className="relative">
+            <div className='flex flex-col justify-center items-center rounded-xl bg-gray-800/30 border border-gray-600/50 backdrop-blur-sm'>
+                <div className='flex flex-row gap-2 py-3 w-full px-3'>
                     <UrlTile
                         icon={<AnchorIcon />}
-                        text={"From URL"}
+                        text={"URL"}
                         onUrlUpdate={(e) => {
                             props.transcriber.onInputChange();
                             setAudioDownloadUrl(e);
                         }}
                     />
-                    <VerticalBar />
                     <FileTile
                         icon={<FolderIcon />}
-                        text={"From file"}
+                        text={"File"}
                         onFileUpdate={(decoded, blobUrl, mimeType) => {
                             props.transcriber.onInputChange();
                             setAudioData({
@@ -272,17 +272,14 @@ export function AudioManager(props: { transcriber: Transcriber }) {
                         }}
                     />
                     {typeof navigator !== 'undefined' && navigator.mediaDevices && (
-                        <>
-                            <VerticalBar />
-                            <RecordTile
-                                icon={<MicrophoneIcon />}
-                                text={"Record"}
-                                setAudioData={(e) => {
-                                    props.transcriber.onInputChange();
-                                    setAudioFromRecording(e);
-                                }}
-                            />
-                        </>
+                        <RecordTile
+                            icon={<MicrophoneIcon />}
+                            text={"Record"}
+                            setAudioData={(e) => {
+                                props.transcriber.onInputChange();
+                                setAudioFromRecording(e);
+                            }}
+                        />
                     )}
                 </div>
                 <AudioDataBar
@@ -294,7 +291,15 @@ export function AudioManager(props: { transcriber: Transcriber }) {
                 />
             </div>
 
-            {audioData && (
+            {/* Settings Button */}
+            <SettingsTile
+                className='absolute -top-2 -right-2'
+                transcriber={props.transcriber}
+                icon={<SettingsIcon />}
+            />
+        </div>
+
+        {audioData && (
                 <>
                     <AudioPlayer
                         audioUrl={audioData.url}
@@ -327,12 +332,6 @@ export function AudioManager(props: { transcriber: Transcriber }) {
                     )}
                 </>
             )}
-
-            <SettingsTile
-                className='absolute bottom-4 right-4'
-                transcriber={props.transcriber}
-                icon={<SettingsIcon />}
-            />
         </>
     );
 }
@@ -358,7 +357,12 @@ function SettingsTile(props: {
 
     return (
         <div className={props.className}>
-            <Tile icon={props.icon} onClick={onClick} />
+            <button
+                onClick={onClick}
+                className='w-8 h-8 flex items-center justify-center rounded-full bg-gray-700/80 border border-gray-600/50 text-gray-300 hover:text-white hover:bg-gray-600/80 hover:border-gray-500/50 transition-all duration-200 backdrop-blur-sm shadow-lg'
+            >
+                <div className='w-4 h-4'>{props.icon}</div>
+            </button>
             <SettingsModal
                 show={showModal}
                 onSubmit={onSubmit}
@@ -471,9 +475,6 @@ function SettingsModal(props: {
     );
 }
 
-function VerticalBar() {
-    return <div className='w-[1px] bg-slate-200'></div>;
-}
 
 function AudioDataBar(props: { progress: number }) {
     return <ProgressBar progress={`${Math.round(props.progress * 100)}%`} />;
@@ -481,9 +482,9 @@ function AudioDataBar(props: { progress: number }) {
 
 function ProgressBar(props: { progress: string }) {
     return (
-        <div className='w-full rounded-full h-1 bg-gray-200 dark:bg-gray-700'>
+        <div className='w-full rounded-full h-1 bg-gray-600/50'>
             <div
-                className='bg-blue-600 h-1 rounded-full transition-all duration-100'
+                className='bg-gradient-to-r from-blue-500 to-purple-500 h-1 rounded-full transition-all duration-100'
                 style={{ width: props.progress }}
             ></div>
         </div>
@@ -693,11 +694,11 @@ function Tile(props: {
     return (
         <button
             onClick={props.onClick}
-            className='flex items-center justify-center rounded-lg p-2 bg-blue text-slate-500 hover:text-indigo-600 hover:bg-indigo-50 transition-all duration-200'
+            className='flex-1 flex flex-col items-center justify-center rounded-lg p-3 bg-gray-700/50 border border-gray-600/30 text-gray-300 hover:text-white hover:bg-gray-600/50 hover:border-gray-500/50 transition-all duration-200 backdrop-blur-sm'
         >
-            <div className='w-7 h-7'>{props.icon}</div>
+            <div className='w-5 h-5 mb-1'>{props.icon}</div>
             {props.text && (
-                <div className='ml-2 break-text text-center text-md w-30'>
+                <div className='text-xs font-medium'>
                     {props.text}
                 </div>
             )}

@@ -157,7 +157,7 @@ export default function ResumeMatchPage() {
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/30">
       <Navbar />
       <main className="flex-grow">
-        <div className="container mx-auto px-4 pt-20 pb-12">
+        <div className="container mx-auto px-4 pt-24 pb-12">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8">
               <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-6xl mb-4">

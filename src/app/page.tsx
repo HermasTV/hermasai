@@ -9,7 +9,7 @@ export default function Home() {
       <AnimatedBackground />
       <Navbar />
       <main className="flex-grow">
-        <div className="container mx-auto px-4 pt-20 pb-12">
+        <div className="container mx-auto px-4 pt-24 pb-12">
       {/* Hero Section */}
       <section className="text-center py-20">
         <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
