@@ -150,3 +150,12 @@ git commit -m "Update documents-services submodule"
 5. Submit a pull request
 
 For backend service changes, contribute to the [documents-services repository](https://github.com/HermasTV/documents-services) separately.
+
+## 🤖 AI Co-Development
+
+This project has been co-developed with **Claude AI** (Anthropic) to accelerate development and enhance code quality. Claude AI assisted in:
+- Architecture design and implementation
+- UI/UX improvements and modern component design
+- Machine learning integration and ONNX model implementation
+- API development and microservices architecture
+- Documentation and code optimization
