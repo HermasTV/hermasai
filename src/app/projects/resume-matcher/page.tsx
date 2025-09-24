@@ -174,33 +174,31 @@ export default function ResumeMatchPage() {
               <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <span className="text-green-400 text-xl">✅</span>
-                  <span className="text-gray-200 line-through">Add PDF and DOCX reader</span>
+                  <span className="text-gray-200 line-through">PDF and DOCX processing with documents-services</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <span className="text-green-400 text-xl">✅</span>
-                  <span className="text-gray-200 line-through">Add PDF-DOCX debugger and converter</span>
+                  <span className="text-gray-200 line-through">Dynamic API configuration system</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <span className="text-red-400 text-xl">🔄</span>
-                  <span className="text-gray-200">Reconnect PDF parsing to documents-services</span>
+                  <span className="text-green-400 text-xl">✅</span>
+                  <span className="text-gray-200 line-through">OpenAI integration for resume analysis</span>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <span className="text-red-400 text-xl">🔄</span>
-                  <span className="text-gray-200">Reconnect analysis API to documents-services</span>
+                  <span className="text-yellow-400 text-xl">🔄</span>
+                  <span className="text-gray-200">Enhance matching prompts for better accuracy</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-blue-400 text-xl">📋</span>
+                  <span className="text-gray-200">Auto-update resume functionality</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <span className="text-blue-400 text-xl">📋</span>
+                  <span className="text-gray-200">Batch resume analysis for multiple job postings</span>
                 </div>
               </div>
             </div>
 
-            {/* Service Migration Notice */}
-            <div className="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-6 mb-8">
-              <h2 className="text-xl font-semibold text-yellow-400 mb-3">🚧 Service Migration Notice</h2>
-              <p className="text-gray-200 mb-2">
-                PDF processing and resume analysis features have been moved to a separate documents-services repository for better modularity.
-              </p>
-              <p className="text-gray-300 text-sm">
-                These features will be reconnected to the new EC2-hosted service soon. Stay tuned!
-              </p>
-            </div>
 
             <div className="bg-white/10 backdrop-blur-lg rounded-lg p-8 space-y-6">
               {/* API Key */}
@@ -221,11 +219,11 @@ export default function ResumeMatchPage() {
                 <select
                   value={selectedModel}
                   onChange={(e) => setSelectedModel(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white"
+                  className="w-full px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                 >
-                  <option value="gpt-4o-mini">GPT-4o Mini (Fast & Cheap)</option>
-                  <option value="gpt-4o">GPT-4o (Balanced)</option>
-                  <option value="gpt-3.5-turbo">GPT-3.5 Turbo (Economy)</option>
+                  <option value="gpt-4o-mini" className="bg-gray-800 text-white">GPT-4o Mini (Fast & Cheap)</option>
+                  <option value="gpt-4o" className="bg-gray-800 text-white">GPT-4o (Balanced)</option>
+                  <option value="gpt-3.5-turbo" className="bg-gray-800 text-white">GPT-3.5 Turbo (Economy)</option>
                 </select>
               </div>
 
