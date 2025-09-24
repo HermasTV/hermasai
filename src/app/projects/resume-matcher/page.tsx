@@ -128,7 +128,7 @@ export default function ResumeMatchPage() {
       const formData = new FormData();
       formData.append("resume", resumeFile);
 
-      const apiUrl = getApiUrl(API_CONFIG.PDF_CONVERTER.ENDPOINTS.DEBUG_RESUME);
+      const apiUrl = await getApiUrl(API_CONFIG.PDF_CONVERTER.ENDPOINTS.DEBUG_RESUME);
       const response = await fetch(apiUrl, {
         method: "POST",
         body: formData,

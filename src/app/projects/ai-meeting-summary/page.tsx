@@ -58,140 +58,227 @@ export default function AIMeetingSummaryPage() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-green-900/20 to-blue-900/30">
       <Navbar />
-      <main className="flex-grow">
-        <div className="container mx-auto px-4 pt-24 pb-12">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-6xl mb-4">
-                AI Meeting Summary
-              </h1>
-              <p className="text-xl text-gray-200 max-w-2xl mx-auto">
-                Upload an audio file and get AI-powered transcription using OpenAI's latest models
-              </p>
-            </div>
+      <main className="flex-grow overflow-hidden">
+        <div className="container mx-auto px-4 pt-24 pb-4 h-[calc(100vh-96px)]">
+          {/* Header */}
+          <div className="text-center mb-6">
+            <h1 className='text-3xl font-bold tracking-tight text-white sm:text-4xl mb-2'>
+              AI Meeting Summary
+            </h1>
+            <h2 className='text-lg font-medium tracking-tight text-gray-200'>
+              AI-powered transcription using OpenAI's latest models
+            </h2>
+          </div>
 
-            {/* Project Todo List */}
-            <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-6 mb-8">
-              <h2 className="text-2xl font-semibold text-blue-400 mb-4">🚀 Project Roadmap</h2>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <span className="text-green-400 text-xl">✅</span>
-                  <span className="text-gray-200 line-through">Add speech to text module using API</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <span className="text-yellow-400 text-xl">🟡</span>
-                  <span className="text-gray-200">Add speaker diarization</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <span className="text-gray-400 text-xl">⭕</span>
-                  <span className="text-gray-200">Develop summarization feature</span>
-                </div>
-              </div>
-            </div>
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100%-120px)]">
 
-            <div className="bg-white/10 backdrop-blur-lg rounded-lg p-8 space-y-6">
-              {/* API Key Input */}
-              <div>
-                <label htmlFor="apiKey" className="block text-sm font-medium text-gray-200 mb-2">
-                  OpenAI API Key
-                </label>
-                <input
-                  type="password"
-                  id="apiKey"
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  placeholder="sk-..."
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-                <p className="text-xs text-gray-400 mt-1">
-                  Your API key is only used for this request and not stored
-                </p>
-              </div>
+            {/* Left Panel - About Section */}
+            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-5 backdrop-blur-sm overflow-y-auto">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <span className="text-blue-400">🎯</span>
+                About
+              </h3>
 
-              {/* Model Selection */}
-              <div>
-                <label htmlFor="model" className="block text-sm font-medium text-gray-200 mb-2">
-                  Transcription Model
-                </label>
-                <select
-                  id="model"
-                  value={selectedModel}
-                  onChange={(e) => setSelectedModel(e.target.value)}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                >
-                  <option value="whisper-1" className="bg-gray-800 text-white">
-                    Whisper-1 (Standard)
-                  </option>
-                  <option value="gpt-4o-mini-transcribe" className="bg-gray-800 text-white">
-                    GPT-4o Mini Transcribe (Advanced)
-                  </option>
-                  <option value="gpt-4o-transcribe" className="bg-gray-800 text-white">
-                    GPT-4o Transcribe (Premium)
-                  </option>
-                </select>
-                <p className="text-xs text-gray-400 mt-1">
-                  {selectedModel === "whisper-1" 
-                    ? "OpenAI's standard Whisper model for speech recognition"
-                    : selectedModel === "gpt-4o-mini-transcribe"
-                    ? "Advanced transcription with GPT-4o Mini for better accuracy"
-                    : "Premium transcription with GPT-4o for highest quality and multilingual support"
-                  }
-                </p>
-              </div>
-
-              {/* Audio File Upload */}
-              <div>
-                <label htmlFor="audioFile" className="block text-sm font-medium text-gray-200 mb-2">
-                  Audio File
-                </label>
-                <input
-                  type="file"
-                  id="audioFile"
-                  accept="audio/*"
-                  onChange={handleFileUpload}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-blue-600 file:text-white file:cursor-pointer hover:file:bg-blue-700"
-                />
-                {audioFile && (
-                  <p className="text-sm text-green-400 mt-2">
-                    Selected: {audioFile.name} ({(audioFile.size / 1024 / 1024).toFixed(2)} MB)
+              <div className="space-y-4">
+                <div>
+                  <h4 className="text-base font-semibold text-blue-400 mb-3">Technical Overview</h4>
+                  <p className="text-sm text-gray-300 leading-relaxed">
+                    AI-powered meeting transcription service using OpenAI's advanced speech-to-text models.
+                    Upload audio files and get accurate transcriptions with multiple model options.
                   </p>
+                </div>
+
+                <div>
+                  <h4 className="text-base font-semibold text-purple-400 mb-3">Key Features</h4>
+                  <ul className="space-y-2 text-sm text-gray-300">
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      Multiple OpenAI model support
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      High-accuracy transcription
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      API key privacy protection
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="text-green-400">✓</span>
+                      Multiple audio format support
+                    </li>
+                  </ul>
+                </div>
+
+                <div>
+                  <h4 className="text-base font-semibold text-emerald-400 mb-3">Available Models</h4>
+                  <div className="space-y-2">
+                    <div className="bg-gray-900/50 rounded-lg p-3 border border-gray-600/30">
+                      <span className="text-blue-300 font-medium text-sm">Whisper-1:</span>
+                      <p className="text-sm text-gray-400">Standard speech recognition</p>
+                    </div>
+                    <div className="bg-gray-900/50 rounded-lg p-3 border border-gray-600/30">
+                      <span className="text-purple-300 font-medium text-sm">GPT-4o Mini:</span>
+                      <p className="text-sm text-gray-400">Advanced transcription</p>
+                    </div>
+                    <div className="bg-gray-900/50 rounded-lg p-3 border border-gray-600/30">
+                      <span className="text-emerald-300 font-medium text-sm">GPT-4o:</span>
+                      <p className="text-sm text-gray-400">Premium quality & multilingual</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-base font-semibold text-orange-400 mb-3">Architecture</h4>
+                  <p className="text-sm text-gray-300 leading-relaxed">
+                    File upload with secure API key handling, server-side OpenAI API integration,
+                    and real-time transcription processing with copy-to-clipboard functionality.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Center Panel - Controls and Transcription */}
+            <div className="flex flex-col gap-4">
+              {/* Input Controls */}
+              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 backdrop-blur-sm space-y-4">
+                {/* API Key Input */}
+                <div>
+                  <label htmlFor="apiKey" className="block text-sm font-medium text-gray-200 mb-2">
+                    OpenAI API Key
+                  </label>
+                  <input
+                    type="password"
+                    id="apiKey"
+                    value={apiKey}
+                    onChange={(e) => setApiKey(e.target.value)}
+                    placeholder="sk-..."
+                    className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  />
+                  <p className="text-xs text-gray-400 mt-1">
+                    Your API key is only used for this request and not stored
+                  </p>
+                </div>
+
+                {/* Model Selection */}
+                <div>
+                  <label htmlFor="model" className="block text-sm font-medium text-gray-200 mb-2">
+                    Model
+                  </label>
+                  <select
+                    id="model"
+                    value={selectedModel}
+                    onChange={(e) => setSelectedModel(e.target.value)}
+                    className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                  >
+                    <option value="whisper-1" className="bg-gray-800 text-white">
+                      Whisper-1 (Standard)
+                    </option>
+                    <option value="gpt-4o-mini-transcribe" className="bg-gray-800 text-white">
+                      GPT-4o Mini (Advanced)
+                    </option>
+                    <option value="gpt-4o-transcribe" className="bg-gray-800 text-white">
+                      GPT-4o (Premium)
+                    </option>
+                  </select>
+                </div>
+
+                {/* Audio File Upload */}
+                <div>
+                  <label htmlFor="audioFile" className="block text-sm font-medium text-gray-200 mb-2">
+                    Audio File
+                  </label>
+                  <input
+                    type="file"
+                    id="audioFile"
+                    accept="audio/*"
+                    onChange={handleFileUpload}
+                    className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:bg-blue-600 file:text-white file:cursor-pointer hover:file:bg-blue-700 file:text-sm"
+                  />
+                  {audioFile && (
+                    <p className="text-xs text-green-400 mt-1">
+                      Selected: {audioFile.name} ({(audioFile.size / 1024 / 1024).toFixed(2)} MB)
+                    </p>
+                  )}
+                </div>
+
+                {/* Transcribe Button */}
+                <button
+                  onClick={handleTranscribe}
+                  disabled={isLoading || !audioFile || !apiKey.trim()}
+                  className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm"
+                >
+                  {isLoading ? "Transcribing..." : "Transcribe Audio"}
+                </button>
+
+                {/* Error Display */}
+                {error && (
+                  <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-3">
+                    <p className="text-red-200 text-sm">{error}</p>
+                  </div>
                 )}
               </div>
 
-              {/* Transcribe Button */}
-              <button
-                onClick={handleTranscribe}
-                disabled={isLoading || !audioFile || !apiKey.trim()}
-                className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-600 disabled:cursor-not-allowed text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-              >
-                {isLoading ? "Transcribing..." : "Transcribe Audio"}
-              </button>
-
-              {/* Error Display */}
-              {error && (
-                <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4">
-                  <p className="text-red-200">{error}</p>
-                </div>
-              )}
-
               {/* Transcription Results */}
-              {transcription && (
-                <div>
-                  <h3 className="text-lg font-semibold text-white mb-3">Transcription:</h3>
-                  <div className="bg-white/5 border border-white/20 rounded-lg p-4 max-h-96 overflow-y-auto">
-                    <p className="text-gray-200 whitespace-pre-wrap leading-relaxed">
-                      {transcription}
-                    </p>
+              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 backdrop-blur-sm flex-1 min-h-0">
+                <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                  <span className="text-green-400">📝</span>
+                  Transcription
+                </h3>
+                {transcription ? (
+                  <div className="h-full flex flex-col">
+                    <div className="bg-gray-900/50 border border-gray-600/30 rounded-lg p-4 flex-1 overflow-y-auto">
+                      <p className="text-gray-200 whitespace-pre-wrap leading-relaxed text-sm">
+                        {transcription}
+                      </p>
+                    </div>
+                    <button
+                      onClick={() => navigator.clipboard.writeText(transcription)}
+                      className="mt-3 bg-green-600 hover:bg-green-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors self-start"
+                    >
+                      Copy to Clipboard
+                    </button>
                   </div>
-                  <button
-                    onClick={() => navigator.clipboard.writeText(transcription)}
-                    className="mt-3 bg-green-600 hover:bg-green-700 text-white text-sm font-medium py-2 px-4 rounded-lg transition-colors"
-                  >
-                    Copy to Clipboard
-                  </button>
-                </div>
-              )}
+                ) : (
+                  <div className="h-full flex items-center justify-center">
+                    <p className="text-gray-400 text-sm">Upload an audio file and start transcribing to see results here</p>
+                  </div>
+                )}
+              </div>
             </div>
+
+            {/* Right Panel - Roadmap */}
+            <div className="bg-gradient-to-br from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-xl p-5 backdrop-blur-sm overflow-y-auto">
+              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                <span className="text-green-400">🚀</span>
+                Roadmap
+              </h3>
+
+              <div className="space-y-5">
+                <div>
+                  <h4 className="text-base font-semibold text-green-400 mb-3">✅ Completed</h4>
+                  <div className="space-y-2">
+                    <div className="text-sm text-gray-300 bg-green-500/10 px-3 py-2 rounded-md">Add speech to text module using API</div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-base font-semibold text-yellow-400 mb-3">🔄 In Progress</h4>
+                  <div className="space-y-2">
+                    <div className="text-sm text-gray-300 bg-yellow-500/10 px-3 py-2 rounded-md">Add speaker diarization</div>
+                  </div>
+                </div>
+
+                <div>
+                  <h4 className="text-base font-semibold text-gray-400 mb-3">⏳ Planned</h4>
+                  <div className="space-y-2">
+                    <div className="text-sm text-gray-300 bg-gray-500/10 px-3 py-2 rounded-md">Develop summarization feature</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </main>

@@ -50,16 +50,16 @@ export default function SpeechToTextPage() {
 
               <div className="space-y-4">
                 <div>
-                  <h4 className="text-sm font-semibold text-blue-400 mb-2">Technical Overview</h4>
-                  <p className="text-xs text-gray-300 leading-relaxed">
+                  <h4 className="text-base font-semibold text-blue-400 mb-3">Technical Overview</h4>
+                  <p className="text-sm text-gray-300 leading-relaxed">
                     Browser-based AI using OpenAI's Whisper model optimized for WebGPU.
                     Performs real-time speech-to-text transcription entirely client-side.
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-purple-400 mb-2">Key Features</h4>
-                  <ul className="space-y-1 text-xs text-gray-300">
+                  <h4 className="text-base font-semibold text-purple-400 mb-3">Key Features</h4>
+                  <ul className="space-y-2 text-sm text-gray-300">
                     <li className="flex items-center gap-2">
                       <span className="text-green-400">✓</span>
                       Real-time audio processing
@@ -80,26 +80,26 @@ export default function SpeechToTextPage() {
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-emerald-400 mb-2">Tech Stack</h4>
+                  <h4 className="text-base font-semibold text-emerald-400 mb-3">Tech Stack</h4>
                   <div className="space-y-2">
-                    <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
-                      <span className="text-blue-300 font-medium text-xs">Frontend:</span>
-                      <p className="text-xs text-gray-400">Next.js 15, React 19, TypeScript</p>
+                    <div className="bg-gray-900/50 rounded-lg p-3 border border-gray-600/30">
+                      <span className="text-blue-300 font-medium text-sm">Frontend:</span>
+                      <p className="text-sm text-gray-400">Next.js 15, React 19, TypeScript</p>
                     </div>
-                    <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
-                      <span className="text-purple-300 font-medium text-xs">ML Engine:</span>
-                      <p className="text-xs text-gray-400">Transformers.js, ONNX Runtime</p>
+                    <div className="bg-gray-900/50 rounded-lg p-3 border border-gray-600/30">
+                      <span className="text-purple-300 font-medium text-sm">ML Engine:</span>
+                      <p className="text-sm text-gray-400">Transformers.js, ONNX Runtime</p>
                     </div>
-                    <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
-                      <span className="text-emerald-300 font-medium text-xs">Performance:</span>
-                      <p className="text-xs text-gray-400">WebGPU, Web Workers, WASM</p>
+                    <div className="bg-gray-900/50 rounded-lg p-3 border border-gray-600/30">
+                      <span className="text-emerald-300 font-medium text-sm">Performance:</span>
+                      <p className="text-sm text-gray-400">WebGPU, Web Workers, WASM</p>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-orange-400 mb-2">Architecture</h4>
-                  <p className="text-xs text-gray-300 leading-relaxed">
+                  <h4 className="text-base font-semibold text-orange-400 mb-3">Architecture</h4>
+                  <p className="text-sm text-gray-300 leading-relaxed">
                     Uses Web Workers for non-blocking ML inference, custom audio processing pipeline,
                     and optimized model loading with progressive enhancement for WebGPU-capable browsers.
                   </p>
@@ -133,28 +133,20 @@ export default function SpeechToTextPage() {
                 Roadmap
               </h3>
 
-              <div className="space-y-4">
+              <div className="space-y-5">
                 <div>
-                  <h4 className="text-sm font-semibold text-green-400 mb-2">✅ Completed</h4>
-                  <div className="space-y-1">
-                    <div className="text-xs text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">WebGPU Whisper integration</div>
-                    <div className="text-xs text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">Real-time audio recording</div>
-                    <div className="text-xs text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">Browser transcription engine</div>
+                  <h4 className="text-base font-semibold text-green-400 mb-3">✅ Completed</h4>
+                  <div className="space-y-2">
+                    <div className="text-sm text-gray-300 bg-green-500/10 px-3 py-2 rounded-md">WebGPU Whisper integration</div>
+                    <div className="text-sm text-gray-300 bg-green-500/10 px-3 py-2 rounded-md">Real-time audio recording</div>
+                    <div className="text-sm text-gray-300 bg-green-500/10 px-3 py-2 rounded-md">Browser transcription engine</div>
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-yellow-400 mb-2">🔄 In Progress</h4>
-                  <div className="space-y-1">
-                    <div className="text-xs text-gray-300 bg-yellow-500/10 px-2 py-1 rounded-md">Language detection</div>
-                  </div>
-                </div>
-
-                <div>
-                  <h4 className="text-sm font-semibold text-gray-400 mb-2">⏳ Planned</h4>
-                  <div className="space-y-1">
-                    <div className="text-xs text-gray-300 bg-gray-500/10 px-2 py-1 rounded-md">Offline model caching</div>
-                    <div className="text-xs text-gray-300 bg-gray-500/10 px-2 py-1 rounded-md">Export functionality</div>
+                  <h4 className="text-base font-semibold text-yellow-400 mb-3">🔄 In Progress</h4>
+                  <div className="space-y-2">
+                    <div className="text-sm text-gray-300 bg-yellow-500/10 px-3 py-2 rounded-md">Supporting other models beyond Whisper</div>
                   </div>
                 </div>
               </div>

@@ -64,20 +64,20 @@ export default function Transcript({ transcribedData }: Props) {
                 transcribedData.chunks.map((chunk, i) => (
                     <div
                         key={`${i}-${chunk.text}`}
-                        className={`w-full flex flex-row mb-2 ${transcribedData?.isBusy ? "bg-gray-100" : "bg-white"} rounded-lg p-4 shadow-xl shadow-black/5 ring-1 ring-slate-700/10`}
+                        className={`w-full flex flex-row mb-2 ${transcribedData?.isBusy ? "bg-gray-700/50 border-gray-600/50" : "bg-gray-800/50 border-gray-600/30"} rounded-lg p-4 border backdrop-blur-sm`}
                     >
-                        <div className='mr-5'>
+                        <div className='mr-5 text-blue-400 font-medium text-sm'>
                             {formatAudioTimestamp(chunk.timestamp[0])}
                         </div>
-                        {chunk.text}
+                        <div className="text-gray-200 flex-1">{chunk.text}</div>
                     </div>
                 ))}
             {transcribedData?.tps && (
                 <p className='text-sm text-center mt-4 mb-1'>
-                    <span className='font-semibold text-black'>
+                    <span className='font-semibold text-white'>
                         {transcribedData?.tps.toFixed(2)}
                     </span>{" "}
-                    <span className='text-gray-500'>tokens/second</span>
+                    <span className='text-gray-400'>tokens/second</span>
                 </p>
             )}
             {transcribedData && !transcribedData.isBusy && (

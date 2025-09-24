@@ -36,8 +36,8 @@ export async function pdfToDocx(pdfFile: File, filename?: string): Promise<Conve
 
     console.log('Uploading PDF to conversion service...');
 
-    // Call PDF Converter API service (Lambda or local)
-    const apiUrl = getApiUrl(API_CONFIG.PDF_CONVERTER.ENDPOINTS.CONVERT_PDF_TO_DOCX);
+    // Call PDF Converter API service (Lambda or local) - now using async version
+    const apiUrl = await getApiUrl(API_CONFIG.PDF_CONVERTER.ENDPOINTS.CONVERT_PDF_TO_DOCX);
     console.log('Calling PDF converter API at:', apiUrl);
 
     const response = await fetch(apiUrl, {
@@ -83,11 +83,18 @@ export async function pdfToDocx(pdfFile: File, filename?: string): Promise<Conve
     
     // Provide helpful error messages
     if (error.name === 'TypeError' && error.message.includes('fetch')) {
-      const apiUrl = getApiUrl('');
-      return {
-        success: false,
-        error: `Cannot connect to PDF conversion service at ${apiUrl}. Please check if the service is running.`
-      };
+      try {
+        const apiUrl = await getApiUrl('');
+        return {
+          success: false,
+          error: `Cannot connect to PDF conversion service at ${apiUrl}. Please check if the service is running.`
+        };
+      } catch (configError) {
+        return {
+          success: false,
+          error: `Cannot connect to PDF conversion service. Please check if the service is running.`
+        };
+      }
     }
 
     return {
