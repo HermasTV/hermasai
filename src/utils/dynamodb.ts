@@ -16,7 +16,7 @@ const clientConfig = useLocal ? {
     secretAccessKey: 'dummy'
   }
 } : {
-  region: process.env.AWS_REGION || 'us-east-1'
+  region: process.env.DYNAMODB_REGION || 'us-east-1'
 };
 
 const client = new DynamoDBClient(clientConfig);

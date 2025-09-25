@@ -121,7 +121,7 @@ All configuration is now managed through the **Admin Control Panel** (`/admin`) 
 # .env.local (only for local development)
 DYNAMODB_LOCAL=true
 DYNAMODB_LOCAL_ENDPOINT=http://localhost:8000
-AWS_REGION=us-east-1
+DYNAMODB_REGION=us-east-1
 ```
 
 ## 🔧 Development
