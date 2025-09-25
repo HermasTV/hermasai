@@ -3,21 +3,31 @@ import { DynamoDBDocumentClient, PutCommand, GetCommand } from '@aws-sdk/lib-dyn
 
 const TABLE_NAME = 'hermasai';
 
-// Configuration based on environment
+// Auto-detect environment configuration
 const isDevelopment = process.env.NODE_ENV === 'development';
-const useLocal = process.env.DYNAMODB_LOCAL === 'true' || isDevelopment;
+const isLocalhost = typeof window !== 'undefined' && window.location.hostname === 'localhost';
+const useLocal = isDevelopment || isLocalhost;
 
 // DynamoDB Client Configuration
 const clientConfig = useLocal ? {
   region: 'local',
-  endpoint: process.env.DYNAMODB_LOCAL_ENDPOINT || 'http://localhost:8000',
+  endpoint: 'http://localhost:8000', // Standard DynamoDB Local port
   credentials: {
     accessKeyId: 'dummy',
     secretAccessKey: 'dummy'
   }
 } : {
-  region: process.env.DYNAMODB_REGION || 'us-east-1'
+  region: 'us-east-1' // Default AWS region for production
 };
+
+// Debug logging
+console.log('DynamoDB Configuration:', {
+  useLocal,
+  isDevelopment,
+  isLocalhost: typeof window !== 'undefined' ? window.location.hostname === 'localhost' : 'server-side',
+  region: clientConfig.region,
+  endpoint: clientConfig.endpoint || 'AWS managed'
+});
 
 const client = new DynamoDBClient(clientConfig);
 const docClient = DynamoDBDocumentClient.from(client);
@@ -87,16 +97,23 @@ export async function readConfig(): Promise<ConfigData> {
     }));
 
     if (response.Item) {
+      console.log('Configuration loaded from DynamoDB successfully');
       return response.Item as ConfigData;
     } else {
       // No config found, create default
+      console.log('No configuration found, creating default config');
       await writeConfig(DEFAULT_CONFIG);
       return DEFAULT_CONFIG;
     }
   } catch (error) {
     console.error('Error reading config from DynamoDB:', error);
-    // Fallback to default config
-    return DEFAULT_CONFIG;
+    console.log('Using fallback default configuration');
+
+    // In production, if DynamoDB fails, we still want to provide working defaults
+    return {
+      ...DEFAULT_CONFIG,
+      pythonServicesUrl: 'http://127.0.0.1:8000', // Safe default for local development
+    };
   }
 }
 
