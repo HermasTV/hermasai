@@ -59,15 +59,17 @@ export async function ensureTableExists(): Promise<void> {
 // Configuration interface
 export interface ConfigData {
   pythonServicesUrl: string;
+  adminUsername: string;
+  adminPassword: string;
   lastUpdated: string;
   updatedBy: string;
 }
 
 // Default configuration
 const DEFAULT_CONFIG: ConfigData = {
-  pythonServicesUrl: process.env.NEXT_PUBLIC_PDF_CONVERTER_API_URL ||
-                     process.env.NEXT_PUBLIC_PDF_CONVERTER_API_URL_DEV ||
-                     'http://127.0.0.1:8000',
+  pythonServicesUrl: 'http://127.0.0.1:8000',
+  adminUsername: 'admin',
+  adminPassword: 'hermasai2024', // Default password - should be changed via admin panel
   lastUpdated: new Date().toISOString(),
   updatedBy: 'system'
 };

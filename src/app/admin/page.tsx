@@ -7,6 +7,8 @@ import Footer from "@/components/footer";
 
 interface ConfigData {
   pythonServicesUrl: string;
+  adminUsername: string;
+  adminPassword: string;
   lastUpdated: string;
   updatedBy: string;
 }
@@ -21,6 +23,8 @@ export default function AdminControlPanel() {
   // Configuration state
   const [config, setConfig] = useState<ConfigData | null>(null);
   const [pythonServicesUrl, setPythonServicesUrl] = useState('');
+  const [adminUsername, setAdminUsername] = useState('');
+  const [adminPassword, setAdminPassword] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
 
@@ -39,6 +43,8 @@ export default function AdminControlPanel() {
         if (data.success) {
           setConfig(data.config);
           setPythonServicesUrl(data.config.pythonServicesUrl);
+          setAdminUsername(data.config.adminUsername);
+          // Don't populate password field for security
         }
       }
     } catch (error) {
@@ -100,6 +106,8 @@ export default function AdminControlPanel() {
         },
         body: JSON.stringify({
           pythonServicesUrl: pythonServicesUrl.trim(),
+          adminUsername: adminUsername.trim() || undefined,
+          adminPassword: adminPassword.trim() || undefined,
         }),
       });
 
@@ -262,6 +270,43 @@ export default function AdminControlPanel() {
                 </div>
               </div>
 
+              {/* Admin Credentials Section */}
+              <div className="border-t border-gray-600/30 pt-6">
+                <h3 className="text-lg font-semibold text-orange-400 mb-4 flex items-center gap-2">
+                  <span>🔐</span>
+                  Admin Credentials
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Admin Username
+                    </label>
+                    <input
+                      type="text"
+                      value={adminUsername}
+                      onChange={(e) => setAdminUsername(e.target.value)}
+                      className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                      placeholder="Leave empty to keep current"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-300 mb-2">
+                      Admin Password
+                    </label>
+                    <input
+                      type="password"
+                      value={adminPassword}
+                      onChange={(e) => setAdminPassword(e.target.value)}
+                      className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-transparent"
+                      placeholder="Leave empty to keep current"
+                    />
+                  </div>
+                </div>
+                <p className="text-xs text-gray-400 mt-2">
+                  ⚠️ Changing credentials will require you to log in again with the new credentials.
+                </p>
+              </div>
+
               <div className="flex justify-between items-center">
                 <button
                   type="submit"
@@ -301,6 +346,14 @@ export default function AdminControlPanel() {
                     <span className="text-white font-mono text-sm">{config.pythonServicesUrl}</span>
                   </div>
                   <div className="flex justify-between">
+                    <span className="text-gray-400">Admin Username:</span>
+                    <span className="text-white font-mono text-sm">{config.adminUsername}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-400">Admin Password:</span>
+                    <span className="text-gray-500 text-sm">••••••••••</span>
+                  </div>
+                  <div className="flex justify-between">
                     <span className="text-gray-400">Last Updated:</span>
                     <span className="text-gray-300">{new Date(config.lastUpdated).toLocaleString()}</span>
                   </div>
@@ -317,10 +370,12 @@ export default function AdminControlPanel() {
           <div className="mt-8 bg-blue-500/10 border border-blue-500/20 rounded-xl p-6">
             <h3 className="text-lg font-semibold text-blue-400 mb-3">ℹ️ Information</h3>
             <ul className="space-y-2 text-sm text-gray-300">
-              <li>• Configuration changes are applied automatically within 5 minutes</li>
+              <li>• Configuration is stored in DynamoDB for persistence across deployments</li>
+              <li>• Changes are applied automatically within 5 minutes</li>
               <li>• No application rebuild or restart required</li>
               <li>• All projects using Python services will use the new URL</li>
-              <li>• Test the URL before saving to ensure the service is accessible</li>
+              <li>• Admin credentials are securely stored and hashed</li>
+              <li>• No .env file needed - everything managed through this panel</li>
             </ul>
           </div>
         </div>

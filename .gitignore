@@ -28,8 +28,8 @@
 .DS_Store
 *.pem
 
-# Runtime configuration (contains admin settings)
-runtime-config.json
+# DynamoDB Local data (if using file-based storage locally)
+shared-local-instance.db
 
 # debug
 npm-debug.log*

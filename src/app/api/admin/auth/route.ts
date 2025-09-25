@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-
-// Simple admin credentials (in production, use environment variables)
-const ADMIN_USERNAME = process.env.ADMIN_USERNAME || 'admin';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'hermasai2024';
+import { readConfig } from '@/utils/dynamodb';
 
 export async function POST(request: NextRequest) {
   try {
     const { username, password } = await request.json();
 
-    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
+    // Get credentials from database
+    const config = await readConfig();
+
+    if (username === config.adminUsername && password === config.adminPassword) {
       // Create a simple session token (in production, use proper JWT)
       const sessionToken = Buffer.from(`${username}:${Date.now()}`).toString('base64');
 

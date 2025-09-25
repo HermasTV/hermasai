@@ -1,35 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyAdminAuth } from '@/utils/adminAuth';
-import { promises as fs } from 'fs';
-import path from 'path';
-
-const CONFIG_FILE = path.join(process.cwd(), 'runtime-config.json');
-
-// Default configuration
-const DEFAULT_CONFIG = {
-  pythonServicesUrl: process.env.NEXT_PUBLIC_PDF_CONVERTER_API_URL ||
-                     process.env.NEXT_PUBLIC_PDF_CONVERTER_API_URL_DEV ||
-                     'http://127.0.0.1:8000',
-  lastUpdated: new Date().toISOString(),
-  updatedBy: 'system'
-};
-
-// Helper function to read configuration
-async function readConfig() {
-  try {
-    const data = await fs.readFile(CONFIG_FILE, 'utf8');
-    return JSON.parse(data);
-  } catch (error) {
-    // File doesn't exist, create it with default config
-    await writeConfig(DEFAULT_CONFIG);
-    return DEFAULT_CONFIG;
-  }
-}
-
-// Helper function to write configuration
-async function writeConfig(config: any) {
-  await fs.writeFile(CONFIG_FILE, JSON.stringify(config, null, 2));
-}
+import { readConfig, writeConfig, type ConfigData } from '@/utils/dynamodb';
 
 // GET: Retrieve current configuration
 export async function GET(request: NextRequest) {
@@ -64,7 +35,7 @@ export async function POST(request: NextRequest) {
       }, { status: 401 });
     }
 
-    const { pythonServicesUrl } = await request.json();
+    const { pythonServicesUrl, adminUsername, adminPassword } = await request.json();
 
     if (!pythonServicesUrl) {
       return NextResponse.json({
@@ -82,9 +53,11 @@ export async function POST(request: NextRequest) {
     }
 
     const currentConfig = await readConfig();
-    const newConfig = {
+    const newConfig: ConfigData = {
       ...currentConfig,
       pythonServicesUrl,
+      ...(adminUsername && { adminUsername }),
+      ...(adminPassword && { adminPassword }),
       lastUpdated: new Date().toISOString(),
       updatedBy: 'admin'
     };

@@ -107,11 +107,21 @@ hermasai/
 - **Backend**: AWS EC2 instances
 - **Environment**: Set `NEXT_PUBLIC_PDF_CONVERTER_API_URL` to your EC2 endpoint
 
-### Environment Variables
+### Configuration Management
+All configuration is now managed through the **Admin Control Panel** (`/admin`) with persistent DynamoDB storage:
+
+- **Python Services URL**: Set your backend endpoint dynamically
+- **Admin Credentials**: Change username/password through the web interface
+- **No .env file required**: Everything is database-driven
+
+**Default admin credentials**: `admin` / `hermasai2024` (change immediately!)
+
+### Optional Environment Variables
 ```bash
-# .env.local
-NEXT_PUBLIC_PDF_CONVERTER_API_URL=http://your-ec2-ip:8000
-NEXT_PUBLIC_PDF_CONVERTER_API_URL_DEV=http://127.0.0.1:8000
+# .env.local (only for local development)
+DYNAMODB_LOCAL=true
+DYNAMODB_LOCAL_ENDPOINT=http://localhost:8000
+AWS_REGION=us-east-1
 ```
 
 ## 🔧 Development
