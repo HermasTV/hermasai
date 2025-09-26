@@ -8,13 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "start-all": "./start-dev.sh",
-    "stop-all": "./stop-dev.sh",
-    "dynamodb:local": "docker run --rm -p 8000:8000 amazon/dynamodb-local:latest",
-    "dynamodb:install": "npm install -g dynamodb-local"
+    "stop-all": "./stop-dev.sh"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.896.0",
-    "@aws-sdk/lib-dynamodb": "^3.896.0",
     "@headlessui/react": "^2.2.7",
     "@huggingface/transformers": "^3.0.0-alpha.19",
     "axios": "^1.11.0",

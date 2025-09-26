@@ -1,15 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { readConfig } from '@/utils/dynamodb';
+import { validateAdminCredentials } from '@/utils/config';
 
 export async function POST(request: NextRequest) {
   try {
     const { username, password } = await request.json();
 
-    // Get credentials from database
-    const config = await readConfig();
-
-    if (username === config.adminUsername && password === config.adminPassword) {
+    if (validateAdminCredentials(username, password)) {
       // Create a simple session token (in production, use proper JWT)
       const sessionToken = Buffer.from(`${username}:${Date.now()}`).toString('base64');
 

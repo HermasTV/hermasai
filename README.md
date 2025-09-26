@@ -107,23 +107,24 @@ hermasai/
 - **Backend**: AWS EC2 instances
 - **Environment**: Set `NEXT_PUBLIC_PDF_CONVERTER_API_URL` to your EC2 endpoint
 
-### 🎉 Zero-Configuration Deployment
-**No environment variables required!** The application automatically detects and configures itself:
+### 🎯 Simple Environment Configuration
+**Only 3 environment variables needed!** Clean and straightforward setup:
 
-- **Local Development**: Auto-detects `localhost` and uses DynamoDB Local
-- **Production**: Auto-detects AWS Amplify and uses AWS DynamoDB (us-east-1)
-- **Admin Control Panel**: Access `/admin` with default credentials
-- **Dynamic Configuration**: All settings managed via web interface
+```env
+PYTHON_SERVICES_URL=http://your-backend.com
+ADMIN_USERNAME=admin
+ADMIN_PASSWORD=your-secure-password
+```
 
-**Default admin credentials**: `admin` / `hermasai2024` (change immediately!)
+**Default admin credentials**: `admin` / `hermasai2024` (for local development)
 
 ### Configuration Management
-All configuration stored in DynamoDB with web-based management:
+Simple environment-based configuration:
 
-- **Python Services URL**: Set your backend endpoint dynamically
-- **Admin Credentials**: Change username/password through the interface
-- **Persistent Storage**: Survives deployments and restarts
-- **Real-time Updates**: Changes applied within 5 minutes
+- **Python Services URL**: Set your backend endpoint via environment variable
+- **Admin Credentials**: Set via environment variables (secure and simple)
+- **Admin Panel**: View current configuration at `/admin`
+- **No Database Required**: Zero external dependencies for configuration
 
 ## 🔧 Development
 
