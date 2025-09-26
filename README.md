@@ -111,9 +111,9 @@ hermasai/
 **Only 3 environment variables needed!** Clean and straightforward setup:
 
 ```env
-PYTHON_SERVICES_URL=http://your-backend.com
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=your-secure-password
+NEXT_PUBLIC_PYTHON_SERVICES_URL=http://your-backend.com
+NEXT_PUBLIC_ADMIN_USERNAME=admin
+NEXT_PUBLIC_ADMIN_PASSWORD=your-secure-password
 ```
 
 **Default admin credentials**: `admin` / `hermasai2024` (for local development)

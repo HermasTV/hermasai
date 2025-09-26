@@ -144,7 +144,7 @@ export default function AdminControlPanel() {
                     <div className="flex justify-between items-center">
                       <span className="text-gray-400">Python Services:</span>
                       <span className="text-white font-mono text-sm bg-gray-800 px-2 py-1 rounded">
-                        {process.env.PYTHON_SERVICES_URL || 'http://127.0.0.1:8000'}
+                        {process.env.NEXT_PUBLIC_PYTHON_SERVICES_URL || 'http://127.0.0.1:8000'}
                       </span>
                     </div>
                   </div>
@@ -156,7 +156,7 @@ export default function AdminControlPanel() {
                     <div className="flex justify-between items-center">
                       <span className="text-gray-400">Username:</span>
                       <span className="text-white font-mono text-sm bg-gray-800 px-2 py-1 rounded">
-                        {process.env.ADMIN_USERNAME || 'admin'}
+                        {process.env.NEXT_PUBLIC_ADMIN_USERNAME || 'admin'}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
@@ -180,9 +180,9 @@ export default function AdminControlPanel() {
             </ul>
             <div className="mt-4 bg-gray-900/50 rounded-lg p-4">
               <pre className="text-xs text-green-400 font-mono">
-{`PYTHON_SERVICES_URL=http://your-backend.com
-ADMIN_USERNAME=admin
-ADMIN_PASSWORD=your-secure-password`}
+{`NEXT_PUBLIC_PYTHON_SERVICES_URL=http://your-backend.com
+NEXT_PUBLIC_ADMIN_USERNAME=admin
+NEXT_PUBLIC_ADMIN_PASSWORD=your-secure-password`}
               </pre>
             </div>
           </div>

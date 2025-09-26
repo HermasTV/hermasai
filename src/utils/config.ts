@@ -1,8 +1,8 @@
 // Simple environment-based configuration
 export const CONFIG = {
-  PYTHON_SERVICES_URL: process.env.PYTHON_SERVICES_URL || 'http://127.0.0.1:8000',
-  ADMIN_USERNAME: process.env.ADMIN_USERNAME || 'admin',
-  ADMIN_PASSWORD: process.env.ADMIN_PASSWORD || 'hermasai2024'
+  PYTHON_SERVICES_URL: process.env.NEXT_PUBLIC_PYTHON_SERVICES_URL || 'http://127.0.0.1:8000',
+  ADMIN_USERNAME: process.env.NEXT_PUBLIC_ADMIN_USERNAME || 'admin',
+  ADMIN_PASSWORD: process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'hermasai2024'
 };
 
 // Helper function to get the Python services URL
