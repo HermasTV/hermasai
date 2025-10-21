@@ -5,21 +5,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Development Commands
 
 ### Quick Start (Single Command)
-- **Start all services**: `./start-dev.sh` (Linux/Mac) or `start-dev.bat` (Windows)
-
-This single command will:
-- Install all Node.js dependencies
-- Set up Python virtual environment in python-services/documents-services submodule
-- Install Python dependencies (pdf2docx, fastapi, PyPDF2, etc.)
-- Start Next.js dev server on http://localhost:3000
-- Start Python document processing service on http://127.0.0.1:8000
-- Handle graceful shutdown with Ctrl+C
+- **Start all services**: `npm run start-all`
+- **Stop all services**: `npm run stop-all`
 
 ### Individual Commands
-- **Start development server**: `npm run dev` (Next.js only)
+- **Start Next.js development server**: `npm run dev`
 - **Build project**: `npm run build`
 - **Start production server**: `npm start`
 - **Lint code**: `npm run lint`
+
+### Python Backend Service Commands
+Navigate to `python-services/documents-services/` directory:
+- **Install Python dependencies**: `pip install -r requirements.txt`
+- **Start Python service**: `python main.py` (runs on http://127.0.0.1:8000)
+- **Health check**: `curl http://127.0.0.1:8000/health`
 
 ### Production Deployment
 - **Frontend**: Deploy via AWS Amplify (main Next.js application)
