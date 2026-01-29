@@ -108,7 +108,8 @@ This is a Next.js 15 TypeScript application with separated backend services, foc
 - Backend services run independently and can be deployed separately
 - API configuration automatically handles development vs production URLs
 - Don't run 'npm run dev' command after any code update, ASK before doing it.
-- Dont push any code unless I told you to.
+- Don't push any code unless I told you to.
+- **IMPORTANT**: Do NOT include "Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>" in commit messages. Claude Code is already credited in the README.
 
 ### Deployment Architecture
 
