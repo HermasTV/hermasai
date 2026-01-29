@@ -13,19 +13,37 @@ export const metadata = {
 }
 
 export default async function BlogPage() {
-  const payload = await getPayload({ config })
+  console.log('[BLOG PAGE] Starting blog page render...')
+  console.log('[BLOG PAGE] Environment:', process.env.NODE_ENV)
 
-  const { docs: posts } = await payload.find({
-    collection: 'posts',
-    where: {
-      status: {
-        equals: 'published',
+  try {
+    console.log('[BLOG PAGE] Getting Payload instance...')
+    const payload = await getPayload({ config })
+    console.log('[BLOG PAGE] Payload instance obtained successfully')
+
+    console.log('[BLOG PAGE] Fetching published posts...')
+    const { docs: posts } = await payload.find({
+      collection: 'posts',
+      where: {
+        status: {
+          equals: 'published',
+        },
       },
-    },
-    sort: '-publishedAt',
-    limit: 20,
-    depth: 2,
-  })
+      sort: '-publishedAt',
+      limit: 20,
+      depth: 2,
+    })
+    console.log('[BLOG PAGE] Posts fetched successfully. Count:', posts.length)
+
+    return renderBlogPage(posts)
+  } catch (error) {
+    console.error('[BLOG PAGE] Error occurred:', error)
+    console.error('[BLOG PAGE] Error stack:', error instanceof Error ? error.stack : 'No stack trace')
+    throw error
+  }
+}
+
+function renderBlogPage(posts: any[]) {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/30">
@@ -120,4 +138,5 @@ export default async function BlogPage() {
       <Footer />
     </div>
   )
+}
 }
