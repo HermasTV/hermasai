@@ -6,6 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "build:test": "rm -rf .next && next build",
+    "start:prod": "next build && next start",
     "lint": "eslint",
     "start-all": "./start-dev.sh",
     "stop-all": "./stop-dev.sh"
