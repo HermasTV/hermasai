@@ -107,7 +107,8 @@ This is a Next.js 15 TypeScript application with separated backend services, foc
 - Model loading and inference optimized for browser performance
 - Backend services run independently and can be deployed separately
 - API configuration automatically handles development vs production URLs
-- Don't run 'npm run dev' command after any code update, I'll do it manually
+- Don't run 'npm run dev' command after any code update, ASK before doing it.
+- Dont push any code unless I told you to.
 
 ### Deployment Architecture
 

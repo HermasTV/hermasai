@@ -2,6 +2,7 @@
 import path from "path";
 import { fileURLToPath } from 'url';
 import type { NextConfig } from "next";
+import { withPayload } from '@payloadcms/next/withPayload'
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,12 +18,19 @@ const nextConfig: NextConfig = {
         config.resolve.alias = {
             ...config.resolve.alias,
             '@huggingface/transformers': path.resolve(__dirname, 'node_modules/@huggingface/transformers'),
-            "sharp$": false,
             "onnxruntime-node$": false,
         }
         return config;
     },
     serverExternalPackages: ["@huggingface/transformers"],
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: '**',
+            },
+        ],
+    },
 };
 
-export default nextConfig;
+export default withPayload(nextConfig);
