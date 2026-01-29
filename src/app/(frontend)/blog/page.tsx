@@ -15,13 +15,18 @@ export const metadata = {
 export default async function BlogPage() {
   console.log('[BLOG PAGE] Starting blog page render...')
   console.log('[BLOG PAGE] Environment:', process.env.NODE_ENV)
+  console.log('[BLOG PAGE] MongoDB URI exists:', !!process.env.MONGODB_URI)
+  console.log('[BLOG PAGE] MongoDB URI length:', process.env.MONGODB_URI?.length || 0)
 
   try {
     console.log('[BLOG PAGE] Getting Payload instance...')
+    const startTime = Date.now()
     const payload = await getPayload({ config })
-    console.log('[BLOG PAGE] Payload instance obtained successfully')
+    const payloadInitTime = Date.now() - startTime
+    console.log('[BLOG PAGE] Payload instance obtained successfully in', payloadInitTime + 'ms')
 
     console.log('[BLOG PAGE] Fetching published posts...')
+    const queryStart = Date.now()
     const { docs: posts } = await payload.find({
       collection: 'posts',
       where: {
@@ -33,17 +38,74 @@ export default async function BlogPage() {
       limit: 20,
       depth: 2,
     })
-    console.log('[BLOG PAGE] Posts fetched successfully. Count:', posts.length)
+    const queryTime = Date.now() - queryStart
+    console.log('[BLOG PAGE] Posts fetched successfully. Count:', posts.length, 'Time:', queryTime + 'ms')
 
-    return renderBlogPage(posts)
+    return renderBlogPage(posts, null)
   } catch (error) {
-    console.error('[BLOG PAGE] Error occurred:', error)
+    console.error('[BLOG PAGE] ========== ERROR OCCURRED ==========')
+    console.error('[BLOG PAGE] Error name:', error instanceof Error ? error.name : 'Unknown')
+    console.error('[BLOG PAGE] Error message:', error instanceof Error ? error.message : String(error))
     console.error('[BLOG PAGE] Error stack:', error instanceof Error ? error.stack : 'No stack trace')
-    throw error
+    console.error('[BLOG PAGE] MongoDB URI exists:', !!process.env.MONGODB_URI)
+    console.error('[BLOG PAGE] Payload Secret exists:', !!process.env.PAYLOAD_SECRET)
+    console.error('[BLOG PAGE] ====================================')
+
+    // Return error page instead of throwing
+    return renderBlogPage([], error)
   }
 }
 
-function renderBlogPage(posts: any[]) {
+function renderBlogPage(posts: any[], error: any = null) {
+  if (error) {
+    return (
+      <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/30">
+        <Navbar />
+        <main className="flex-grow container mx-auto px-4 py-24">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-8">
+              <h1 className="text-3xl font-bold text-red-400 mb-4">
+                Blog Page Error
+              </h1>
+              <div className="space-y-4 text-white">
+                <div>
+                  <h2 className="font-bold text-lg mb-2">Error Details:</h2>
+                  <pre className="bg-black/50 p-4 rounded overflow-x-auto text-sm">
+                    <code>{error instanceof Error ? error.message : String(error)}</code>
+                  </pre>
+                </div>
+                {error instanceof Error && error.stack && (
+                  <div>
+                    <h2 className="font-bold text-lg mb-2">Stack Trace:</h2>
+                    <pre className="bg-black/50 p-4 rounded overflow-x-auto text-xs">
+                      <code>{error.stack}</code>
+                    </pre>
+                  </div>
+                )}
+                <div>
+                  <h2 className="font-bold text-lg mb-2">Environment Check:</h2>
+                  <pre className="bg-black/50 p-4 rounded overflow-x-auto text-sm">
+                    <code>{JSON.stringify({
+                      nodeEnv: process.env.NODE_ENV,
+                      hasMongoUri: !!process.env.MONGODB_URI,
+                      mongoUriLength: process.env.MONGODB_URI?.length || 0,
+                      hasPayloadSecret: !!process.env.PAYLOAD_SECRET,
+                      hasS3Bucket: !!process.env.S3_BUCKET,
+                      timestamp: new Date().toISOString(),
+                    }, null, 2)}</code>
+                  </pre>
+                </div>
+                <p className="text-gray-300 mt-4">
+                  Check the server logs in AWS Amplify → Monitoring → CloudWatch for more details.
+                </p>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    )
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/30">

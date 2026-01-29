@@ -14,29 +14,44 @@ type Props = {
 
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params
-  const payload = await getPayload({ config })
 
-  const { docs: posts } = await payload.find({
-    collection: 'posts',
-    where: { slug: { equals: slug } },
-    limit: 1,
-  })
+  try {
+    console.log('[BLOG POST META] Generating metadata for slug:', slug)
+    const payload = await getPayload({ config })
 
-  const post = posts[0]
+    const { docs: posts } = await payload.find({
+      collection: 'posts',
+      where: { slug: { equals: slug } },
+      limit: 1,
+    })
 
-  if (!post) {
-    return { title: 'Post Not Found' }
-  }
+    const post = posts[0]
 
-  return {
-    title: `${post.title} | HermasAI Blog`,
-    description: post.excerpt || post.title,
+    if (!post) {
+      console.log('[BLOG POST META] Post not found for slug:', slug)
+      return { title: 'Post Not Found' }
+    }
+
+    console.log('[BLOG POST META] Metadata generated successfully for:', post.title)
+    return {
+      title: `${post.title} | HermasAI Blog`,
+      description: post.excerpt || post.title,
+    }
+  } catch (error) {
+    console.error('[BLOG POST META] Error generating metadata:', error)
+    return { title: 'Error Loading Post' }
   }
 }
 
 export default async function BlogPostPage({ params }: Props) {
   const { slug } = await params
-  const payload = await getPayload({ config })
+
+  console.log('[BLOG POST] Loading post for slug:', slug)
+  console.log('[BLOG POST] MongoDB URI exists:', !!process.env.MONGODB_URI)
+
+  try {
+    const payload = await getPayload({ config })
+    console.log('[BLOG POST] Payload instance obtained')
 
   const { docs: posts } = await payload.find({
     collection: 'posts',
@@ -214,4 +229,44 @@ export default async function BlogPostPage({ params }: Props) {
       <Footer />
     </div>
   )
+  } catch (error) {
+    console.error('[BLOG POST] ========== ERROR OCCURRED ==========')
+    console.error('[BLOG POST] Slug:', slug)
+    console.error('[BLOG POST] Error:', error)
+    console.error('[BLOG POST] Error stack:', error instanceof Error ? error.stack : 'No stack')
+    console.error('[BLOG POST] ====================================')
+
+    return (
+      <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/30">
+        <Navbar />
+        <main className="flex-grow container mx-auto px-4 py-24">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-8">
+              <h1 className="text-3xl font-bold text-red-400 mb-4">
+                Error Loading Blog Post
+              </h1>
+              <div className="space-y-4 text-white">
+                <p className="text-gray-300">Failed to load blog post: {slug}</p>
+                <div>
+                  <h2 className="font-bold text-lg mb-2">Error:</h2>
+                  <pre className="bg-black/50 p-4 rounded overflow-x-auto text-sm">
+                    <code>{error instanceof Error ? error.message : String(error)}</code>
+                  </pre>
+                </div>
+                {error instanceof Error && error.stack && (
+                  <div>
+                    <h2 className="font-bold text-lg mb-2">Stack Trace:</h2>
+                    <pre className="bg-black/50 p-4 rounded overflow-x-auto text-xs max-h-96">
+                      <code>{error.stack}</code>
+                    </pre>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </div>
+    )
+  }
 }
