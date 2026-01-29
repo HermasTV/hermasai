@@ -43,6 +43,16 @@ export default buildConfig({
   },
   db: mongooseAdapter({
     url: mongoUri,
+    // Serverless-optimized connection settings
+    connectOptions: {
+      serverSelectionTimeoutMS: 10000, // 10 second timeout for server selection
+      socketTimeoutMS: 45000, // 45 second socket timeout
+      maxPoolSize: 10, // Maximum 10 connections in pool
+      minPoolSize: 1, // Minimum 1 connection
+      maxIdleTimeMS: 30000, // Close idle connections after 30s
+      retryWrites: true,
+      retryReads: true,
+    },
   }),
   plugins: [
     s3Storage({
