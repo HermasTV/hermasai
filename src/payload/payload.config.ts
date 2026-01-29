@@ -1,6 +1,7 @@
 import { buildConfig } from 'payload'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import sharp from 'sharp'
@@ -28,5 +29,20 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.MONGODB_URI || 'mongodb://localhost:27017/hermasai',
   }),
+  plugins: [
+    s3Storage({
+      collections: {
+        media: true,
+      },
+      bucket: process.env.S3_BUCKET || 'hermasai-media',
+      config: {
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+        },
+        region: process.env.S3_REGION || 'us-east-1',
+      },
+    }),
+  ],
   sharp,
 })
