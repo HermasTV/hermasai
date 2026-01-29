@@ -201,4 +201,3 @@ function renderBlogPage(posts: any[], error: any = null) {
     </div>
   )
 }
-}
