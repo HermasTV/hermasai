@@ -59,7 +59,14 @@ export default buildConfig({
       collections: {
         media: {
           disableLocalStorage: true,
+          disablePayloadAccessControl: true,
           prefix: 'media',
+          generateFileURL: ({ filename, prefix }: { filename: string; prefix?: string }) => {
+            const bucket = process.env.S3_BUCKET || 'hermasai-media'
+            const region = process.env.S3_REGION || 'us-east-1'
+            const path = prefix ? `${prefix}/${filename}` : filename
+            return `https://${bucket}.s3.${region}.amazonaws.com/${path}`
+          },
         },
       },
       bucket: process.env.S3_BUCKET || 'hermasai-media',
