@@ -57,7 +57,10 @@ export default buildConfig({
   plugins: [
     s3Storage({
       collections: {
-        media: true,
+        media: {
+          disableLocalStorage: true,
+          prefix: 'media',
+        },
       },
       bucket: process.env.S3_BUCKET || 'hermasai-media',
       config: {
