@@ -7,7 +7,7 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 mx-auto px-4 max-w-7xl">
+    <nav className="fixed top-0 left-0 right-0 z-50 mx-auto pt-4 px-4 max-w-7xl">
       <div className="bg-gradient-to-r from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-md border border-gray-700/50 rounded-2xl shadow-2xl">
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
