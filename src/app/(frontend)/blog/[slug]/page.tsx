@@ -74,7 +74,7 @@ export default async function BlogPostPage({ params }: Props) {
       <Navbar />
 
       <main className="flex-grow">
-        <article className="max-w-4xl mx-auto px-4 py-24">
+        <article className="max-w-4xl mx-auto px-4 py-12">
           {/* Header */}
           <header className="mb-12">
             {/* Category */}
@@ -239,7 +239,7 @@ export default async function BlogPostPage({ params }: Props) {
     return (
       <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/30">
         <Navbar />
-        <main className="flex-grow container mx-auto px-4 py-24">
+        <main className="flex-grow container mx-auto px-4 py-12">
           <div className="max-w-4xl mx-auto">
             <div className="bg-red-900/20 border border-red-500/50 rounded-lg p-8">
               <h1 className="text-3xl font-bold text-red-400 mb-4">

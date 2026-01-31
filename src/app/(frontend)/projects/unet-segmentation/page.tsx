@@ -333,10 +333,10 @@ export default function UNetSegmentationPage() {
   return isWebGPUAvailable ? (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/30">
       <Navbar />
-      <main className="flex-grow overflow-hidden">
-        <div className="container mx-auto px-4 pt-24 pb-4 h-[calc(100vh-96px)]">
+      <main className="flex-grow">
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
           {/* Header */}
-          <div className="text-center mb-6">
+          <div className="text-center mb-8">
             <h1 className='text-3xl font-bold tracking-tight text-white sm:text-4xl mb-2'>
               DeepLabV3+ Segmentation
             </h1>
@@ -346,7 +346,7 @@ export default function UNetSegmentationPage() {
           </div>
 
           {/* Main Image Processing Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8 h-[400px]">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
 
             {/* Left Panel - Image Upload */}
             <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-6 backdrop-blur-sm">
@@ -372,7 +372,7 @@ export default function UNetSegmentationPage() {
                     <img
                       src={uploadedImage}
                       alt="Uploaded"
-                      className="w-full h-64 object-contain rounded-lg"
+                      className="w-full max-h-80 object-contain rounded-lg"
                     />
                   </div>
                   <div className="space-y-3">
@@ -437,7 +437,7 @@ export default function UNetSegmentationPage() {
                   </div>
                 </div>
               ) : (
-                <div className="h-64 flex items-center justify-center bg-gray-900/50 rounded-lg border border-gray-600/30">
+                <div className="min-h-[300px] flex items-center justify-center bg-gray-900/50 rounded-lg border border-gray-600/30">
                   <p className="text-gray-400 text-center">
                     Upload an image to start segmentation
                   </p>
@@ -474,7 +474,7 @@ export default function UNetSegmentationPage() {
                   <div className="relative bg-gray-900/50 rounded-lg border border-gray-600/30 p-2">
                     <canvas
                       ref={layerCanvasRef}
-                      className="w-full h-64 object-contain rounded-lg"
+                      className="w-full max-h-80 object-contain rounded-lg"
                       style={{ imageRendering: 'pixelated' }}
                     />
                   </div>
@@ -495,7 +495,7 @@ export default function UNetSegmentationPage() {
                       ref={canvasRef}
                       width={513}
                       height={513}
-                      className="w-full h-64 object-contain rounded-lg"
+                      className="w-full max-h-80 object-contain rounded-lg"
                       style={{ imageRendering: 'auto' }}
                     />
                   </div>
@@ -510,7 +510,7 @@ export default function UNetSegmentationPage() {
                   </div>
                 </div>
               ) : (
-                <div className="h-64 flex items-center justify-center bg-gray-900/50 rounded-lg border border-gray-600/30">
+                <div className="min-h-[300px] flex items-center justify-center bg-gray-900/50 rounded-lg border border-gray-600/30">
                   <p className="text-gray-400 text-center">
                     {showLayerViz ? "Layer visualizations will appear here" : "Segmentation results will appear here"}
                   </p>
@@ -520,7 +520,7 @@ export default function UNetSegmentationPage() {
           </div>
 
           {/* Bottom Section - About and Roadmap */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
             {/* About Section */}
             <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-6 backdrop-blur-sm">

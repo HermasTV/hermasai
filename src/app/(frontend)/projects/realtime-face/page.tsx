@@ -135,10 +135,10 @@ export default function RealtimeFacePage() {
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/30">
       <Navbar />
-      <main className="flex-grow overflow-hidden">
-        <div className="container mx-auto px-4 pt-24 pb-4 h-[calc(100vh-96px)]">
+      <main className="flex-grow">
+        <div className="container mx-auto px-4 py-8 max-w-7xl">
           {/* Header */}
-          <div className="text-center mb-6">
+          <div className="text-center mb-8">
             <h1 className='text-3xl font-bold tracking-tight text-white sm:text-4xl mb-2'>
               UltraFace Detection
             </h1>
@@ -148,27 +148,27 @@ export default function RealtimeFacePage() {
           </div>
 
           {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100%-120px)]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
             {/* Left Panel - About Section */}
-            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-5 backdrop-blur-sm overflow-y-auto">
-              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-6 backdrop-blur-sm">
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                 <span className="text-blue-400">🎯</span>
                 About
               </h3>
 
               <div className="space-y-4">
                 <div>
-                  <h4 className="text-sm font-semibold text-blue-400 mb-2">Technical Overview</h4>
-                  <p className="text-xs text-gray-300 leading-relaxed">
+                  <h4 className="text-base font-semibold text-blue-400 mb-2">Technical Overview</h4>
+                  <p className="text-sm text-gray-300 leading-relaxed">
                     Real-time face detection using UltraFace ONNX model with WebGPU acceleration.
                     Processes webcam video at 30+ FPS entirely client-side for privacy.
                   </p>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-purple-400 mb-2">Key Features</h4>
-                  <ul className="space-y-1 text-xs text-gray-300">
+                  <h4 className="text-base font-semibold text-purple-400 mb-2">Key Features</h4>
+                  <ul className="space-y-1 text-sm text-gray-300">
                     <li className="flex items-center gap-2">
                       <span className="text-green-400">✓</span>
                       Real-time video processing
@@ -189,26 +189,26 @@ export default function RealtimeFacePage() {
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-emerald-400 mb-2">Tech Stack</h4>
+                  <h4 className="text-base font-semibold text-emerald-400 mb-2">Tech Stack</h4>
                   <div className="space-y-2">
                     <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
-                      <span className="text-blue-300 font-medium text-xs">Model:</span>
-                      <p className="text-xs text-gray-400">UltraFace ONNX, 320x240 input</p>
+                      <span className="text-blue-300 font-medium text-sm">Model:</span>
+                      <p className="text-sm text-gray-400">UltraFace ONNX, 320x240 input</p>
                     </div>
                     <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
-                      <span className="text-purple-300 font-medium text-xs">Runtime:</span>
-                      <p className="text-xs text-gray-400">ONNX Runtime Web, WebGPU</p>
+                      <span className="text-purple-300 font-medium text-sm">Runtime:</span>
+                      <p className="text-sm text-gray-400">ONNX Runtime Web, WebGPU</p>
                     </div>
                     <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
-                      <span className="text-emerald-300 font-medium text-xs">Processing:</span>
-                      <p className="text-xs text-gray-400">NMS, Real-time inference</p>
+                      <span className="text-emerald-300 font-medium text-sm">Processing:</span>
+                      <p className="text-sm text-gray-400">NMS, Real-time inference</p>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-orange-400 mb-2">Architecture</h4>
-                  <p className="text-xs text-gray-300 leading-relaxed">
+                  <h4 className="text-base font-semibold text-orange-400 mb-2">Architecture</h4>
+                  <p className="text-sm text-gray-300 leading-relaxed">
                     Webcam frames are preprocessed, fed to UltraFace model for face detection,
                     and post-processed with Non-Maximum Suppression for accurate bounding boxes.
                   </p>
@@ -219,35 +219,35 @@ export default function RealtimeFacePage() {
             {/* Center Panel - Video Feed and Status */}
             <div className="flex flex-col gap-4">
               {/* Status Cards */}
-              <div className="grid grid-cols-3 gap-2">
-                <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-3 backdrop-blur-sm">
+              <div className="grid grid-cols-3 gap-3">
+                <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4 backdrop-blur-sm">
                   <div className="text-xs text-gray-400">Status</div>
                   <div className="text-sm font-semibold text-white">
                     {loadingError ? "Error" : modelLoaded ? "Loaded" : "Loading..."}
                   </div>
                 </div>
-                <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-3 backdrop-blur-sm">
+                <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4 backdrop-blur-sm">
                   <div className="text-xs text-gray-400">Device</div>
                   <div className="text-sm font-semibold text-white">
                     {isWebGPUAvailable ? "GPU" : "CPU"}
                   </div>
                 </div>
-                <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-3 backdrop-blur-sm">
+                <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4 backdrop-blur-sm">
                   <div className="text-xs text-gray-400">FPS</div>
                   <div className="text-sm font-semibold text-white">{fps}</div>
                 </div>
               </div>
 
               {/* Video Feed */}
-              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 backdrop-blur-sm flex-1 min-h-0 flex items-center justify-center">
+              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 backdrop-blur-sm flex items-center justify-center">
                 {loadingError ? (
                   <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4">
                     <p className="text-red-200 text-sm">{loadingError}</p>
                   </div>
                 ) : (
-                  <div className="relative">
+                  <div className="relative w-full max-w-2xl">
                     <div className="bg-gray-900 rounded-lg p-4 shadow-xl">
-                      <div className="relative bg-black rounded-lg overflow-hidden" style={{ width: 480, height: 360 }}>
+                      <div className="relative bg-black rounded-lg overflow-hidden aspect-video">
                         <video
                           ref={videoRef}
                           autoPlay
@@ -302,34 +302,34 @@ export default function RealtimeFacePage() {
             </div>
 
             {/* Right Panel - Roadmap */}
-            <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-xl p-5 backdrop-blur-sm overflow-y-auto">
-              <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+            <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-xl p-6 backdrop-blur-sm">
+              <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                 <span className="text-green-400">🚀</span>
                 Roadmap
               </h3>
 
               <div className="space-y-4">
                 <div>
-                  <h4 className="text-sm font-semibold text-green-400 mb-2">✅ Completed</h4>
+                  <h4 className="text-base font-semibold text-green-400 mb-2">✅ Completed</h4>
                   <div className="space-y-1">
-                    <div className="text-xs text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">UltraFace ONNX integration</div>
-                    <div className="text-xs text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">WebGPU acceleration</div>
-                    <div className="text-xs text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">Real-time video pipeline</div>
+                    <div className="text-sm text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">UltraFace ONNX integration</div>
+                    <div className="text-sm text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">WebGPU acceleration</div>
+                    <div className="text-sm text-gray-300 bg-green-500/10 px-2 py-1 rounded-md">Real-time video pipeline</div>
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-yellow-400 mb-2">🔄 In Progress</h4>
+                  <h4 className="text-base font-semibold text-yellow-400 mb-2">🔄 In Progress</h4>
                   <div className="space-y-1">
-                    <div className="text-xs text-gray-300 bg-yellow-500/10 px-2 py-1 rounded-md">Facial landmark detection</div>
+                    <div className="text-sm text-gray-300 bg-yellow-500/10 px-2 py-1 rounded-md">Facial landmark detection</div>
                   </div>
                 </div>
 
                 <div>
-                  <h4 className="text-sm font-semibold text-gray-400 mb-2">⏳ Planned</h4>
+                  <h4 className="text-base font-semibold text-gray-400 mb-2">⏳ Planned</h4>
                   <div className="space-y-1">
-                    <div className="text-xs text-gray-300 bg-gray-500/10 px-2 py-1 rounded-md">Face recognition features</div>
-                    <div className="text-xs text-gray-300 bg-gray-500/10 px-2 py-1 rounded-md">Emotion detection</div>
+                    <div className="text-sm text-gray-300 bg-gray-500/10 px-2 py-1 rounded-md">Face recognition features</div>
+                    <div className="text-sm text-gray-300 bg-gray-500/10 px-2 py-1 rounded-md">Emotion detection</div>
                   </div>
                 </div>
               </div>

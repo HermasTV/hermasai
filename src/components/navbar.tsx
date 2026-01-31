@@ -7,7 +7,7 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 mx-auto pt-4 px-4 max-w-7xl">
+    <nav className="mx-auto pt-4 px-4 max-w-7xl">
       <div className="bg-gradient-to-r from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-md border border-gray-700/50 rounded-2xl shadow-2xl">
         <div className="px-6 py-4">
           <div className="flex items-center justify-between">
@@ -58,18 +58,8 @@ export function Navbar() {
               </Link>
             </div>
 
-            {/* CTA Button + Mobile Menu Toggle */}
+            {/* Mobile Menu Toggle */}
             <div className="flex items-center space-x-3">
-              {/* CTA Button */}
-              <Link
-                href="/projects"
-                className="hidden sm:inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-              >
-                <span className="mr-2">🚀</span>
-                Explore AI
-              </Link>
-
-              {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="lg:hidden inline-flex items-center p-2 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg transition-colors duration-300"
@@ -122,15 +112,6 @@ export function Navbar() {
               >
                 📧 Contact
               </Link>
-              <div className="pt-2">
-                <Link
-                  href="/projects"
-                  className="block px-4 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-medium rounded-lg transition-all duration-300 text-center"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  🚀 Explore AI Projects
-                </Link>
-              </div>
             </div>
           </div>
         </div>
