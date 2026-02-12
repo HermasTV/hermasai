@@ -102,24 +102,22 @@ export default function ContactPage() {
         background-position: center;
         background-attachment: fixed;
         min-height: 100vh;
-        display: flex;
-        align-items: baseline;
-        justify-content: center;
-        padding: 20px;
         overflow: hidden;
       }
 
       .contact-container {
-        max-width: 1280px;
-        margin: 0 auto;
-        padding: 0 1rem;
+        min-height: calc(100vh - 100px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
       }
 
       .card {
         width: 340px;
         min-width: 340px;
         max-width: 340px;
-        margin: 0;
+        margin: auto;
         position: relative;
         z-index: 1;
         overflow: hidden;
