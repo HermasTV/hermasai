@@ -30,6 +30,9 @@ export function Navbar() {
               </div>
             </Link>
 
+            {/* Spacer */}
+            <div className="flex-1"></div>
+
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-1">
               <Link

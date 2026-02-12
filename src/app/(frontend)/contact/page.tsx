@@ -109,11 +109,17 @@ export default function ContactPage() {
         overflow: hidden;
       }
 
+      .contact-container {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
       .card {
         width: 340px;
         min-width: 340px;
         max-width: 340px;
-        margin: auto;
+        margin: 0;
         position: relative;
         z-index: 1;
         overflow: hidden;
@@ -489,7 +495,8 @@ export default function ContactPage() {
     `}</style>
 
       <Navbar />
-      <div className="card" data-state="#about">
+      <div className="contact-container">
+        <div className="card" data-state="#about">
         <div className="card-header">
           <div
             className="card-cover"
@@ -633,6 +640,7 @@ export default function ContactPage() {
             <button data-section="#contact">CONTACT</button>
           </div>
         </div>
+      </div>
       </div>
     </>
   );
