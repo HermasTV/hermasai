@@ -1,7 +1,35 @@
-import Link from "next/link";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
 import AnimatedBackground from "@/components/animated-background";
+import HomeHero from "@/components/home-hero";
+import FlipCard from "@/components/flip-card";
+
+const cards = [
+  {
+    icon: '🧠',
+    title: 'Browser AI Demos',
+    subtitle: 'WebGPU · ONNX.js · TensorFlow.js',
+    details: 'Real-time AI applications running directly in the browser using ONNX.js, TensorFlow.js, and WebGPU for optimal performance.',
+    gradient: 'bg-gradient-to-br from-blue-600/90 to-purple-700/90',
+    iconBg: 'bg-blue-500/20',
+  },
+  {
+    icon: '⚡',
+    title: 'ML APIs & Services',
+    subtitle: 'FastAPI · Python · Computer Vision',
+    details: 'Lightweight backend services for speech recognition, computer vision, and other machine learning tasks with Python and FastAPI.',
+    gradient: 'bg-gradient-to-br from-purple-600/90 to-pink-700/90',
+    iconBg: 'bg-purple-500/20',
+  },
+  {
+    icon: '📖',
+    title: 'AI Research & Tutorials',
+    subtitle: 'Case Studies · Deep Dives · Docs',
+    details: 'In-depth case studies, tutorials, and documentation of larger AI projects and research experiments.',
+    gradient: 'bg-gradient-to-br from-emerald-600/90 to-teal-700/90',
+    iconBg: 'bg-emerald-500/20',
+  },
+];
 
 export default function Home() {
   return (
@@ -9,58 +37,21 @@ export default function Home() {
       <AnimatedBackground />
       <Navbar />
       <main className="flex-grow">
-        <div className="container mx-auto px-4 pt-24 pb-12">
-      {/* Hero Section */}
-      <section className="text-center py-20">
-        <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Hermas.ai
-        </h1>
-        <p className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-          Welcome to my Virtual Garage for AI experiments.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link 
-            href="/projects" 
-            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
-          >
-            View Projects
-          </Link>
-          <Link 
-            href="/contact" 
-            className="border border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 px-8 py-3 rounded-lg font-semibold transition-colors"
-          >
-            Get in Touch
-          </Link>
-        </div>
-      </section>
+        <div className="container mx-auto px-4 pt-12 pb-12">
 
-      {/* Featured Areas */}
-      <section className="py-16">
-        <h2 className="text-3xl font-bold text-center mb-12">What I Do</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-3">Browser AI Demos</h3>
-            <p className="text-gray-600 dark:text-gray-300">
-              Real-time AI applications running directly in the browser using ONNX.js, 
-              TensorFlow.js, and WebGPU for optimal performance.
-            </p>
-          </div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-3">ML APIs & Services</h3>
-            <p className="text-gray-600 dark:text-gray-300">
-              Lightweight backend services for speech recognition, computer vision, 
-              and other machine learning tasks with Python and FastAPI.
-            </p>
-          </div>
-          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-            <h3 className="text-xl font-semibold mb-3">AI Research & Tutorials</h3>
-            <p className="text-gray-600 dark:text-gray-300">
-              In-depth case studies, tutorials, and documentation of larger AI projects 
-              and research experiments.
-            </p>
-          </div>
-        </div>
-      </section>
+          <HomeHero />
+
+          {/* What I Do Section */}
+          <section className="py-16">
+            <h2 className="text-3xl font-bold text-center text-white mb-4">What I Do</h2>
+            <p className="text-center text-gray-400 mb-12 text-sm">Hover over a card to learn more</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {cards.map((card) => (
+                <FlipCard key={card.title} {...card} />
+              ))}
+            </div>
+          </section>
+
         </div>
       </main>
       <Footer />
