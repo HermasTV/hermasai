@@ -28,7 +28,7 @@
     "graphql": "^16.11.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.2",
-    "next": "15.5.0",
+    "next": "15.5.9",
     "onnxruntime-web": "^1.17.3",
     "payload": "^3.61.0",
     "pdf-parse": "^1.1.1",
