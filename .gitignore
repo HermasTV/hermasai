@@ -16,6 +16,7 @@
 
 # Services still under active development — tracked in their own repos
 /services/interviews/
+/services/i-am-not-a-number-agents/
 
 # next.js
 /.next/
