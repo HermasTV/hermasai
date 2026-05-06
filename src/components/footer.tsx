@@ -1,10 +1,10 @@
 export default function Footer() {
   return (
-    <footer className="bg-gray-100 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700">
+    <footer className="border-t border-gray-700/50 bg-gray-900/50 backdrop-blur-sm relative z-10">
       <div className="container mx-auto px-4 py-6">
-        <div className="text-center text-gray-600 dark:text-gray-400">
-          <p>&copy; 2026 AI Portfolio. Built with Next.js and Tailwind CSS.</p>
-        </div>
+        <p className="text-center text-sm text-gray-400">
+          © 2026 Hermas AI — Built with Next.js, TailwindCSS &amp; vibe coding.
+        </p>
       </div>
     </footer>
   );

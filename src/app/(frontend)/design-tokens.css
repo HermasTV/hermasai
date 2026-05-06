@@ -1,0 +1,166 @@
+/* ==========================================================================
+   Hermas.ai Design System — Colors & Type
+   Source: HermasTV/hermasai (genai branch)
+   ========================================================================== */
+
+/* Geist Sans + Geist Mono via Google Fonts (matches next/font Geist usage) */
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600;700&display=swap');
+
+/* The /contact page uses Jost + DM Sans for a light "vCard" style */
+@import url('https://fonts.googleapis.com/css2?family=Jost:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap');
+
+:root {
+  /* ---------- Brand color triad (used in gradients everywhere) ---------- */
+  --brand-blue:   #60a5fa;   /* tailwind blue-400  */
+  --brand-blue-2: #3b82f6;   /* blue-500           */
+  --brand-blue-3: #2563eb;   /* blue-600           */
+  --brand-purple: #a78bfa;   /* purple-400         */
+  --brand-purple-2:#8b5cf6;  /* purple-500         */
+  --brand-purple-3:#7c3aed;  /* purple-600         */
+  --brand-pink:   #f472b6;   /* pink-400           */
+  --brand-pink-2: #ec4899;   /* pink-500           */
+  --brand-pink-3: #db2777;   /* pink-600           */
+
+  /* Signature gradients */
+  --grad-brand-text: linear-gradient(90deg, var(--brand-blue), var(--brand-purple), var(--brand-pink));
+  --grad-brand-cta:  linear-gradient(90deg, #3b82f6, #7c3aed);            /* blue-500 → purple-600 */
+  --grad-brand-cta-hover: linear-gradient(90deg, #2563eb, #6d28d9);
+  --grad-logo-tile:  linear-gradient(135deg, #60a5fa, #8b5cf6, #ec4899);  /* blue-400 → purple-500 → pink-500 */
+  --grad-page-bg:    linear-gradient(135deg, #111827 0%, rgba(30,58,138,0.20) 50%, rgba(88,28,135,0.30) 100%);
+  --grad-card-blue:  linear-gradient(135deg, rgba(37,99,235,0.90),  rgba(126,34,206,0.90));  /* blue → purple */
+  --grad-card-purple:linear-gradient(135deg, rgba(147,51,234,0.90), rgba(190,24,93,0.90));   /* purple → pink */
+  --grad-card-emerald:linear-gradient(135deg, rgba(5,150,105,0.90), rgba(15,118,110,0.90));  /* emerald → teal */
+  --grad-contact-cta:linear-gradient(90deg, rgba(83,200,239,0.8), rgba(81,106,204,0.8));     /* /contact page */
+
+  /* ---------- Surfaces (dark / portfolio) ---------- */
+  --bg-page:        #0a0a0a;
+  --bg-base:        #111827;   /* gray-900           */
+  --bg-elev-1:      #1f2937;   /* gray-800           */
+  --bg-elev-2:      #374151;   /* gray-700           */
+  --bg-glass-80:    rgba(31, 41, 55, 0.80);  /* gray-800/80  glassmorphism card */
+  --bg-glass-50:    rgba(31, 41, 55, 0.50);
+  --bg-glass-95:    rgba(17, 24, 39, 0.95);  /* navbar pill   */
+  --bg-overlay-tint:rgba(255, 255, 255, 0.10);
+
+  /* ---------- Foregrounds ---------- */
+  --fg1:        #ffffff;       /* white          — headings, primary */
+  --fg2:        #d1d5db;       /* gray-300       — body              */
+  --fg3:        #9ca3af;       /* gray-400       — secondary / meta  */
+  --fg4:        #6b7280;       /* gray-500       — tertiary / hints  */
+  --fg-link:    #60a5fa;       /* blue-400 link  */
+  --fg-link-h:  #93c5fd;       /* blue-300 hover */
+
+  /* ---------- Borders ---------- */
+  --border-1:   rgba(55, 65, 81, 0.50);   /* gray-700/50 — default card */
+  --border-2:   rgba(255, 255, 255, 0.10);
+  --border-brand:rgba(59, 130, 246, 0.50);/* blue-500/50 — outline btn */
+  --border-brand-h:#60a5fa;
+
+  /* ---------- Semantic accents (project cards / blog tags) ---------- */
+  --accent-blue:    #2563eb;  --accent-blue-bg:    #dbeafe; --accent-blue-fg:    #1e40af;
+  --accent-green:   #16a34a;  --accent-green-bg:   #dcfce7; --accent-green-fg:   #166534;
+  --accent-orange:  #ea580c;  --accent-orange-bg:  #ffedd5; --accent-orange-fg:  #9a3412;
+  --accent-purple:  #9333ea;  --accent-purple-bg:  #f3e8ff; --accent-purple-fg:  #6b21a8;
+  --accent-pink:    #db2777;  --accent-pink-bg:    #fce7f3; --accent-pink-fg:    #9d174d;
+  --accent-emerald: #059669;
+  --accent-teal:    #0d9488;
+  --status-online:  #4ade80;  /* green-400, navbar pulse dot */
+
+  /* ---------- /contact page (light vCard) ---------- */
+  --contact-fg:        #2b2c48;
+  --contact-fg-soft:   #636b6f;
+  --contact-fg-soft-2: #6f6f7b;
+  --contact-fg-soft-3: #5c5c6d;
+  --contact-accent:    #8a84ff;
+  --contact-card-bg:   #ffffff;
+
+  /* ---------- Type families ---------- */
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-vcard:"Jost", sans-serif;          /* /contact only */
+  --font-vcard-body:"DM Sans", sans-serif;  /* /contact only */
+
+  /* ---------- Type scale ---------- */
+  --fs-display:   clamp(3rem, 7vw, 4.5rem);   /* 48–72  hero "Hermas.ai" */
+  --fs-h1:        clamp(2.25rem, 4vw, 3rem);  /* 36–48  page title       */
+  --fs-h2:        1.875rem;                   /* 30  section header      */
+  --fs-h3:        1.25rem;                    /* 20  card title          */
+  --fs-h4:        1.125rem;                   /* 18                      */
+  --fs-body:      1rem;                       /* 16                      */
+  --fs-body-sm:   0.875rem;                   /* 14                      */
+  --fs-meta:      0.75rem;                    /* 12  tag / meta          */
+  --fs-micro:     0.6875rem;                  /* 11  uppercase eyebrow   */
+
+  --lh-tight:  1.2;
+  --lh-snug:   1.35;
+  --lh-body:   1.6;
+
+  --fw-regular: 400;
+  --fw-medium:  500;
+  --fw-semibold:600;
+  --fw-bold:    700;
+
+  /* ---------- Radii (Tailwind matched) ---------- */
+  --radius-sm:    0.25rem;   /* rounded        */
+  --radius-md:    0.5rem;    /* rounded-lg     */
+  --radius-lg:    0.75rem;   /* rounded-xl     */
+  --radius-xl:    1rem;      /* rounded-2xl  ★ default card    */
+  --radius-pill:  9999px;
+
+  /* ---------- Spacing (4px grid) ---------- */
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
+  --space-4: 1rem;    --space-5: 1.25rem;--space-6: 1.5rem;
+  --space-8: 2rem;    --space-10:2.5rem; --space-12:3rem;
+  --space-16:4rem;    --space-20:5rem;   --space-24:6rem;
+
+  /* ---------- Shadows ---------- */
+  --shadow-md:  0 4px 6px rgba(0,0,0,0.10);
+  --shadow-lg:  0 10px 15px -3px rgba(0,0,0,0.10), 0 4px 6px -4px rgba(0,0,0,0.10);
+  --shadow-xl:  0 20px 25px -5px rgba(0,0,0,0.10), 0 8px 10px -6px rgba(0,0,0,0.10);
+  --shadow-2xl: 0 25px 50px -12px rgba(0,0,0,0.50);   /* card, navbar    */
+  --shadow-glow-blue:   0 0 24px rgba(59,130,246,0.45);
+  --shadow-glow-purple: 0 0 24px rgba(139,92,246,0.40);
+
+  /* ---------- Blur ---------- */
+  --blur-md:  12px;   /* backdrop-blur-md  navbar           */
+  --blur-sm:  8px;    /* backdrop-blur-sm  flip-card front  */
+  --blur-bg:  30px;   /* /contact card cover                */
+
+  /* ---------- Motion ---------- */
+  --dur-fast:    150ms;
+  --dur-base:    300ms;   /* hover / nav links               */
+  --dur-slow:    500ms;
+  --dur-flip:    700ms;   /* flip-card                       */
+  --ease-std:    cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out:    cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* ==========================================================================
+   Semantic helpers (drop-in classes used by previews & UI kit)
+   ========================================================================== */
+
+/* Note: body styles intentionally NOT applied here — the /contact page
+   uses a fixed-attachment watermelon wallpaper that must win. Apply
+   .h-display/.h1/etc. to elements where needed. */
+
+.font-sans  { font-family: var(--font-sans);  }
+.font-mono  { font-family: var(--font-mono);  }
+.font-vcard { font-family: var(--font-vcard); }
+
+.h-display { font: var(--fw-bold) var(--fs-display)/var(--lh-tight) var(--font-sans);
+             background: var(--grad-brand-text); -webkit-background-clip: text;
+             background-clip: text; color: transparent; letter-spacing: -0.02em; }
+.h1 { font: var(--fw-bold) var(--fs-h1)/var(--lh-tight) var(--font-sans); color: var(--fg1); letter-spacing: -0.01em; }
+.h2 { font: var(--fw-bold) var(--fs-h2)/var(--lh-tight) var(--font-sans); color: var(--fg1); }
+.h3 { font: var(--fw-semibold) var(--fs-h3)/var(--lh-snug) var(--font-sans); color: var(--fg1); }
+.h4 { font: var(--fw-semibold) var(--fs-h4)/var(--lh-snug) var(--font-sans); color: var(--fg1); }
+.p  { font: var(--fw-regular) var(--fs-body)/var(--lh-body) var(--font-sans); color: var(--fg2); }
+.p-sm{ font: var(--fw-regular) var(--fs-body-sm)/var(--lh-body) var(--font-sans); color: var(--fg2); }
+.meta{ font: var(--fw-medium) var(--fs-meta)/1 var(--font-sans); color: var(--fg3); }
+.eyebrow{ font: var(--fw-medium) var(--fs-micro)/1 var(--font-sans); color: var(--fg3);
+          text-transform: uppercase; letter-spacing: 0.12em; }
+.code, code { font-family: var(--font-mono); font-size: 0.9em; color: var(--fg2); }
+
+.gradient-text { background: var(--grad-brand-text); -webkit-background-clip: text;
+                 background-clip: text; color: transparent; }
