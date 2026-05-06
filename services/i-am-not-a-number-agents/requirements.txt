@@ -1,0 +1,8 @@
+# Family graph pipeline (stdlib only): sqlite3, json, re, collections
+
+# Dev visualization tool
+streamlit>=1.30
+pyvis>=0.3.2
+pandas>=2.0
+
+# Future phases will add: anthropic, openai, httpx, beautifulsoup4, pydantic, fastapi

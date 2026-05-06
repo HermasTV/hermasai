@@ -1,3 +1,6 @@
-[submodule "python-services/documents-services"]
-	path = python-services/documents-services
+[submodule "services/i-am-not-a-number"]
+	path = services/i-am-not-a-number
+	url = https://github.com/HermasTV/i-am-not-a-number
+[submodule "services/documents-services"]
+	path = services/documents-services
 	url = https://github.com/HermasTV/documents-services.git

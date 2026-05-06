@@ -14,8 +14,8 @@
 /coverage
 /ignore-folder/
 
-# Python services (managed separately)
-/python-services/
+# Services still under active development — tracked in their own repos
+/services/interviews/
 
 # next.js
 /.next/
