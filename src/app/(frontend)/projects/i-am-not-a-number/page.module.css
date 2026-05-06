@@ -1,0 +1,71 @@
+/* Range slider track/thumb — cannot be done with Tailwind */
+.rangeTrack {
+  position: relative;
+  height: 28px;
+}
+
+.rangeTrack input[type="range"] {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  height: 28px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+  margin: 0;
+}
+
+.rangeTrack input[type="range"]::-webkit-slider-runnable-track {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+}
+
+.rangeMin::-webkit-slider-runnable-track {
+  background: transparent !important;
+}
+
+.rangeTrack input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  pointer-events: all;
+  margin-top: -6.5px;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.rangeTrack input[type="range"]::-moz-range-track {
+  height: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 2px;
+  border: none;
+}
+
+.rangeTrack input[type="range"]::-moz-range-thumb {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+  pointer-events: all;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+/* Modal content links */
+.modalContent a {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: underline;
+}
+
+.modalContent p {
+  margin-bottom: 16px;
+  opacity: 0.85;
+}
+
+.modalContent p:last-child {
+  margin-bottom: 0;
+}
