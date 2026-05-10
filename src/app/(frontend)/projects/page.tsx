@@ -1,7 +1,35 @@
+import type { Metadata } from "next";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
 import AnimatedBackground from "@/components/animated-background";
 import Link from "next/link";
+import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
+
+// /projects is the hub page that internally links every demo. Targeting
+// "Ahmed Hermas projects" + the project-type long-tails keeps the index
+// competitive for people searching the brand alongside topic terms.
+export const metadata: Metadata = {
+  title: "AI Projects & Browser ML Demos",
+  description:
+    "Live AI projects by Ahmed Hermas — browser-based Whisper speech-to-text, real-time face detection, U-Net segmentation, and AI-powered resume analysis. All demos run in your browser with WebGPU.",
+  alternates: { canonical: "/projects" },
+  openGraph: {
+    title: "AI Projects & Browser ML Demos · Ahmed Hermas",
+    description:
+      "Live, browser-based AI demos by Ahmed Hermas — WebGPU Whisper, real-time face detection, segmentation, and more.",
+    url: "/projects",
+    type: "website",
+  },
+  keywords: [
+    "Ahmed Hermas projects",
+    "browser AI demos",
+    "WebGPU demos",
+    "ONNX browser",
+    "Whisper WebGPU",
+    "real-time face detection JavaScript",
+    "AI portfolio",
+  ],
+};
 
 type ProjectTagColor = 'blue' | 'green' | 'orange' | 'purple' | 'pink' | 'gray';
 
@@ -174,32 +202,49 @@ const BADGE_STYLES: Record<ProjectTagColor, string> = {
 export default function ProjectsPage() {
   return (
     <div className="min-h-screen flex flex-col">
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Projects', url: '/projects' },
+        ]}
+      />
       <AnimatedBackground />
       <Navbar />
       <main className="flex-grow">
-        <div className="container mx-auto px-4 pt-24 pb-16 max-w-6xl">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-8">Projects</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="container mx-auto px-4 pt-12 sm:pt-16 pb-16 max-w-6xl">
+          <header className="mb-10 sm:mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight">Projects</h1>
+            <p className="mt-3 text-base text-gray-400 max-w-2xl">
+              Live, browser-based AI demos and tools — built end-to-end and shipped here.
+            </p>
+          </header>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
             {PROJECTS.map((p) => (
-              <Link key={p.href} href={p.href} className="block group">
-                <div className="bg-gray-800/80 border border-gray-700/50 backdrop-blur-sm rounded-lg p-6 transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg group-hover:border-gray-600/60 h-full">
-                  <div className="flex items-center mb-4">
-                    <div className={`w-12 h-12 ${p.iconColor} rounded-lg flex items-center justify-center mr-4 flex-shrink-0`}>
+              <Link
+                key={p.href}
+                href={p.href}
+                className="block group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 rounded-xl"
+              >
+                <div className="bg-gray-800/80 border border-gray-700/50 backdrop-blur-sm rounded-xl p-6 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-2xl group-hover:border-gray-500/60 h-full flex flex-col">
+                  <div className="flex items-start gap-4 mb-4">
+                    <div className={`w-12 h-12 ${p.iconColor} rounded-lg flex items-center justify-center flex-shrink-0 shadow-md`}>
                       <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         {p.iconPath}
                       </svg>
                     </div>
-                    <div className="min-w-0">
-                      <h3 className="text-xl font-semibold mb-1 text-white truncate">{p.title}</h3>
-                      <span className={`inline-block ${BADGE_STYLES[p.badgeColor]} text-xs px-2 py-1 rounded-full font-medium`}>
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-lg sm:text-xl font-semibold text-white leading-snug">
+                        {p.title}
+                      </h3>
+                      <span className={`inline-block mt-2 ${BADGE_STYLES[p.badgeColor]} text-xs px-2 py-1 rounded-full font-medium`}>
                         {p.badge}
                       </span>
                     </div>
                   </div>
-                  <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                  <p className="text-gray-300 text-sm leading-relaxed mb-5 flex-1">
                     {p.description}
                   </p>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 mt-auto">
                     {p.tags.map((tag) => (
                       <span key={tag.label} className={`${TAG_STYLES[tag.color]} text-xs px-2 py-1 rounded font-medium`}>
                         {tag.label}
@@ -211,9 +256,14 @@ export default function ProjectsPage() {
             ))}
 
             {/* Coming Soon placeholder card */}
-            <div className="bg-gray-800/40 border border-gray-700/40 backdrop-blur-sm rounded-lg p-6 opacity-60 h-full">
-              <h3 className="text-xl font-semibold mb-2 text-white">Coming Soon</h3>
-              <p className="text-gray-400 text-sm">
+            <div className="bg-gray-800/30 border border-dashed border-gray-700/60 backdrop-blur-sm rounded-xl p-6 h-full flex flex-col items-start justify-center min-h-[180px]">
+              <div className="w-12 h-12 rounded-lg border border-dashed border-gray-600/60 flex items-center justify-center mb-4 text-gray-500">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-semibold mb-2 text-gray-200">Coming Soon</h3>
+              <p className="text-gray-500 text-sm">
                 More AI projects and demos will be showcased here.
               </p>
             </div>

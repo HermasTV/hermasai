@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
+import AnimatedBackground from "@/components/animated-background";
 import { AudioManager } from "@/components/AudioManager";
 import Transcript from "@/components/Transcript";
 import { useTranscriber } from "@/hooks/useTranscriber";
@@ -27,25 +28,26 @@ export default function SpeechToTextPage() {
   }
 
   return isWebGPUAvailable ? (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/30">
+    <div className="min-h-screen flex flex-col">
+      <AnimatedBackground />
       <Navbar />
-      <main className="flex-grow overflow-hidden">
-        <div className="container mx-auto px-4 pt-24 pb-4 h-[calc(100vh-96px)]">
+      <main className="flex-grow">
+        <div className="container mx-auto px-4 pt-8 pb-12 sm:pt-12 max-w-7xl">
           {/* Header */}
-          <div className="text-center mb-6">
-            <h1 className='text-3xl font-bold tracking-tight text-white sm:text-4xl mb-2'>
+          <div className="text-center mb-8 sm:mb-10">
+            <h1 className='text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2'>
               Whisper WebGPU
             </h1>
-            <h2 className='text-lg font-medium tracking-tight text-gray-200'>
+            <h2 className='text-base sm:text-lg font-medium tracking-tight text-gray-300 max-w-2xl mx-auto'>
               ML-powered speech recognition directly in your browser
             </h2>
           </div>
 
           {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100%-120px)]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
             {/* Left Panel - About Section */}
-            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-5 backdrop-blur-sm overflow-y-auto">
+            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-5 sm:p-6 backdrop-blur-sm">
               <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <span className="text-blue-400">🎯</span>
                 About
@@ -111,26 +113,26 @@ export default function SpeechToTextPage() {
             </div>
 
             {/* Center Panel - Controls and Transcript */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 lg:gap-6 min-w-0">
               {/* Audio Controls */}
-              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 backdrop-blur-sm">
+              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 sm:p-5 backdrop-blur-sm">
                 <AudioManager transcriber={transcriber} />
               </div>
 
               {/* Transcript Area */}
-              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 backdrop-blur-sm flex-1 min-h-0">
+              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 sm:p-5 backdrop-blur-sm flex-1 min-h-[280px] flex flex-col">
                 <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
                   <span className="text-green-400">📝</span>
                   Transcript
                 </h3>
-                <div className="h-full overflow-y-auto">
+                <div className="flex-1 min-h-0 overflow-y-auto">
                   <Transcript transcribedData={transcriber.output} />
                 </div>
               </div>
             </div>
 
             {/* Right Panel - Roadmap */}
-            <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-xl p-5 backdrop-blur-sm overflow-y-auto">
+            <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20 rounded-xl p-5 sm:p-6 backdrop-blur-sm">
               <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <span className="text-blue-400">🚀</span>
                 Roadmap
@@ -161,12 +163,13 @@ export default function SpeechToTextPage() {
       <Footer />
     </div>
   ) : (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/30">
+    <div className="min-h-screen flex flex-col">
+      <AnimatedBackground />
       <Navbar />
-      <main className="flex-grow flex items-center justify-center">
-        <div className='text-white text-2xl font-semibold flex flex-col justify-center items-center text-center max-w-md'>
-          <h1 className='text-4xl mb-4'>WebGPU Not Supported</h1>
-          <p className='text-lg text-gray-300'>WebGPU is not supported by this browser. Please use Chrome or Edge with WebGPU enabled.</p>
+      <main className="flex-grow flex items-center justify-center px-4 py-16">
+        <div className='flex flex-col justify-center items-center text-center max-w-md bg-gray-800/60 border border-gray-700/50 rounded-2xl p-8 backdrop-blur-sm'>
+          <h1 className='text-3xl sm:text-4xl font-bold text-white mb-3'>WebGPU Not Supported</h1>
+          <p className='text-base sm:text-lg text-gray-300 leading-relaxed'>WebGPU is not supported by this browser. Please use Chrome or Edge with WebGPU enabled.</p>
         </div>
       </main>
       <Footer />

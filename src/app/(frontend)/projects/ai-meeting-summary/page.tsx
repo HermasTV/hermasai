@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
+import AnimatedBackground from "@/components/animated-background";
 
 export default function AIMeetingSummaryPage() {
   const [audioFile, setAudioFile] = useState<File | null>(null);
@@ -56,25 +57,26 @@ export default function AIMeetingSummaryPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-green-900/20 to-blue-900/30">
+    <div className="min-h-screen flex flex-col">
+      <AnimatedBackground />
       <Navbar />
-      <main className="flex-grow overflow-hidden">
-        <div className="container mx-auto px-4 pt-24 pb-4 h-[calc(100vh-96px)]">
+      <main className="flex-grow">
+        <div className="container mx-auto px-4 pt-8 pb-12 sm:pt-12 max-w-7xl">
           {/* Header */}
-          <div className="text-center mb-6">
-            <h1 className='text-3xl font-bold tracking-tight text-white sm:text-4xl mb-2'>
+          <div className="text-center mb-8 sm:mb-10">
+            <h1 className='text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2'>
               AI Meeting Summary
             </h1>
-            <h2 className='text-lg font-medium tracking-tight text-gray-200'>
-              AI-powered transcription using OpenAI's latest models
+            <h2 className='text-base sm:text-lg font-medium tracking-tight text-gray-300 max-w-2xl mx-auto'>
+              AI-powered transcription using OpenAI&apos;s latest models
             </h2>
           </div>
 
           {/* Main Content Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 h-[calc(100%-120px)]">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
             {/* Left Panel - About Section */}
-            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-5 backdrop-blur-sm overflow-y-auto">
+            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-5 sm:p-6 backdrop-blur-sm">
               <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <span className="text-blue-400">🎯</span>
                 About
@@ -140,9 +142,9 @@ export default function AIMeetingSummaryPage() {
             </div>
 
             {/* Center Panel - Controls and Transcription */}
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 lg:gap-6 min-w-0">
               {/* Input Controls */}
-              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 backdrop-blur-sm space-y-4">
+              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 sm:p-5 backdrop-blur-sm space-y-4">
                 {/* API Key Input */}
                 <div>
                   <label htmlFor="apiKey" className="block text-sm font-medium text-gray-200 mb-2">
@@ -221,13 +223,13 @@ export default function AIMeetingSummaryPage() {
               </div>
 
               {/* Transcription Results */}
-              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 backdrop-blur-sm flex-1 min-h-0">
+              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 sm:p-5 backdrop-blur-sm flex-1 min-h-[280px] flex flex-col">
                 <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
                   <span className="text-green-400">📝</span>
                   Transcription
                 </h3>
                 {transcription ? (
-                  <div className="h-full flex flex-col">
+                  <div className="flex flex-col flex-1 min-h-0">
                     <div className="bg-gray-900/50 border border-gray-600/30 rounded-lg p-4 flex-1 overflow-y-auto">
                       <p className="text-gray-200 whitespace-pre-wrap leading-relaxed text-sm">
                         {transcription}
@@ -241,15 +243,15 @@ export default function AIMeetingSummaryPage() {
                     </button>
                   </div>
                 ) : (
-                  <div className="h-full flex items-center justify-center">
-                    <p className="text-gray-400 text-sm">Upload an audio file and start transcribing to see results here</p>
+                  <div className="flex-1 flex items-center justify-center">
+                    <p className="text-gray-400 text-sm text-center">Upload an audio file and start transcribing to see results here</p>
                   </div>
                 )}
               </div>
             </div>
 
             {/* Right Panel - Roadmap */}
-            <div className="bg-gradient-to-br from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-xl p-5 backdrop-blur-sm overflow-y-auto">
+            <div className="bg-gradient-to-br from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-xl p-5 sm:p-6 backdrop-blur-sm">
               <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <span className="text-green-400">🚀</span>
                 Roadmap

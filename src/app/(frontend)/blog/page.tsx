@@ -5,11 +5,31 @@ import Image from 'next/image'
 import { Navbar } from '@/components/navbar'
 import Footer from '@/components/footer'
 
+import type { Metadata } from 'next'
+import { BreadcrumbJsonLd } from '@/lib/seo/jsonld'
+
 export const dynamic = 'force-dynamic'
 
-export const metadata = {
-  title: 'Blog | HermasAI',
-  description: 'Tutorials, development insights, and AI/ML articles',
+export const metadata: Metadata = {
+  title: 'Blog · AI, Computer Vision & Browser ML',
+  description:
+    'Tutorials and deep-dives by Ahmed Hermas on browser-based AI, WebGPU, ONNX Runtime, computer vision, and shipping ML to the edge.',
+  alternates: { canonical: '/blog' },
+  openGraph: {
+    title: 'Blog · Ahmed Hermas',
+    description:
+      'Tutorials and deep-dives on browser AI, WebGPU, ONNX, and computer vision.',
+    url: '/blog',
+    type: 'website',
+  },
+  keywords: [
+    'Ahmed Hermas blog',
+    'WebGPU tutorial',
+    'browser AI tutorial',
+    'ONNX Runtime web',
+    'edge AI articles',
+    'computer vision blog',
+  ],
 }
 
 export default async function BlogPage() {
@@ -109,6 +129,12 @@ function renderBlogPage(posts: any[], error: any = null) {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/30">
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Blog', url: '/blog' },
+        ]}
+      />
       <Navbar />
 
       <main className="flex-grow container mx-auto px-4 py-12">

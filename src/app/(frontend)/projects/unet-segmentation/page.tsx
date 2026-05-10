@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
+import AnimatedBackground from "@/components/animated-background";
 import * as ort from "onnxruntime-web/webgpu";
 
 interface SegmentationResult {
@@ -41,7 +42,7 @@ export default function UNetSegmentationPage() {
         ort.env.wasm.wasmPaths = "/";
 
         // Using single DeepLabV3-Plus-MobileNet.onnx model file
-        const modelPath = "/DeepLabV3-Plus-MobileNet.onnx";
+        const modelPath = "/models/DeepLabV3-Plus-MobileNet.onnx";
 
         const session = await ort.InferenceSession.create(modelPath, {
           executionProviders: ["webgpu", "wasm", "webgl"],
@@ -331,16 +332,17 @@ export default function UNetSegmentationPage() {
   }, [selectedChannel, layerVisualization]);
 
   return isWebGPUAvailable ? (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/30">
+    <div className="min-h-screen flex flex-col">
+      <AnimatedBackground />
       <Navbar />
       <main className="flex-grow">
-        <div className="container mx-auto px-4 py-8 max-w-7xl">
+        <div className="container mx-auto px-4 pt-8 pb-12 sm:pt-12 max-w-7xl">
           {/* Header */}
-          <div className="text-center mb-8">
-            <h1 className='text-3xl font-bold tracking-tight text-white sm:text-4xl mb-2'>
+          <div className="text-center mb-8 sm:mb-10">
+            <h1 className='text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2'>
               DeepLabV3+ Segmentation
             </h1>
-            <h2 className='text-lg font-medium tracking-tight text-gray-200'>
+            <h2 className='text-base sm:text-lg font-medium tracking-tight text-gray-300 max-w-2xl mx-auto'>
               AI-powered image segmentation using MobileNet backbone
             </h2>
           </div>
@@ -618,12 +620,13 @@ export default function UNetSegmentationPage() {
       <Footer />
     </div>
   ) : (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/30">
+    <div className="min-h-screen flex flex-col">
+      <AnimatedBackground />
       <Navbar />
-      <main className="flex-grow flex items-center justify-center">
-        <div className='text-white text-2xl font-semibold flex flex-col justify-center items-center text-center max-w-md'>
-          <h1 className='text-4xl mb-4'>WebGPU Not Supported</h1>
-          <p className='text-lg text-gray-300'>WebGPU is not supported by this browser. Please use Chrome or Edge with WebGPU enabled.</p>
+      <main className="flex-grow flex items-center justify-center px-4 py-16">
+        <div className='flex flex-col justify-center items-center text-center max-w-md bg-gray-800/60 border border-gray-700/50 rounded-2xl p-8 backdrop-blur-sm'>
+          <h1 className='text-3xl sm:text-4xl font-bold text-white mb-3'>WebGPU Not Supported</h1>
+          <p className='text-base sm:text-lg text-gray-300 leading-relaxed'>WebGPU is not supported by this browser. Please use Chrome or Edge with WebGPU enabled.</p>
         </div>
       </main>
       <Footer />

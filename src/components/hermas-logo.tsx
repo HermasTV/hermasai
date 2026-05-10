@@ -1,5 +1,7 @@
 'use client';
 
+import { useId } from 'react';
+
 interface HermasLogoProps {
   size?: number;
   animated?: boolean;
@@ -7,16 +9,17 @@ interface HermasLogoProps {
   className?: string;
 }
 
-let gradientCounter = 0;
-
 export default function HermasLogo({
   size = 40,
   animated = true,
   monochrome = null,
   className = '',
 }: HermasLogoProps) {
-  const gradId = `hermas-frame-${++gradientCounter}`;
-  const traceId = `hermas-trace-${gradientCounter}`;
+  // useId is deterministic across SSR + hydration; a module-scoped counter
+  // would drift because server and client render trees in different orders.
+  const reactId = useId().replace(/[:]/g, '');
+  const gradId = `hermas-frame-${reactId}`;
+  const traceId = `hermas-trace-${reactId}`;
 
   const railStroke = monochrome === 'light' ? '#0f172a' : monochrome === 'dark' ? '#ffffff' : `url(#${gradId})`;
   const hubFill = monochrome === 'light' ? '#ffffff' : '#0f172a';
