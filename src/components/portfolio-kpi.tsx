@@ -7,6 +7,12 @@ import { useInView } from '@/hooks/useInView';
 type Props = {
   kpi: PortfolioKpiData;
   delayMs?: number;
+  /**
+   * When provided, the count-up is driven by this flag (e.g. the parent panel
+   * becoming the active snap panel) instead of the chip's own Intersection
+   * Observer. Omit to keep the standalone scroll-reveal behaviour.
+   */
+  active?: boolean;
 };
 
 const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3);
@@ -16,15 +22,18 @@ function prefersReducedMotion(): boolean {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
-export function PortfolioKpi({ kpi, delayMs = 0 }: Props) {
+export function PortfolioKpi({ kpi, delayMs = 0, active }: Props) {
   const [ref, inView] = useInView<HTMLDivElement>({ threshold: 0.4 });
+  // The chip animates when the parent says it's active, or — if no `active`
+  // prop is passed — when its own observer reports it in view.
+  const trigger = active ?? inView;
   const [display, setDisplay] = useState<string>(
     kpi.numeric !== undefined ? formatNumeric(0, kpi) : kpi.value,
   );
   const startedRef = useRef(false);
 
   useEffect(() => {
-    if (!inView || startedRef.current) return;
+    if (!trigger || startedRef.current) return;
     startedRef.current = true;
 
     if (kpi.numeric === undefined || prefersReducedMotion()) {
@@ -54,17 +63,15 @@ export function PortfolioKpi({ kpi, delayMs = 0 }: Props) {
 
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [inView, kpi, delayMs]);
+  }, [trigger, kpi, delayMs]);
 
   return (
     <div
       ref={ref}
-      className={`group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 px-4 py-3 backdrop-blur-sm transition-all duration-500 ${
-        inView ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'
-      }`}
-      style={{ transitionDelay: `${delayMs}ms` }}
+      className="group relative min-w-0 overflow-hidden rounded-xl border border-white/10 bg-white/5 px-2.5 py-2.5 backdrop-blur-sm sm:px-3 sm:py-3"
     >
       <div
+        aria-hidden
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
           background:
@@ -73,7 +80,7 @@ export function PortfolioKpi({ kpi, delayMs = 0 }: Props) {
       />
       <div className="relative min-w-0">
         <div
-          className="font-semibold tabular-nums text-xl sm:text-2xl tracking-tight truncate"
+          className="truncate text-base font-semibold tabular-nums tracking-tight sm:text-lg lg:text-xl"
           style={{
             backgroundImage: 'var(--grad-brand-text)',
             WebkitBackgroundClip: 'text',
@@ -84,7 +91,7 @@ export function PortfolioKpi({ kpi, delayMs = 0 }: Props) {
         >
           {display}
         </div>
-        <div className="mt-1 text-[11px] sm:text-xs font-medium uppercase tracking-wider text-gray-400 leading-tight">
+        <div className="mt-1 text-[9px] font-medium uppercase leading-tight tracking-wider text-gray-400 sm:text-[10px]">
           {kpi.label}
         </div>
       </div>

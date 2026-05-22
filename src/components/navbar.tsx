@@ -10,7 +10,7 @@ const NAV_LINKS = [
   { href: '/', label: 'Home', emoji: '🏠' },
   { href: '/projects', label: 'Projects', emoji: '🔬' },
   { href: '/blog', label: 'Blog', emoji: '📝' },
-  { href: '/contact', label: 'Experience', emoji: '💼' },
+  { href: '/experience', label: 'Experience', emoji: '💼' },
 ] as const;
 
 function isActivePath(pathname: string | null, href: string): boolean {

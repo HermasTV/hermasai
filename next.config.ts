@@ -42,6 +42,12 @@ const nextConfig: NextConfig = {
             },
         ],
     },
+    async redirects() {
+        return [
+            // The Experience page used to live at /contact.
+            { source: '/contact', destination: '/experience', permanent: true },
+        ];
+    },
 };
 
 export default withPayload(nextConfig);

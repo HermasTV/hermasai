@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/navbar";
-import Footer from "@/components/footer";
-import AnimatedBackground from "@/components/animated-background";
 import HomeHero from "@/components/home-hero";
-import FlipCard from "@/components/flip-card";
 
 // Homepage owns the personal-brand search. Title is intentionally short so
 // the brand string stays visible even after Google appends "| Ahmed Hermas"
@@ -25,57 +22,41 @@ export const metadata: Metadata = {
   },
 };
 
-const cards = [
-  {
-    icon: '🧠',
-    title: 'Browser AI Demos',
-    subtitle: 'WebGPU · ONNX.js · TensorFlow.js',
-    details: 'Real-time AI applications running directly in the browser using ONNX.js, TensorFlow.js, and WebGPU for optimal performance.',
-    gradient: 'bg-gradient-to-br from-blue-600/90 to-purple-700/90',
-    iconBg: 'bg-blue-500/20',
-  },
-  {
-    icon: '⚡',
-    title: 'ML APIs & Services',
-    subtitle: 'FastAPI · Python · Computer Vision',
-    details: 'Lightweight backend services for speech recognition, computer vision, and other machine learning tasks with Python and FastAPI.',
-    gradient: 'bg-gradient-to-br from-purple-600/90 to-pink-700/90',
-    iconBg: 'bg-purple-500/20',
-  },
-  {
-    icon: '📖',
-    title: 'AI Research & Tutorials',
-    subtitle: 'Case Studies · Deep Dives · Docs',
-    details: 'In-depth case studies, tutorials, and documentation of larger AI projects and research experiments.',
-    gradient: 'bg-gradient-to-br from-emerald-600/90 to-teal-700/90',
-    iconBg: 'bg-emerald-500/20',
-  },
-];
-
+/**
+ * Homepage — a single, non-scrollable, ambient visual landing.
+ *
+ * The page is exactly one viewport tall (100svh, using svh so mobile
+ * browser chrome can't introduce scroll or jump) with overflow hidden.
+ * It renders ONLY three things:
+ *   - a static dark-gradient base layer (the TechLogoField draws on top of
+ *     it; the site-wide AnimatedBackground is intentionally NOT used here —
+ *     the homepage has exactly one visual system),
+ *   - the Navbar (so Projects / Experience / Blog stay reachable),
+ *   - the full-viewport HomeHero (the tech-logo field + minimal centered
+ *     text).
+ *
+ * There is no Footer and no scrolling — every other page keeps both.
+ */
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col">
-      <AnimatedBackground />
+    <div className="relative flex h-[100svh] flex-col overflow-hidden">
+      {/* Static dark-gradient base. The animated canvas lives inside
+          HomeHero and renders over this; this layer just guarantees a
+          dark, on-brand backdrop and prevents any flash of white. */}
+      <div
+        aria-hidden
+        className="fixed inset-0 -z-10"
+        style={{
+          background:
+            "radial-gradient(ellipse 90% 70% at 50% 38%, #1a1630 0%, #11101c 45%, #0a0a10 100%)",
+        }}
+      />
+
       <Navbar />
-      <main className="flex-1 flex flex-col">
-        <div className="container mx-auto px-4 py-4 sm:py-6 max-w-6xl flex-1 flex flex-col justify-center">
 
-          <HomeHero />
-
-          {/* What I Do Section */}
-          <section className="pt-4 sm:pt-6">
-            <h2 className="text-2xl sm:text-3xl font-bold text-center text-white mb-1 tracking-tight">What I Do</h2>
-            <p className="text-center text-gray-400 mb-4 sm:mb-6 text-xs">Hover over a card to learn more</p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
-              {cards.map((card) => (
-                <FlipCard key={card.title} {...card} />
-              ))}
-            </div>
-          </section>
-
-        </div>
+      <main className="relative flex min-h-0 flex-1 flex-col">
+        <HomeHero />
       </main>
-      <Footer />
     </div>
   );
 }

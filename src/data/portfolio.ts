@@ -1,15 +1,22 @@
-// Portfolio case-studies for the /contact (Experience) page.
+// Portfolio case-studies for the /experience page.
 //
 // Media is initially the shared placeholder. Drop real assets at the canonical
-// paths below and update each project's `media` field. Examples:
-//   /portfolio/biometri/cover.gif
-//   /portfolio/queue-management/cover.jpg
-//   /portfolio/smart-cities/cover.mp4
-//   /portfolio/adnoc-stations/cover.jpg
-//   /portfolio/adnoc-3d-vision/cover.mp4
+// paths below and update each project's media field. Examples:
+// /portfolio/biometri/cover.gif
+// /portfolio/queue-management/cover.jpg
+// /portfolio/smart-cities/cover.mp4
+// /portfolio/adnoc-stations/cover.jpg
+// /portfolio/adnoc-3d-vision/cover.mp4
 
 export type PortfolioMedia =
   | { kind: 'image'; src: string; alt: string }
+  | {
+      kind: 'image-rotation';
+      srcs: string[];
+      alt: string;
+      /** Time each image is shown before cross-fading to the next. */
+      intervalMs?: number;
+    }
   | { kind: 'gif'; src: string; alt: string }
   | { kind: 'video'; src: string; poster?: string; alt: string };
 
@@ -30,7 +37,6 @@ export type PortfolioKpi = {
 
 export type PortfolioProject = {
   slug: string;
-  eyebrow: string;
   title: string;
   role: string;
   paragraph: string;
@@ -49,109 +55,130 @@ const PLACEHOLDER: PortfolioMedia = {
 export const PORTFOLIO: PortfolioProject[] = [
   {
     slug: 'biometri',
-    eyebrow: 'Tahaluf UAE · 2024 · AI Lead',
     title: 'Biometri — ISO-Compliant E-KYC',
-    role: 'Led R&D and delivery of the face-recognition + anti-spoofing stack.',
+    role: 'Led R&D and delivery of the face-recognition and anti-spoofing stack.',
     paragraph:
-      'A face-recognition platform engineered for high-stakes identity verification. I led the research, training, and productization of the core face engine and the presentation-attack detection layer that earned the system its ISO/IEC 30107 certification — and shipped it into a sovereign-grade payments gateway and a school-attendance product running on commodity hardware.',
+      'A facial recognition platform engineered for high-stakes identity verification. I directed the research, training, and productization of the core face engine and the presentation-attack detection layer, successfully earning the system its ISO/IEC 30107 certification. This solution was seamlessly deployed into a diplomatic payment gateway and a regional educational attendance system running efficiently on Edge hardware.',
     highlights: [
       'Achieved ISO/IEC 30107 (Presentation Attack Detection) compliance.',
-      'Powered the identity layer of a sovereign consular payments gateway.',
-      'Custom-trained variant for student attendance, certified by the client.',
-      'On-device inference path for low-spec phones in the field.',
+      'Powered the identity verification layer of a secure payment gateway for a diplomatic mission.',
+      'Developed a custom-trained variant for high-volume student attendance, fully certified by the client.',
+      'Optimized the on-device inference path for low-specification mobile units in the field.',
     ],
     kpis: [
       { label: 'Standard', value: 'ISO 30107' },
-      { label: 'Roll-call speedup', value: '10×', numeric: 10, suffix: '×' },
-      { label: 'Spoof rejection', value: 'Real-time' },
+      { label: 'Transactions Daily', value: '5000+', numeric: 5000, suffix: 'k' },
+      { label: 'Accuracy', value: '99.2%', numeric: 99.2, decimals: 1, suffix: '%' },
     ],
     tags: ['Face Recognition', 'Anti-Spoofing', 'ISO 30107', 'Edge ML'],
     media: {
-      ...PLACEHOLDER,
-      alt: 'Biometri anti-spoofing demo placeholder',
+      kind: 'image-rotation',
+      srcs: [
+        '/portfolio/biometri/biometri.webp',
+        '/portfolio/biometri/school.webp',
+      ],
+      intervalMs: 5000,
+      alt: 'Biometri face-recognition and anti-spoofing in production, including the school-attendance deployment.',
     },
   },
   {
     slug: 'queue-management',
-    eyebrow: 'Tahaluf UAE · 2023 · AI Engineer',
-    title: 'AI-Vision Queue Intelligence for Inspection Lanes',
-    role: 'Drove product hardening and edge-deployment for vehicle-inspection centers.',
+    title: 'Vision AI Vehicle Inspection Center',
+    role: 'From Faulty prototype to production-ready solution.',
     paragraph:
-      'A computer-vision queue-management product for vehicle-inspection centers, where lane throughput translates directly into operator KPIs. I owned the hardening phase — turning a brittle pilot into a system that survives every site condition reported from the field, and runs end-to-end on a single embedded edge device with no cloud round-trip.',
+      'A computer-vision queue-management product designed for high-volume vehicle-inspection centers, where lane throughput directly dictates operational KPIs. I owned the hardening phase—transforming an initial pilot into a robust, production-ready system capable of withstanding extreme field conditions. The final architecture runs end-to-end on a single embedded edge device, eliminating cloud latency and dependencies.',
     highlights: [
-      'Closed every reported field issue across pilot sites.',
-      'Re-architected inference for a single-board edge device.',
-      'Sustained real-time throughput on busy multi-lane sites.',
+      'Resolved all reported field anomalies across multiple pilot deployments.',
+      'Re-architected the inference pipeline to run seamlessly on a single-board edge device.',
+      'Sustained real-time processing throughput in demanding, multi-lane environments.',
     ],
     kpis: [
-      { label: 'Field issues open', value: '0', numeric: 0 },
-      { label: 'Cloud round-trip', value: 'None' },
-      { label: 'Inference', value: 'Real-time' },
+      { label: 'False Negatives', value: '0', numeric: 0 },
+      { label: 'wait time reduction', value: '30%' },
+      { label: 'Vehicles Processed Daily', value: '500+', numeric: 500 },
     ],
     tags: ['Edge AI', 'Object Tracking', 'IoT', 'Site Reliability'],
-    media: { ...PLACEHOLDER, alt: 'Queue management vision system placeholder' },
+    media: {
+      kind: 'image',
+      src: '/portfolio/queue-management/vic.webp',
+      alt: 'Vision AI vehicle-inspection center: cameras tracking vehicles through the inspection lanes in real time.',
+    },
   },
   {
     slug: 'smart-cities',
-    eyebrow: 'Tahaluf UAE · 2022 · AI Engineer',
-    title: 'Smart Cities — Traffitix & Initor',
-    role: 'Led model-optimization and edge deployment of an 8-model AI suite.',
+    title: 'Smart Cities — Traffic Intelligence Platform',
+    role: 'Directed model optimization and edge deployment of an 8-model AI suite.',
     paragraph:
-      'A city-scale traffic-intelligence platform built around eight cooperating computer-vision models — multi-camera tracking, multi-sensor speed estimation, in-cabin behavior detection, and an algorithmic reckless-driving classifier. I led the work to ship the entire suite from server-grade GPUs onto NVIDIA AGX Jetson edge units in production, holding the accuracy line within a few percentage points while unlocking realtime multi-camera deployments.',
+      'A city-scale traffic-intelligence platform powered by eight cooperating computer-vision models, enabling multi-camera tracking, sensor-fusion speed estimation, in-cabin behavior detection, and an algorithmic reckless-driving classifier. I led the migration of the entire software suite from server-grade GPUs to NVIDIA Jetson AGX edge units in production. This effort maintained strict accuracy thresholds while unlocking real-time, multi-camera processing capabilities at the edge.',
     highlights: [
-      'Multi-camera, multi-object realtime tracking (vehicles + pedestrians).',
-      'Multi-sensor vision-based vehicle speed estimation.',
-      'Seatbelt and phone-use detection on custom-collected data.',
-      'Algorithmic realtime reckless-driving recognition.',
-      'Eight models compressed and re-validated for AGX Jetson.',
+      'Engineered multi-camera, multi-object real-time tracking for both vehicles and pedestrians.',
+      'Vision-based vehicle speed estimation.',
+      'Seatbelt and phone-use detection models utilizing custom-collected datasets.',
+      'Implemented algorithmic real-time reckless-driving recognition.',
+      'Successfully compressed and re-validated eight distinct models for the Jetson AGX environment.',
     ],
     kpis: [
-      { label: 'Speed-estimation error', value: '<1 km/h', numeric: 1, prefix: '<', suffix: ' km/h' },
+      { label: 'Speed-estimation error', value: '<3 km/h', numeric: 1, prefix: '<', suffix: ' km/h' },
       { label: 'In-cabin behavior accuracy', value: '95%', numeric: 95, suffix: '%' },
-      { label: 'Edge accuracy drop', value: '<3%', numeric: 3, prefix: '<', suffix: '%' },
-      { label: 'Models on edge', value: '8', numeric: 8 },
     ],
     tags: ['Multi-Camera Tracking', 'Edge Optimization', 'Jetson AGX', 'Speed Estimation'],
-    media: { ...PLACEHOLDER, alt: 'Smart cities traffic intelligence placeholder' },
+    media: {
+      kind: 'video',
+      src: '/portfolio/smart-cities/radar.mp4',
+      poster: '/portfolio/smart-cities/radar-poster.webp',
+      alt: 'Radar-fused traffic monitoring: vehicles tracked across lanes with live speed estimation.',
+    },
   },
   {
-    slug: 'adnoc-stations',
-    eyebrow: 'Tahaluf UAE · 2023 · Project Owner',
-    title: 'ADNOC Smart Stations — Journey Analytics',
-    role: 'Sole owner: research, build, and deployment.',
+    slug: 'Gas-stations',
+    title: 'Cross-Camera Journey Analytics Platform',
+    role: 'Lead Architect: End-to-end research, pipeline development, and deployment.',
     paragraph:
-      'An end-to-end multi-camera tracking system for ADNOC fuel stations, stitching the journeys of vehicles and people across the entire station footprint. I owned this one alone — from the research that picked the right re-identification stack, through the deployment that turned raw camera feeds into operational dashboards and a stronger security posture for site operators.',
+      'An end-to-end multi-camera tracking system developed for a major national energy provider, designed to stitch together the complex journeys of vehicles and pedestrians across expansive service station footprints. I independently managed this project from the initial research phase—selecting and optimizing the re-identification stack—through to full deployment. The system successfully translates raw camera feeds into actionable operational dashboards, significantly strengthening the security posture for site stakeholders.',
     highlights: [
-      'Multi-camera vehicle and person re-identification across station premises.',
-      'Operational analytics surfaced for station and HQ stakeholders.',
-      'Strengthened security posture through anomaly detection.',
+      'Multi-camera vehicle & person re-ID across 20+ cameras site-wide.',
+      'Searchable journey database — cut investigation time from hours to seconds.',
+      'Real-time heatmaps & dwell analytics for ops and security teams.',
     ],
     kpis: [
-      { label: 'Coverage', value: 'Full-site' },
-      { label: 'Ownership', value: 'End-to-end' },
-      { label: 'Output', value: 'Live insights' },
+      { label: 'Daily Entities', value: '1000+', numeric: 1000, suffix: '+' },
+      { label: 'Uptime', value: '24/7' },
+      { label: 'Accuracy ', value: '95%+ re-ID' },
     ],
     tags: ['Re-Identification', 'Multi-Camera', 'Analytics', 'Security'],
-    media: { ...PLACEHOLDER, alt: 'ADNOC station journey analytics placeholder' },
+    media: {
+      kind: 'image-rotation',
+      srcs: [
+        '/portfolio/adnoc-stations/shop-view.webp',
+        '/portfolio/adnoc-stations/car-parked.webp',
+        '/portfolio/adnoc-stations/car-leave.webp',
+      ],
+      intervalMs: 5000,
+      alt: 'Cross-camera journey analytics: vehicles and people tracked across service-station cameras.',
+    },
   },
   {
     slug: 'adnoc-3d-vision',
-    eyebrow: 'Tahaluf UAE · 2024 · Project Lead',
-    title: 'ADNOC 3D Vision — Vehicle Inspection POC',
-    role: 'Managed the end-to-end POC.',
+    title: '3DAI Vehicle Inspection and Audit',
+    role: 'Managed the end-to-end proof of concept architecture and delivery.',
     paragraph:
-      'A proof-of-concept that brings Gaussian splatting out of the research lab and into a vehicle-inspection bay. I led the build of an end-to-end pipeline that captures a vehicle, reconstructs it in 3D, and hands operators a navigable model for inspection and audit-grade documentation — giving inspectors a tool that didn’t exist in this workflow before.',
+      'A pioneering proof-of-concept initiative translating advanced Gaussian splatting algorithm into practical, industrial vehicle-inspection workflows. I led the development of a complete pipeline capable of capturing a vehicle in-bay and reconstructing it in high-fidelity 3D. The resulting operator-facing navigable model provided audit-grade documentation, equipping inspectors with next-generation spatial visualization tools that revolutionized their standard operational procedures.',
     highlights: [
-      'End-to-end Gaussian-splatting pipeline tuned for in-bay capture.',
-      'Operator-facing 3D viewer for inspection and documentation.',
-      'Validated as a foundation for remote inspection workflows.',
+      'Built an end-to-end Gaussian-splatting pipeline optimized for confined in-bay capture environments.',
+      'Developed an interactive, operator-facing 3D viewer tailored for detailed inspection and audit documentation.',
+      'Validated the underlying technology as a scalable foundation for future remote inspection workflows.',
     ],
     kpis: [
-      { label: 'Technique', value: '3D Gaussian Splatting' },
-      { label: 'Pipeline', value: 'End-to-end' },
-      { label: 'Stage', value: 'POC delivered' },
+      { label: 'Manual Effort', value: '70% less', numeric: 70, suffix: '%' },
+      { label: 'Scan Time', value: '<5 min', numeric: 5, prefix: '<', suffix: ' min' },
+      { label: 'PSNR', value: '<30db', numeric: 30, prefix: '<', suffix: ' db' }, 
     ],
-    tags: ['Gaussian Splatting', '3D Reconstruction', 'Inspection', 'POC'],
-    media: { ...PLACEHOLDER, alt: 'ADNOC 3D vision inspection placeholder' },
+    tags: ['Gaussian Splatting', '3D Reconstruction', 'Inspection'],
+    media: {
+      kind: 'video',
+      src: '/portfolio/adnoc-3d-vision/3d.mp4',
+      poster: '/portfolio/adnoc-3d-vision/3d-poster.webp',
+      alt: 'Gaussian-splatting 3D reconstruction of a vehicle, orbiting for inspection and audit documentation.',
+    },
   },
 ];
