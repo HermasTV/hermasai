@@ -55,7 +55,7 @@ export default async function VictimProfilePage({ params }: { params: Promise<{ 
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 8, opacity: 0.75, textDecoration: 'none' }}>
           <img src="/i-am-not-a-number/Handala.png" alt="Handala" style={{ height: 22, filter: 'invert(1)' }} />
           <span style={{ fontSize: '0.7rem', letterSpacing: '0.12em', color: '#fff', fontWeight: 400, textTransform: 'uppercase' }}>
-            hermas.ai
+            hermas.uk
           </span>
         </Link>
         <Link

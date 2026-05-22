@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.28" cy="0.4" r="0.55">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.78" cy="0.7" r="0.5">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="0.55" cy="0.5" r="0.4">
+      <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="brand" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="55%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+    <linearGradient id="brand-soft" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0.6"/>
+    </linearGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+    <filter id="soft-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <rect width="1600" height="1000" fill="url(#glow1)"/>
+  <rect width="1600" height="1000" fill="url(#glow2)"/>
+  <rect width="1600" height="1000" fill="url(#glow3)"/>
+
+  <!-- Face mesh: scaled to 1600x1000, centered. landmarks were on 420x500 box -->
+  <!-- transform: translate to center the 420x500 mesh into the 1600x1000 viewBox at scale 1.6 -->
+  <g transform="translate(464 100) scale(1.6)">
+    <!-- Bounding-box brackets -->
+    <g stroke="url(#brand)" stroke-width="2.8" fill="none" stroke-linecap="round">
+      <path d="M 50 130 L 50 90 L 90 90"/>
+      <path d="M 330 90 L 370 90 L 370 130"/>
+      <path d="M 50 380 L 50 420 L 90 420"/>
+      <path d="M 330 420 L 370 420 L 370 380"/>
+    </g>
+
+    <!-- Face oval guide -->
+    <ellipse cx="210" cy="265" rx="105" ry="125" fill="none" stroke="url(#brand-soft)" stroke-width="1" stroke-dasharray="3 4" opacity="0.55"/>
+
+    <!-- Mesh edges -->
+    <g stroke="url(#brand)" stroke-width="0.8" fill="none" stroke-opacity="0.6">
+      <!-- jawline-eyebrow connectors and triangulation -->
+      <line x1="110" y1="200" x2="202" y2="184"/>
+      <line x1="310" y1="200" x2="218" y2="184"/>
+      <line x1="202" y1="184" x2="218" y2="184"/>
+      <line x1="210" y1="200" x2="210" y2="266"/>
+      <line x1="210" y1="266" x2="192" y2="278"/>
+      <line x1="210" y1="266" x2="228" y2="278"/>
+      <line x1="192" y1="278" x2="210" y2="282"/>
+      <line x1="210" y1="282" x2="228" y2="278"/>
+      <line x1="210" y1="282" x2="210" y2="316"/>
+      <line x1="180" y1="320" x2="240" y2="320"/>
+      <line x1="180" y1="320" x2="210" y2="332"/>
+      <line x1="240" y1="320" x2="210" y2="332"/>
+      <line x1="210" y1="316" x2="180" y2="320"/>
+      <line x1="210" y1="316" x2="240" y2="320"/>
+      <line x1="168" y1="212" x2="252" y2="212"/>
+      <line x1="152" y1="212" x2="168" y2="206"/>
+      <line x1="184" y1="212" x2="168" y2="206"/>
+      <line x1="152" y1="212" x2="168" y2="218"/>
+      <line x1="184" y1="212" x2="168" y2="218"/>
+      <line x1="236" y1="212" x2="252" y2="206"/>
+      <line x1="268" y1="212" x2="252" y2="206"/>
+      <line x1="236" y1="212" x2="252" y2="218"/>
+      <line x1="268" y1="212" x2="252" y2="218"/>
+      <line x1="168" y1="212" x2="210" y2="222"/>
+      <line x1="252" y1="212" x2="210" y2="222"/>
+      <line x1="128" y1="318" x2="180" y2="320"/>
+      <line x1="292" y1="318" x2="240" y2="320"/>
+      <line x1="150" y1="350" x2="210" y2="332"/>
+      <line x1="270" y1="350" x2="210" y2="332"/>
+      <line x1="180" y1="372" x2="210" y2="380"/>
+      <line x1="240" y1="372" x2="210" y2="380"/>
+      <line x1="108" y1="240" x2="152" y2="212"/>
+      <line x1="312" y1="240" x2="268" y2="212"/>
+      <line x1="114" y1="280" x2="168" y2="218"/>
+      <line x1="306" y1="280" x2="252" y2="218"/>
+      <line x1="140" y1="188" x2="160" y2="178"/>
+      <line x1="160" y1="178" x2="182" y2="178"/>
+      <line x1="182" y1="178" x2="202" y2="184"/>
+      <line x1="218" y1="184" x2="238" y2="178"/>
+      <line x1="238" y1="178" x2="260" y2="178"/>
+      <line x1="260" y1="178" x2="280" y2="188"/>
+    </g>
+
+    <!-- Landmark dots: glow underlayer -->
+    <g fill="url(#brand)" filter="url(#soft-glow)" opacity="0.55">
+      <circle cx="110" cy="200" r="4"/><circle cx="108" cy="240" r="4"/><circle cx="114" cy="280" r="4"/><circle cx="128" cy="318" r="4"/>
+      <circle cx="150" cy="350" r="4"/><circle cx="180" cy="372" r="4"/><circle cx="210" cy="380" r="4"/><circle cx="240" cy="372" r="4"/>
+      <circle cx="270" cy="350" r="4"/><circle cx="292" cy="318" r="4"/><circle cx="306" cy="280" r="4"/><circle cx="312" cy="240" r="4"/>
+      <circle cx="310" cy="200" r="4"/><circle cx="140" cy="188" r="4"/><circle cx="160" cy="178" r="4"/><circle cx="182" cy="178" r="4"/>
+      <circle cx="202" cy="184" r="4"/><circle cx="218" cy="184" r="4"/><circle cx="238" cy="178" r="4"/><circle cx="260" cy="178" r="4"/>
+      <circle cx="280" cy="188" r="4"/><circle cx="210" cy="200" r="4"/><circle cx="210" cy="222" r="4"/><circle cx="210" cy="244" r="4"/>
+      <circle cx="210" cy="266" r="4"/><circle cx="192" cy="278" r="4"/><circle cx="210" cy="282" r="4"/><circle cx="228" cy="278" r="4"/>
+      <circle cx="152" cy="212" r="4"/><circle cx="168" cy="206" r="4"/><circle cx="184" cy="212" r="4"/><circle cx="168" cy="218" r="4"/>
+      <circle cx="236" cy="212" r="4"/><circle cx="252" cy="206" r="4"/><circle cx="268" cy="212" r="4"/><circle cx="252" cy="218" r="4"/>
+      <circle cx="180" cy="320" r="4"/><circle cx="196" cy="314" r="4"/><circle cx="210" cy="316" r="4"/><circle cx="224" cy="314" r="4"/>
+      <circle cx="240" cy="320" r="4"/><circle cx="210" cy="332" r="4"/>
+    </g>
+    <!-- Landmark dots: crisp top -->
+    <g fill="url(#brand)">
+      <circle cx="110" cy="200" r="2.2"/><circle cx="108" cy="240" r="2.2"/><circle cx="114" cy="280" r="2.2"/><circle cx="128" cy="318" r="2.2"/>
+      <circle cx="150" cy="350" r="2.2"/><circle cx="180" cy="372" r="2.2"/><circle cx="210" cy="380" r="2.2"/><circle cx="240" cy="372" r="2.2"/>
+      <circle cx="270" cy="350" r="2.2"/><circle cx="292" cy="318" r="2.2"/><circle cx="306" cy="280" r="2.2"/><circle cx="312" cy="240" r="2.2"/>
+      <circle cx="310" cy="200" r="2.2"/><circle cx="140" cy="188" r="2.2"/><circle cx="160" cy="178" r="2.2"/><circle cx="182" cy="178" r="2.2"/>
+      <circle cx="202" cy="184" r="2.2"/><circle cx="218" cy="184" r="2.2"/><circle cx="238" cy="178" r="2.2"/><circle cx="260" cy="178" r="2.2"/>
+      <circle cx="280" cy="188" r="2.2"/><circle cx="210" cy="200" r="2.2"/><circle cx="210" cy="222" r="2.2"/><circle cx="210" cy="244" r="2.2"/>
+      <circle cx="210" cy="266" r="2.2"/><circle cx="192" cy="278" r="2.2"/><circle cx="210" cy="282" r="2.2"/><circle cx="228" cy="278" r="2.2"/>
+      <circle cx="152" cy="212" r="2.2"/><circle cx="168" cy="206" r="2.2"/><circle cx="184" cy="212" r="2.2"/><circle cx="168" cy="218" r="2.2"/>
+      <circle cx="236" cy="212" r="2.2"/><circle cx="252" cy="206" r="2.2"/><circle cx="268" cy="212" r="2.2"/><circle cx="252" cy="218" r="2.2"/>
+      <circle cx="180" cy="320" r="2.2"/><circle cx="196" cy="314" r="2.2"/><circle cx="210" cy="316" r="2.2"/><circle cx="224" cy="314" r="2.2"/>
+      <circle cx="240" cy="320" r="2.2"/><circle cx="210" cy="332" r="2.2"/>
+    </g>
+
+    <!-- Scan line -->
+    <line x1="50" y1="245" x2="370" y2="245" stroke="url(#brand)" stroke-width="1.2" stroke-opacity="0.4"/>
+    <line x1="50" y1="248" x2="370" y2="248" stroke="#60a5fa" stroke-width="0.6" stroke-opacity="0.5"/>
+
+    <!-- Confidence tag -->
+    <g>
+      <rect x="50" y="58" width="110" height="26" rx="5" fill="url(#brand)"/>
+      <text x="105" y="76" text-anchor="middle" font-size="14" font-weight="700" font-family="ui-monospace, SFMono-Regular, monospace" fill="#0a0f1f" letter-spacing="0.08em">FACE 0.98</text>
+    </g>
+    <g>
+      <rect x="276" y="58" width="94" height="26" rx="5" fill="none" stroke="url(#brand)" stroke-width="1.5"/>
+      <text x="323" y="76" text-anchor="middle" font-size="13" font-weight="700" font-family="ui-monospace, SFMono-Regular, monospace" fill="#e2e8f0" letter-spacing="0.1em">LIVE</text>
+    </g>
+  </g>
+
+  <!-- Side telemetry strip -->
+  <g font-family="ui-monospace, SFMono-Regular, monospace" fill="#94a3b8" font-size="20" letter-spacing="0.18em">
+    <text x="80" y="120" font-weight="600">ISO/IEC 30107</text>
+    <text x="80" y="150" font-size="14" fill="#64748b">PRESENTATION ATTACK DETECTION</text>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, monospace" fill="#94a3b8" font-size="14" letter-spacing="0.2em" text-anchor="end">
+    <text x="1520" y="120">PAD · LIVENESS · 1:N MATCH</text>
+    <text x="1520" y="146" fill="#64748b">v2.4 · EDGE</text>
+  </g>
+
+  <!-- Bottom telemetry bar -->
+  <g>
+    <line x1="80" y1="900" x2="1520" y2="900" stroke="#ffffff" stroke-opacity="0.1" stroke-width="1"/>
+    <g font-family="ui-monospace, SFMono-Regular, monospace" font-size="16" letter-spacing="0.18em" fill="#94a3b8">
+      <circle cx="92" cy="940" r="5" fill="#34d399"/>
+      <text x="108" y="945">LIVE</text>
+      <text x="780" y="945" text-anchor="middle">320 × 240</text>
+      <text x="1520" y="945" text-anchor="end">32 FPS</text>
+    </g>
+  </g>
+</svg>

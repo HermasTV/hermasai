@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
+import AnimatedBackground from "@/components/animated-background";
 import { getApiUrl, API_CONFIG } from "@/utils/apiConfig";
 
 interface AnalysisResult {
@@ -154,16 +155,17 @@ export default function ResumeMatchPage() {
 
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/30">
+    <div className="min-h-screen flex flex-col">
+      <AnimatedBackground />
       <Navbar />
       <main className="flex-grow">
-        <div className="container mx-auto px-4 pt-24 pb-12">
+        <div className="container mx-auto px-4 pt-8 pb-12 sm:pt-12">
           <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h1 className="text-5xl font-extrabold tracking-tight text-white sm:text-6xl mb-4">
+            <div className="text-center mb-8 sm:mb-10">
+              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white mb-2">
                 Resume-to-Job Match Analyzer
               </h1>
-              <p className="text-xl text-gray-200 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-gray-300 max-w-2xl mx-auto">
                 Upload your resume, paste a LinkedIn job URL, and get AI-powered suggestions to improve your resume match.
               </p>
             </div>
@@ -209,7 +211,7 @@ export default function ResumeMatchPage() {
                   value={apiKey}
                   onChange={(e) => setApiKey(e.target.value)}
                   placeholder="sk-..."
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                 />
               </div>
 
@@ -235,7 +237,7 @@ export default function ResumeMatchPage() {
                   value={jobUrl}
                   onChange={(e) => setJobUrl(e.target.value)}
                   placeholder="https://www.linkedin.com/jobs/view/..."
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white"
+                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                 />
               </div>
 

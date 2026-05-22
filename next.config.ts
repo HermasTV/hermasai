@@ -19,10 +19,21 @@ const nextConfig: NextConfig = {
             ...config.resolve.alias,
             '@huggingface/transformers': path.resolve(__dirname, 'node_modules/@huggingface/transformers'),
             "onnxruntime-node$": false,
+            "@tensorflow/tfjs-node$": false,
+            "@tensorflow/tfjs-node-gpu$": false,
         }
         return config;
     },
-    serverExternalPackages: ["@huggingface/transformers"],
+    serverExternalPackages: [
+        "@huggingface/transformers",
+        "@tensorflow/tfjs-core",
+        "@tensorflow/tfjs-converter",
+        "@tensorflow/tfjs-backend-webgpu",
+        "@tensorflow/tfjs-backend-wasm",
+        "@tensorflow-models/face-detection",
+        "@tensorflow-models/face-landmarks-detection",
+        "@tensorflow-models/hand-pose-detection",
+    ],
     images: {
         remotePatterns: [
             {
@@ -30,6 +41,12 @@ const nextConfig: NextConfig = {
                 hostname: '**',
             },
         ],
+    },
+    async redirects() {
+        return [
+            // The Experience page used to live at /contact.
+            { source: '/contact', destination: '/experience', permanent: true },
+        ];
     },
 };
 

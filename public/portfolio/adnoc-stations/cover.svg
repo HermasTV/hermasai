@@ -1,0 +1,173 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.2" cy="0.25" r="0.55">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.85" cy="0.85" r="0.5">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="55%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+    <linearGradient id="canopy" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#0b1120" stop-opacity="0.9"/>
+    </linearGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+    <radialGradient id="camcone" cx="0.5" cy="0" r="0.9">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <rect width="1600" height="1000" fill="url(#glow1)"/>
+  <rect width="1600" height="1000" fill="url(#glow2)"/>
+
+  <!-- Header -->
+  <g font-family="ui-monospace, SFMono-Regular, monospace" letter-spacing="0.22em">
+    <text x="80" y="100" font-size="16" fill="#94a3b8" font-weight="600">ADNOC STATION · TOP-DOWN MAP</text>
+    <text x="80" y="128" font-size="12" fill="#64748b">MULTI-CAM RE-IDENTIFICATION · JOURNEY ANALYTICS</text>
+    <g transform="translate(1520 96)" text-anchor="end">
+      <rect x="-200" y="-22" width="200" height="36" rx="8" fill="none" stroke="url(#brand)" stroke-width="1.5"/>
+      <text x="-100" y="3" text-anchor="middle" font-size="14" font-weight="700" fill="#cbd5e1" letter-spacing="0.16em">FULL-SITE COVERAGE</text>
+    </g>
+  </g>
+
+  <!-- Station map area: 1440x720, starting (80, 180) -->
+  <g transform="translate(80 180)">
+    <!-- Outer station boundary -->
+    <rect x="20" y="20" width="1400" height="680" rx="22" fill="#0b1120" fill-opacity="0.7" stroke="#ffffff" stroke-opacity="0.08"/>
+
+    <!-- Entry / Exit roads -->
+    <g stroke="#ffffff" stroke-opacity="0.08" stroke-width="2" stroke-dasharray="14 18">
+      <line x1="20" y1="360" x2="1420" y2="360"/>
+    </g>
+    <g font-family="ui-monospace, SFMono-Regular, monospace" font-size="12" fill="#64748b" letter-spacing="0.16em">
+      <text x="40" y="354">ENTRY</text>
+      <text x="1400" y="354" text-anchor="end">EXIT</text>
+    </g>
+
+    <!-- Pump canopies (rounded rectangles) -->
+    <g>
+      <rect x="240" y="180" width="220" height="100" rx="12" fill="url(#canopy)" stroke="url(#brand)" stroke-opacity="0.4" stroke-width="1.5"/>
+      <text x="350" y="234" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="13" fill="#cbd5e1" letter-spacing="0.18em">PUMP A</text>
+
+      <rect x="600" y="180" width="220" height="100" rx="12" fill="url(#canopy)" stroke="url(#brand)" stroke-opacity="0.4" stroke-width="1.5"/>
+      <text x="710" y="234" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="13" fill="#cbd5e1" letter-spacing="0.18em">PUMP B</text>
+
+      <rect x="960" y="180" width="220" height="100" rx="12" fill="url(#canopy)" stroke="url(#brand)" stroke-opacity="0.4" stroke-width="1.5"/>
+      <text x="1070" y="234" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="13" fill="#cbd5e1" letter-spacing="0.18em">PUMP C</text>
+    </g>
+
+    <!-- Convenience store / shop -->
+    <g>
+      <rect x="600" y="450" width="320" height="180" rx="14" fill="url(#canopy)" stroke="#ffffff" stroke-opacity="0.12"/>
+      <text x="760" y="548" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="14" fill="#94a3b8" letter-spacing="0.2em">SHOP</text>
+    </g>
+
+    <!-- Cameras at corners + key points -->
+    <g>
+      <!-- Camera glyph: small triangle/square with cone -->
+      <g transform="translate(80 80)">
+        <path d="M 0 0 L 200 -40 L 200 40 Z" fill="url(#camcone)"/>
+        <rect x="-12" y="-12" width="24" height="24" rx="4" fill="url(#brand)"/>
+        <circle cx="0" cy="0" r="5" fill="#0a0f1f"/>
+        <text x="-22" y="-22" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12" fill="#cbd5e1" letter-spacing="0.14em" text-anchor="end">CAM 01</text>
+      </g>
+      <g transform="translate(1360 80)">
+        <path d="M 0 0 L -200 -40 L -200 40 Z" fill="url(#camcone)"/>
+        <rect x="-12" y="-12" width="24" height="24" rx="4" fill="url(#brand)"/>
+        <circle cx="0" cy="0" r="5" fill="#0a0f1f"/>
+        <text x="22" y="-22" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12" fill="#cbd5e1" letter-spacing="0.14em">CAM 02</text>
+      </g>
+      <g transform="translate(80 640)">
+        <path d="M 0 0 L 200 -40 L 200 40 Z" fill="url(#camcone)"/>
+        <rect x="-12" y="-12" width="24" height="24" rx="4" fill="url(#brand)"/>
+        <circle cx="0" cy="0" r="5" fill="#0a0f1f"/>
+        <text x="-22" y="40" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12" fill="#cbd5e1" letter-spacing="0.14em" text-anchor="end">CAM 03</text>
+      </g>
+      <g transform="translate(1360 640)">
+        <path d="M 0 0 L -200 -40 L -200 40 Z" fill="url(#camcone)"/>
+        <rect x="-12" y="-12" width="24" height="24" rx="4" fill="url(#brand)"/>
+        <circle cx="0" cy="0" r="5" fill="#0a0f1f"/>
+        <text x="22" y="40" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12" fill="#cbd5e1" letter-spacing="0.14em">CAM 04</text>
+      </g>
+      <!-- Mid cameras above each pump -->
+      <g transform="translate(350 130)">
+        <rect x="-10" y="-10" width="20" height="20" rx="4" fill="url(#brand)"/>
+        <circle cx="0" cy="0" r="4" fill="#0a0f1f"/>
+        <text x="14" y="-12" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#94a3b8" letter-spacing="0.12em">CAM 05</text>
+      </g>
+      <g transform="translate(710 130)">
+        <rect x="-10" y="-10" width="20" height="20" rx="4" fill="url(#brand)"/>
+        <circle cx="0" cy="0" r="4" fill="#0a0f1f"/>
+        <text x="14" y="-12" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#94a3b8" letter-spacing="0.12em">CAM 06</text>
+      </g>
+      <g transform="translate(1070 130)">
+        <rect x="-10" y="-10" width="20" height="20" rx="4" fill="url(#brand)"/>
+        <circle cx="0" cy="0" r="4" fill="#0a0f1f"/>
+        <text x="14" y="-12" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#94a3b8" letter-spacing="0.12em">CAM 07</text>
+      </g>
+    </g>
+
+    <!-- Re-ID paths (dotted) — same vehicle threaded between cameras -->
+    <!-- Vehicle A: enter left, pump A, shop, exit right -->
+    <path d="M 80 380 Q 200 380 240 320 T 350 230 Q 400 360 700 460 Q 870 540 1100 380 Q 1280 290 1360 360"
+          fill="none" stroke="url(#brand)" stroke-width="2.6" stroke-dasharray="6 8" stroke-opacity="0.85"/>
+    <!-- Vehicle B: enter, pump C, exit -->
+    <path d="M 80 340 Q 400 320 700 280 Q 950 250 1070 230 Q 1240 270 1360 340"
+          fill="none" stroke="#f472b6" stroke-width="2.2" stroke-dasharray="4 6" stroke-opacity="0.7"/>
+
+    <!-- Tracked vehicle markers (small) -->
+    <g>
+      <rect x="332" y="218" width="36" height="22" rx="3" fill="#60a5fa" fill-opacity="0.4" stroke="url(#brand)" stroke-width="1.4"/>
+      <rect x="1052" y="218" width="36" height="22" rx="3" fill="#f472b6" fill-opacity="0.4" stroke="url(#brand)" stroke-width="1.4"/>
+      <rect x="700" y="450" width="36" height="22" rx="3" fill="#60a5fa" fill-opacity="0.35" stroke="url(#brand)" stroke-width="1.4"/>
+    </g>
+
+    <!-- ID tags -->
+    <g font-family="ui-monospace, SFMono-Regular, monospace" letter-spacing="0.14em">
+      <g transform="translate(380 196)">
+        <rect x="-2" y="-16" width="106" height="22" rx="4" fill="#0f172a" stroke="url(#brand)" stroke-width="1.2"/>
+        <text x="52" y="0" text-anchor="middle" font-size="12" fill="#cbd5e1">ID #0421</text>
+      </g>
+      <g transform="translate(1100 196)">
+        <rect x="-2" y="-16" width="106" height="22" rx="4" fill="#0f172a" stroke="#f472b6" stroke-width="1.2"/>
+        <text x="52" y="0" text-anchor="middle" font-size="12" fill="#f9a8d4">ID #0867</text>
+      </g>
+      <g transform="translate(746 478)">
+        <rect x="-2" y="-16" width="106" height="22" rx="4" fill="#0f172a" stroke="url(#brand)" stroke-width="1.2"/>
+        <text x="52" y="0" text-anchor="middle" font-size="12" fill="#cbd5e1">ID #0421</text>
+      </g>
+    </g>
+
+    <!-- People as small dots near shop -->
+    <g fill="#a78bfa" stroke="url(#brand)" stroke-width="1">
+      <circle cx="700" cy="540" r="6"/>
+      <circle cx="780" cy="560" r="6"/>
+      <circle cx="850" cy="540" r="6"/>
+    </g>
+  </g>
+
+  <!-- Legend -->
+  <g transform="translate(80 940)" font-family="ui-monospace, SFMono-Regular, monospace" font-size="13" letter-spacing="0.14em" fill="#94a3b8">
+    <line x1="0" y1="-4" x2="40" y2="-4" stroke="url(#brand)" stroke-width="2.4" stroke-dasharray="6 8"/>
+    <text x="50" y="0">RE-ID PATH · ID #0421</text>
+    <line x1="320" y1="-4" x2="360" y2="-4" stroke="#f472b6" stroke-width="2" stroke-dasharray="4 6"/>
+    <text x="370" y="0">RE-ID PATH · ID #0867</text>
+    <text x="1440" y="0" text-anchor="end" fill="url(#brand)" font-weight="700">END-TO-END · OWNED</text>
+  </g>
+</svg>

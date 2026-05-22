@@ -4,18 +4,14 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Development Commands
 
-### Quick Start (Single Command)
-- **Start all services**: `npm run start-all`
-- **Stop all services**: `npm run stop-all`
-
-### Individual Commands
+### Frontend
 - **Start Next.js development server**: `npm run dev`
 - **Build project**: `npm run build`
 - **Start production server**: `npm start`
 - **Lint code**: `npm run lint`
 
 ### Python Backend Service Commands
-Navigate to `python-services/documents-services/` directory:
+Navigate to `services/documents-services/` directory:
 - **Install Python dependencies**: `pip install -r requirements.txt`
 - **Start Python service**: `python main.py` (runs on http://127.0.0.1:8000)
 - **Health check**: `curl http://127.0.0.1:8000/health`
@@ -52,7 +48,7 @@ This is a Next.js 15 TypeScript application with separated backend services, foc
 - `public/`: Static assets including large ML model files (WASM, ONNX)
 
 **Backend Services (Submodule)**:
-- `python-services/documents-services/`: Git submodule (separate repository)
+- `services/documents-services/`: Git submodule (separate repository)
   - FastAPI-based document processing service
   - PDF to DOCX conversion (`/convert/pdf-to-docx`)
   - Resume text extraction (`/debug-resume`)

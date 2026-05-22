@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.2" cy="0.3" r="0.55">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.85" cy="0.75" r="0.5">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="55%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+    <linearGradient id="lane" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e293b" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.95"/>
+    </linearGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <rect width="1600" height="1000" fill="url(#glow1)"/>
+  <rect width="1600" height="1000" fill="url(#glow2)"/>
+
+  <!-- Top header -->
+  <g font-family="ui-monospace, SFMono-Regular, monospace" font-size="16" letter-spacing="0.22em">
+    <text x="80" y="100" fill="#94a3b8" font-weight="600">INSPECTION CENTER · LANES 1–4</text>
+    <text x="80" y="128" fill="#64748b" font-size="12">EDGE NODE · NO CLOUD ROUND-TRIP</text>
+    <g text-anchor="end">
+      <circle cx="1500" cy="92" r="6" fill="#34d399"/>
+      <text x="1515" y="98" fill="#cbd5e1" font-size="14" text-anchor="start">LIVE</text>
+    </g>
+  </g>
+
+  <!-- Lane area -->
+  <g transform="translate(80 180)">
+    <!-- Lane backgrounds -->
+    <g>
+      <rect x="0" y="0" width="340" height="700" rx="14" fill="url(#lane)" stroke="#ffffff" stroke-opacity="0.06"/>
+      <rect x="360" y="0" width="340" height="700" rx="14" fill="url(#lane)" stroke="#ffffff" stroke-opacity="0.06"/>
+      <rect x="720" y="0" width="340" height="700" rx="14" fill="url(#lane)" stroke="#ffffff" stroke-opacity="0.06"/>
+      <rect x="1080" y="0" width="340" height="700" rx="14" fill="url(#lane)" stroke="#ffffff" stroke-opacity="0.06"/>
+    </g>
+
+    <!-- Dashed lane center lines -->
+    <g stroke="#94a3b8" stroke-opacity="0.25" stroke-width="2" stroke-dasharray="14 18">
+      <line x1="170" y1="20" x2="170" y2="680"/>
+      <line x1="530" y1="20" x2="530" y2="680"/>
+      <line x1="890" y1="20" x2="890" y2="680"/>
+      <line x1="1250" y1="20" x2="1250" y2="680"/>
+    </g>
+
+    <!-- Stop line at bottom (inspection bay) -->
+    <g stroke="url(#brand)" stroke-width="3" stroke-opacity="0.65">
+      <line x1="20" y1="640" x2="320" y2="640"/>
+      <line x1="380" y1="640" x2="680" y2="640"/>
+      <line x1="740" y1="640" x2="1040" y2="640"/>
+      <line x1="1100" y1="640" x2="1400" y2="640"/>
+    </g>
+
+    <!-- Lane labels -->
+    <g font-family="ui-monospace, SFMono-Regular, monospace" font-size="14" fill="#94a3b8" letter-spacing="0.2em" text-anchor="middle">
+      <text x="170" y="40">LANE 01</text>
+      <text x="530" y="40">LANE 02</text>
+      <text x="890" y="40">LANE 03</text>
+      <text x="1250" y="40">LANE 04</text>
+    </g>
+
+    <!-- Vehicles with bounding boxes -->
+    <!-- Lane 1 (queue: 4 vehicles) -->
+    <g>
+      <!-- vehicle: rounded rect body -->
+      <rect x="120" y="540" width="100" height="60" rx="10" fill="#3b82f6" fill-opacity="0.25" stroke="url(#brand)" stroke-width="2"/>
+      <rect x="130" y="552" width="80" height="36" rx="6" fill="#60a5fa" fill-opacity="0.5"/>
+      <text x="170" y="528" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#cbd5e1" letter-spacing="0.1em">CAR · 0.96</text>
+
+      <rect x="120" y="420" width="100" height="60" rx="10" fill="#3b82f6" fill-opacity="0.2" stroke="url(#brand)" stroke-width="2"/>
+      <rect x="130" y="432" width="80" height="36" rx="6" fill="#60a5fa" fill-opacity="0.45"/>
+
+      <rect x="120" y="300" width="100" height="60" rx="10" fill="#3b82f6" fill-opacity="0.18" stroke="url(#brand)" stroke-width="2"/>
+      <rect x="130" y="312" width="80" height="36" rx="6" fill="#60a5fa" fill-opacity="0.4"/>
+
+      <rect x="120" y="180" width="100" height="60" rx="10" fill="#3b82f6" fill-opacity="0.15" stroke="url(#brand)" stroke-width="2"/>
+      <rect x="130" y="192" width="80" height="36" rx="6" fill="#60a5fa" fill-opacity="0.35"/>
+    </g>
+
+    <!-- Lane 2 (queue: 2 vehicles) -->
+    <g>
+      <rect x="480" y="540" width="100" height="60" rx="10" fill="#a78bfa" fill-opacity="0.25" stroke="url(#brand)" stroke-width="2"/>
+      <rect x="490" y="552" width="80" height="36" rx="6" fill="#a78bfa" fill-opacity="0.5"/>
+      <text x="530" y="528" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#cbd5e1" letter-spacing="0.1em">CAR · 0.94</text>
+
+      <rect x="480" y="380" width="100" height="60" rx="10" fill="#a78bfa" fill-opacity="0.2" stroke="url(#brand)" stroke-width="2"/>
+      <rect x="490" y="392" width="80" height="36" rx="6" fill="#a78bfa" fill-opacity="0.45"/>
+    </g>
+
+    <!-- Lane 3 (queue: 5 vehicles, busy) -->
+    <g>
+      <rect x="840" y="560" width="100" height="60" rx="10" fill="#ec4899" fill-opacity="0.28" stroke="url(#brand)" stroke-width="2"/>
+      <rect x="850" y="572" width="80" height="36" rx="6" fill="#f472b6" fill-opacity="0.55"/>
+      <text x="890" y="548" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#cbd5e1" letter-spacing="0.1em">TRUCK · 0.91</text>
+
+      <rect x="840" y="450" width="100" height="80" rx="10" fill="#ec4899" fill-opacity="0.22" stroke="url(#brand)" stroke-width="2"/>
+      <rect x="850" y="462" width="80" height="56" rx="6" fill="#f472b6" fill-opacity="0.5"/>
+
+      <rect x="840" y="350" width="100" height="60" rx="10" fill="#ec4899" fill-opacity="0.2" stroke="url(#brand)" stroke-width="2"/>
+      <rect x="850" y="362" width="80" height="36" rx="6" fill="#f472b6" fill-opacity="0.45"/>
+
+      <rect x="840" y="240" width="100" height="60" rx="10" fill="#ec4899" fill-opacity="0.18" stroke="url(#brand)" stroke-width="2"/>
+      <rect x="850" y="252" width="80" height="36" rx="6" fill="#f472b6" fill-opacity="0.4"/>
+
+      <rect x="840" y="130" width="100" height="60" rx="10" fill="#ec4899" fill-opacity="0.15" stroke="url(#brand)" stroke-width="2"/>
+      <rect x="850" y="142" width="80" height="36" rx="6" fill="#f472b6" fill-opacity="0.35"/>
+    </g>
+
+    <!-- Lane 4 (queue: 1 vehicle) -->
+    <g>
+      <rect x="1200" y="540" width="100" height="60" rx="10" fill="#60a5fa" fill-opacity="0.25" stroke="url(#brand)" stroke-width="2"/>
+      <rect x="1210" y="552" width="80" height="36" rx="6" fill="#60a5fa" fill-opacity="0.5"/>
+      <text x="1250" y="528" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" fill="#cbd5e1" letter-spacing="0.1em">CAR · 0.97</text>
+    </g>
+
+    <!-- Per-lane queue counter chips at bottom -->
+    <g font-family="ui-monospace, SFMono-Regular, monospace" letter-spacing="0.18em">
+      <g transform="translate(170 670)">
+        <rect x="-70" y="-22" width="140" height="36" rx="8" fill="#0f172a" stroke="url(#brand)" stroke-width="1.5"/>
+        <text y="3" text-anchor="middle" font-size="14" fill="#cbd5e1">QUEUE 04</text>
+      </g>
+      <g transform="translate(530 670)">
+        <rect x="-70" y="-22" width="140" height="36" rx="8" fill="#0f172a" stroke="url(#brand)" stroke-width="1.5"/>
+        <text y="3" text-anchor="middle" font-size="14" fill="#cbd5e1">QUEUE 02</text>
+      </g>
+      <g transform="translate(890 670)">
+        <rect x="-70" y="-22" width="140" height="36" rx="8" fill="#0f172a" stroke="#ec4899" stroke-width="1.5"/>
+        <text y="3" text-anchor="middle" font-size="14" fill="#f472b6">QUEUE 05</text>
+      </g>
+      <g transform="translate(1250 670)">
+        <rect x="-70" y="-22" width="140" height="36" rx="8" fill="#0f172a" stroke="url(#brand)" stroke-width="1.5"/>
+        <text y="3" text-anchor="middle" font-size="14" fill="#cbd5e1">QUEUE 01</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Edge-device chip badge -->
+  <g transform="translate(1280 880)">
+    <rect x="-180" y="-30" width="200" height="48" rx="10" fill="#0f172a" stroke="url(#brand)" stroke-width="1.5"/>
+    <circle cx="-160" cy="-6" r="6" fill="#34d399"/>
+    <text x="-145" y="0" font-family="ui-monospace, SFMono-Regular, monospace" font-size="13" fill="#cbd5e1" letter-spacing="0.16em">EDGE · ON-DEVICE</text>
+  </g>
+  <g transform="translate(80 880)">
+    <text font-family="ui-monospace, SFMono-Regular, monospace" font-size="13" letter-spacing="0.18em" fill="#94a3b8" y="-6">THROUGHPUT</text>
+    <text font-family="ui-monospace, SFMono-Regular, monospace" font-size="22" letter-spacing="0.12em" fill="url(#brand)" y="22" font-weight="700">REAL-TIME</text>
+  </g>
+</svg>

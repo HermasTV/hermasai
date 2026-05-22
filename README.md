@@ -34,31 +34,20 @@ A Next.js 15 TypeScript application showcasing browser-based AI/ML capabilities 
 2. **Git submodules** for backend services
 3. **WebGPU-compatible browser** for AI demos
 
-### Single Command Setup
+### Setup
 ```bash
 # Clone repository with submodules
 git clone --recursive https://github.com/HermasTV/hermasai.git
 cd hermasai
 
-# Start all services (frontend + backend)
-./start-dev.sh
-```
+# Frontend
+npm install
+npm run dev   # http://localhost:3000
 
-This will:
-- Install Node.js dependencies
-- Set up Python virtual environment in `python-services/documents-services`
-- Install Python dependencies (FastAPI, PyPDF2, pdf2docx)
-- Start Next.js dev server on http://localhost:3000
-- Start Python document service on http://127.0.0.1:8000
-
-### Individual Commands
-```bash
-# Frontend only
-npm run dev
-
-# Backend only (in python-services/documents-services/)
-cd python-services/documents-services
-python main.py
+# Backend (in services/documents-services/)
+cd services/documents-services
+pip install -r requirements.txt
+python main.py   # http://127.0.0.1:8000
 
 # Build for production
 npm run build
@@ -80,14 +69,14 @@ hermasai/
 │   ├── hooks/                # Custom hooks (Web Workers, AI)
 │   └── utils/                # Utilities (API config)
 ├── public/                   # Static assets (ML models)
-├── python-services/          # Backend services (git submodule)
+├── services/          # Backend services (git submodule)
 │   └── documents-services/   # FastAPI document processing
 └── ignore-folder/           # Archive/backup files
 ```
 
 ## 🌐 API Endpoints
 
-### Backend Services (`python-services/documents-services`)
+### Backend Services (`services/documents-services`)
 - `GET /` - Service health status
 - `GET /health` - Health check
 - `POST /convert/pdf-to-docx` - PDF to DOCX conversion
@@ -135,10 +124,10 @@ Backend services are maintained in a separate repository:
 git submodule update --init --recursive
 
 # Update submodule to latest
-cd python-services/documents-services
+cd services/documents-services
 git pull origin master
 cd ../..
-git add python-services/documents-services
+git add services/documents-services
 git commit -m "Update documents-services submodule"
 ```
 
@@ -149,7 +138,7 @@ git commit -m "Update documents-services submodule"
 
 ## 📚 Additional Resources
 
-- [STARTUP.md](./STARTUP.md) - Detailed development guide
+- [docs/startup.md](./docs/startup.md) - Detailed development guide
 - [CLAUDE.md](./CLAUDE.md) - Claude Code AI assistant instructions
 - [Documents Services Repository](https://github.com/HermasTV/documents-services) - Backend services
 

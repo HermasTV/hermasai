@@ -1,0 +1,212 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="50%" stop-color="#1e1b4b"/>
+      <stop offset="100%" stop-color="#312e81"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="0.3" cy="0.4" r="0.55">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="0.78" cy="0.7" r="0.5">
+      <stop offset="0%" stop-color="#ec4899" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#ec4899" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow3" cx="0.55" cy="0.55" r="0.4">
+      <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#60a5fa"/>
+      <stop offset="55%" stop-color="#a78bfa"/>
+      <stop offset="100%" stop-color="#ec4899"/>
+    </linearGradient>
+    <radialGradient id="splat-blue" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="splat-purple" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#a78bfa" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#a78bfa" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="splat-pink" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0%" stop-color="#f472b6" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#f472b6" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#ffffff" stroke-opacity="0.04" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <rect width="1600" height="1000" fill="url(#glow1)"/>
+  <rect width="1600" height="1000" fill="url(#glow2)"/>
+  <rect width="1600" height="1000" fill="url(#glow3)"/>
+
+  <!-- Header -->
+  <g font-family="ui-monospace, SFMono-Regular, monospace" letter-spacing="0.22em">
+    <text x="80" y="100" font-size="16" fill="#94a3b8" font-weight="600">3D GAUSSIAN SPLATTING</text>
+    <text x="80" y="128" font-size="12" fill="#64748b">VEHICLE RECONSTRUCTION · INSPECTION POC</text>
+    <g transform="translate(1520 96)" text-anchor="end">
+      <rect x="-180" y="-22" width="180" height="36" rx="8" fill="url(#brand)"/>
+      <text x="-90" y="3" text-anchor="middle" font-size="14" font-weight="700" fill="#0a0f1f" letter-spacing="0.16em">POC · ADNOC</text>
+    </g>
+  </g>
+
+  <!-- Ground plane (perspective grid) -->
+  <g transform="translate(800 720)">
+    <!-- ellipse turntable -->
+    <ellipse cx="0" cy="0" rx="540" ry="120" fill="none" stroke="url(#brand)" stroke-width="1.5" stroke-opacity="0.45" stroke-dasharray="6 8"/>
+    <ellipse cx="0" cy="0" rx="420" ry="92" fill="none" stroke="#a78bfa" stroke-width="1" stroke-opacity="0.3"/>
+    <ellipse cx="0" cy="0" rx="300" ry="66" fill="none" stroke="#a78bfa" stroke-width="1" stroke-opacity="0.2"/>
+
+    <!-- Orbit indicator: arc + arrow -->
+    <path d="M -540 0 A 540 120 0 0 1 540 0" fill="none" stroke="url(#brand)" stroke-width="2" stroke-opacity="0.55"/>
+    <g transform="translate(540 0)">
+      <path d="M 0 0 L -16 -8 L -12 0 L -16 8 Z" fill="url(#brand)"/>
+    </g>
+  </g>
+
+  <!-- 3D axes (bottom-left corner of scene) -->
+  <g transform="translate(180 720)" font-family="ui-monospace, SFMono-Regular, monospace" font-size="12" letter-spacing="0.1em">
+    <!-- X axis (red-ish but use brand to stay on palette: blue) -->
+    <line x1="0" y1="0" x2="80" y2="20" stroke="#60a5fa" stroke-width="2"/>
+    <text x="86" y="26" fill="#60a5fa">X</text>
+    <!-- Y axis -->
+    <line x1="0" y1="0" x2="-30" y2="-70" stroke="#a78bfa" stroke-width="2"/>
+    <text x="-38" y="-76" fill="#a78bfa">Y</text>
+    <!-- Z axis -->
+    <line x1="0" y1="0" x2="-60" y2="20" stroke="#f472b6" stroke-width="2"/>
+    <text x="-78" y="28" fill="#f472b6">Z</text>
+    <circle cx="0" cy="0" r="3" fill="#ffffff"/>
+  </g>
+
+  <!-- Car wireframe + splats -->
+  <!-- Car silhouette (side-3/4 view), centered around (800, 540) -->
+  <g transform="translate(800 540)">
+    <!-- soft glow under car -->
+    <ellipse cx="0" cy="160" rx="380" ry="36" fill="url(#splat-blue)" opacity="0.45"/>
+
+    <!-- Wireframe body: stylized SUV/sedan -->
+    <g fill="none" stroke="url(#brand)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.95">
+      <!-- main body outline -->
+      <path d="M -340 80 L -300 30 Q -280 -10 -220 -30 L -100 -90 Q 0 -120 100 -90 L 220 -30 Q 280 -10 300 30 L 340 80 Z"/>
+      <!-- roof line -->
+      <path d="M -180 -40 Q 0 -110 180 -40"/>
+      <!-- belt line -->
+      <path d="M -260 30 Q 0 0 260 30"/>
+      <!-- door split -->
+      <line x1="-90" y1="-90" x2="-90" y2="60"/>
+      <line x1="40" y1="-100" x2="40" y2="60"/>
+      <!-- window split -->
+      <line x1="-60" y1="-95" x2="-60" y2="-30"/>
+      <line x1="80" y1="-100" x2="80" y2="-30"/>
+      <!-- front bumper detail -->
+      <path d="M -340 80 L -360 100 L -350 130 L -310 130 L -290 100"/>
+      <!-- rear bumper detail -->
+      <path d="M 340 80 L 360 100 L 350 130 L 310 130 L 290 100"/>
+    </g>
+
+    <!-- Wheels -->
+    <g stroke="url(#brand)" stroke-width="2" fill="#0b1120">
+      <circle cx="-220" cy="120" r="48"/>
+      <circle cx="220" cy="120" r="48"/>
+      <circle cx="-220" cy="120" r="22" fill="none" stroke="#a78bfa" stroke-opacity="0.7"/>
+      <circle cx="220" cy="120" r="22" fill="none" stroke="#a78bfa" stroke-opacity="0.7"/>
+    </g>
+
+    <!-- Wireframe cross-lines (mesh feel) -->
+    <g stroke="url(#brand)" stroke-width="0.8" stroke-opacity="0.4" fill="none">
+      <line x1="-300" y1="30" x2="-180" y2="-40"/>
+      <line x1="-220" y1="-30" x2="-100" y2="-90"/>
+      <line x1="-100" y1="-90" x2="0" y2="-120"/>
+      <line x1="0" y1="-120" x2="100" y2="-90"/>
+      <line x1="100" y1="-90" x2="220" y2="-30"/>
+      <line x1="220" y1="-30" x2="300" y2="30"/>
+      <line x1="-340" y1="80" x2="-260" y2="30"/>
+      <line x1="340" y1="80" x2="260" y2="30"/>
+      <line x1="-90" y1="60" x2="40" y2="60"/>
+      <line x1="-180" y1="-40" x2="180" y2="-40"/>
+    </g>
+  </g>
+
+  <!-- Gaussian splat point cloud — scattered around the car, varying size + color -->
+  <g>
+    <!-- larger glowing splats -->
+    <circle cx="420" cy="500" r="22" fill="url(#splat-blue)"/>
+    <circle cx="1180" cy="520" r="20" fill="url(#splat-pink)"/>
+    <circle cx="1280" cy="450" r="16" fill="url(#splat-purple)"/>
+    <circle cx="500" cy="430" r="14" fill="url(#splat-purple)"/>
+    <circle cx="380" cy="600" r="18" fill="url(#splat-blue)"/>
+    <circle cx="1220" cy="640" r="18" fill="url(#splat-pink)"/>
+    <circle cx="800" cy="380" r="16" fill="url(#splat-purple)"/>
+    <circle cx="900" cy="350" r="12" fill="url(#splat-blue)"/>
+    <circle cx="700" cy="350" r="12" fill="url(#splat-pink)"/>
+    <circle cx="1100" cy="380" r="14" fill="url(#splat-purple)"/>
+    <circle cx="600" cy="380" r="12" fill="url(#splat-blue)"/>
+
+    <!-- medium splats -->
+    <g>
+      <circle cx="460" cy="660" r="9" fill="url(#splat-blue)"/>
+      <circle cx="540" cy="700" r="8" fill="url(#splat-purple)"/>
+      <circle cx="320" cy="540" r="9" fill="url(#splat-purple)"/>
+      <circle cx="350" cy="660" r="8" fill="url(#splat-blue)"/>
+      <circle cx="1080" cy="700" r="9" fill="url(#splat-pink)"/>
+      <circle cx="1340" cy="600" r="8" fill="url(#splat-pink)"/>
+      <circle cx="1140" cy="650" r="7" fill="url(#splat-purple)"/>
+      <circle cx="980" cy="700" r="8" fill="url(#splat-blue)"/>
+      <circle cx="650" cy="700" r="9" fill="url(#splat-purple)"/>
+      <circle cx="850" cy="690" r="7" fill="url(#splat-blue)"/>
+      <circle cx="730" cy="430" r="7" fill="url(#splat-blue)"/>
+      <circle cx="870" cy="420" r="8" fill="url(#splat-pink)"/>
+      <circle cx="1020" cy="420" r="7" fill="url(#splat-purple)"/>
+      <circle cx="560" cy="460" r="6" fill="url(#splat-blue)"/>
+    </g>
+
+    <!-- small dot points (point-cloud feel) -->
+    <g fill="#a78bfa" opacity="0.9">
+      <circle cx="490" cy="510" r="2"/><circle cx="510" cy="540" r="2"/><circle cx="540" cy="490" r="2"/>
+      <circle cx="610" cy="640" r="2"/><circle cx="640" cy="600" r="2"/><circle cx="690" cy="660" r="2"/>
+      <circle cx="780" cy="660" r="2"/><circle cx="820" cy="640" r="2"/><circle cx="870" cy="660" r="2"/>
+      <circle cx="940" cy="640" r="2"/><circle cx="980" cy="660" r="2"/><circle cx="1030" cy="640" r="2"/>
+      <circle cx="1080" cy="600" r="2"/><circle cx="1110" cy="580" r="2"/><circle cx="1150" cy="570" r="2"/>
+      <circle cx="430" cy="580" r="2"/><circle cx="400" cy="540" r="2"/><circle cx="380" cy="500" r="2"/>
+      <circle cx="1200" cy="500" r="2"/><circle cx="1240" cy="540" r="2"/><circle cx="1260" cy="580" r="2"/>
+      <circle cx="600" cy="420" r="2"/><circle cx="650" cy="400" r="2"/><circle cx="730" cy="380" r="2"/>
+      <circle cx="820" cy="370" r="2"/><circle cx="900" cy="380" r="2"/><circle cx="980" cy="380" r="2"/>
+      <circle cx="1060" cy="400" r="2"/><circle cx="1140" cy="420" r="2"/>
+    </g>
+    <g fill="#60a5fa" opacity="0.85">
+      <circle cx="450" cy="460" r="1.5"/><circle cx="470" cy="470" r="1.5"/><circle cx="500" cy="450" r="1.5"/>
+      <circle cx="540" cy="440" r="1.5"/><circle cx="700" cy="690" r="1.5"/><circle cx="730" cy="700" r="1.5"/>
+      <circle cx="900" cy="700" r="1.5"/><circle cx="1000" cy="690" r="1.5"/>
+      <circle cx="320" cy="600" r="1.5"/><circle cx="340" cy="620" r="1.5"/>
+      <circle cx="1300" cy="640" r="1.5"/><circle cx="1320" cy="620" r="1.5"/>
+    </g>
+    <g fill="#f472b6" opacity="0.85">
+      <circle cx="1100" cy="460" r="1.5"/><circle cx="1130" cy="490" r="1.5"/><circle cx="1170" cy="510" r="1.5"/>
+      <circle cx="1210" cy="480" r="1.5"/><circle cx="850" cy="400" r="1.5"/><circle cx="780" cy="410" r="1.5"/>
+    </g>
+  </g>
+
+  <!-- Camera frustum indicators (turntable cameras) -->
+  <g stroke="url(#brand)" stroke-width="1.2" stroke-opacity="0.5" fill="url(#brand)" fill-opacity="0.06">
+    <!-- left camera -->
+    <path d="M 200 540 L 360 480 L 360 600 Z"/>
+    <!-- right camera -->
+    <path d="M 1400 540 L 1240 480 L 1240 600 Z"/>
+  </g>
+  <g font-family="ui-monospace, SFMono-Regular, monospace" font-size="11" letter-spacing="0.14em" fill="#94a3b8">
+    <text x="180" y="528" text-anchor="end">CAM L</text>
+    <text x="1420" y="528">CAM R</text>
+  </g>
+
+  <!-- Bottom telemetry -->
+  <g font-family="ui-monospace, SFMono-Regular, monospace" font-size="14" letter-spacing="0.18em" fill="#94a3b8">
+    <text x="80" y="940">SPLATS · 1.2M · 24 VIEWS</text>
+    <text x="800" y="940" text-anchor="middle" fill="#cbd5e1">RECONSTRUCTION · 3D</text>
+    <text x="1520" y="940" text-anchor="end" fill="url(#brand)" font-weight="700">END-TO-END PIPELINE</text>
+  </g>
+</svg>

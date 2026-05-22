@@ -8,9 +8,7 @@
     "start": "next start",
     "build:test": "rm -rf .next && next build",
     "start:prod": "next build && next start",
-    "lint": "eslint",
-    "start-all": "./start-dev.sh",
-    "stop-all": "./stop-dev.sh"
+    "lint": "eslint"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.7",
@@ -20,6 +18,14 @@
     "@payloadcms/plugin-cloud-storage": "^3.61.0",
     "@payloadcms/richtext-lexical": "^3.61.0",
     "@payloadcms/storage-s3": "^3.61.0",
+    "@tensorflow-models/face-detection": "^1.0.3",
+    "@tensorflow-models/face-landmarks-detection": "^1.0.6",
+    "@tensorflow-models/hand-pose-detection": "^2.0.1",
+    "@tensorflow/tfjs-backend-wasm": "^4.22.0",
+    "@tensorflow/tfjs-backend-webgl": "^4.22.0",
+    "@tensorflow/tfjs-backend-webgpu": "^4.22.0",
+    "@tensorflow/tfjs-converter": "^4.22.0",
+    "@tensorflow/tfjs-core": "^4.22.0",
     "axios": "^1.11.0",
     "buffer": "^6.0.3",
     "docx": "^9.5.1",
@@ -40,7 +46,8 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-type-animation": "^3.2.0",
-    "sharp": "^0.34.4"
+    "sharp": "^0.34.4",
+    "simple-icons": "^16.20.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

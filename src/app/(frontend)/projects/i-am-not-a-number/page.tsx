@@ -984,7 +984,7 @@ export default function IAmNotANumberPage() {
               style={{ height: 22, filter: "invert(1)" }}
             />
             <span style={{ fontSize: "0.7rem", letterSpacing: "0.12em", color: "#fff", fontWeight: 400, textTransform: "uppercase", fontFamily: "'Inter', sans-serif" }}>
-              hermas.ai
+              hermas.uk
             </span>
           </Link>
 

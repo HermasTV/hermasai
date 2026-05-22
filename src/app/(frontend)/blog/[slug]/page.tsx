@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { notFound } from 'next/navigation'
@@ -5,6 +6,7 @@ import Image from 'next/image'
 import { Navbar } from '@/components/navbar'
 import Footer from '@/components/footer'
 import { BlockRenderer } from '@/components/blog/BlockRenderer'
+import { BlogPostingJsonLd, BreadcrumbJsonLd } from '@/lib/seo/jsonld'
 
 export const dynamic = 'force-dynamic'
 
@@ -12,7 +14,7 @@ type Props = {
   params: Promise<{ slug: string }>
 }
 
-export async function generateMetadata({ params }: Props) {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
 
   try {
@@ -25,21 +27,48 @@ export async function generateMetadata({ params }: Props) {
       limit: 1,
     })
 
-    const post = posts[0]
+    const post: any = posts[0]
 
     if (!post) {
       console.log('[BLOG POST META] Post not found for slug:', slug)
-      return { title: 'Post Not Found' }
+      return { title: 'Post Not Found', robots: { index: false, follow: false } }
     }
 
     console.log('[BLOG POST META] Metadata generated successfully for:', post.title)
+    const description: string = post.excerpt || post.title
+    const ogImage =
+      post.featuredImage && typeof post.featuredImage === 'object' && post.featuredImage.url
+        ? post.featuredImage.url
+        : '/opengraph-image'
+
     return {
-      title: `${post.title} | HermasAI Blog`,
-      description: post.excerpt || post.title,
+      title: post.title,
+      description,
+      alternates: { canonical: `/blog/${slug}` },
+      openGraph: {
+        type: 'article',
+        title: post.title,
+        description,
+        url: `/blog/${slug}`,
+        images: [{ url: ogImage }],
+        publishedTime: post.publishedAt
+          ? new Date(post.publishedAt).toISOString()
+          : undefined,
+        authors:
+          post.author && typeof post.author === 'object' && post.author.name
+            ? [post.author.name]
+            : ['Ahmed Hermas'],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: post.title,
+        description,
+        images: [ogImage],
+      },
     }
   } catch (error) {
     console.error('[BLOG POST META] Error generating metadata:', error)
-    return { title: 'Error Loading Post' }
+    return { title: 'Error Loading Post', robots: { index: false, follow: false } }
   }
 }
 
@@ -69,8 +98,36 @@ export default async function BlogPostPage({ params }: Props) {
     notFound()
   }
 
+  const featuredImageUrl =
+    post.featuredImage && typeof post.featuredImage === 'object'
+      ? post.featuredImage.url
+      : undefined
+  const authorName =
+    post.author && typeof post.author === 'object' ? post.author.name : undefined
+
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-blue-900/20 to-purple-900/30">
+      <BreadcrumbJsonLd
+        items={[
+          { name: 'Home', url: '/' },
+          { name: 'Blog', url: '/blog' },
+          { name: post.title, url: `/blog/${slug}` },
+        ]}
+      />
+      <BlogPostingJsonLd
+        title={post.title}
+        description={post.excerpt || post.title}
+        url={`/blog/${slug}`}
+        image={featuredImageUrl}
+        datePublished={post.publishedAt}
+        dateModified={post.updatedAt || post.publishedAt}
+        authorName={authorName}
+        keywords={
+          post.tags && post.tags.length
+            ? post.tags.map((t: any) => t.tag).filter(Boolean)
+            : undefined
+        }
+      />
       <Navbar />
 
       <main className="flex-grow">
