@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
-import AnimatedBackground from "@/components/animated-background";
+import LogosBackground from "@/components/logos-background";
 import * as ort from "onnxruntime-web/webgpu";
 
 interface SegmentationResult {
@@ -333,7 +333,7 @@ export default function UNetSegmentationPage() {
 
   return isWebGPUAvailable ? (
     <div className="min-h-screen flex flex-col">
-      <AnimatedBackground />
+      <LogosBackground />
       <Navbar />
       <main className="flex-grow">
         <div className="container mx-auto px-4 pt-8 pb-12 sm:pt-12 max-w-7xl">
@@ -621,7 +621,7 @@ export default function UNetSegmentationPage() {
     </div>
   ) : (
     <div className="min-h-screen flex flex-col">
-      <AnimatedBackground />
+      <LogosBackground />
       <Navbar />
       <main className="flex-grow flex items-center justify-center px-4 py-16">
         <div className='flex flex-col justify-center items-center text-center max-w-md bg-gray-800/60 border border-gray-700/50 rounded-2xl p-8 backdrop-blur-sm'>

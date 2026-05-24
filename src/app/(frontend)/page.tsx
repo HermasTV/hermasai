@@ -29,8 +29,8 @@ export const metadata: Metadata = {
  * browser chrome can't introduce scroll or jump) with overflow hidden.
  * It renders ONLY three things:
  *   - a static dark-gradient base layer (the TechLogoField draws on top of
- *     it; the site-wide AnimatedBackground is intentionally NOT used here —
- *     the homepage has exactly one visual system),
+ *     it; the homepage owns the tech-logo field directly via HomeHero rather
+ *     than going through the site-wide StaticBackground wrapper),
  *   - the Navbar (so Projects / Experience / Blog stay reachable),
  *   - the full-viewport HomeHero (the tech-logo field + minimal centered
  *     text).

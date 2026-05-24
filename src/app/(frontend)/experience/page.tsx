@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Navbar } from '@/components/navbar';
-import AnimatedBackground from '@/components/animated-background';
+import LogosBackground from '@/components/logos-background';
 import { ExperienceScroller } from '@/components/experience-scroller';
 import { BreadcrumbJsonLd } from '@/lib/seo/jsonld';
 
@@ -54,7 +54,7 @@ export default function ExperiencePage() {
           { name: 'Experience', url: '/experience' },
         ]}
       />
-      <AnimatedBackground />
+      <LogosBackground />
 
       {/* Navbar floats above the panels — does not consume layout height. */}
       <div className="pointer-events-none fixed inset-x-0 top-0 z-50">

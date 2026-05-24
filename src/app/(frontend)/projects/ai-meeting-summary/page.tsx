@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
-import AnimatedBackground from "@/components/animated-background";
+import LogosBackground from "@/components/logos-background";
 
 export default function AIMeetingSummaryPage() {
   const [audioFile, setAudioFile] = useState<File | null>(null);
@@ -58,7 +58,7 @@ export default function AIMeetingSummaryPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <AnimatedBackground />
+      <LogosBackground />
       <Navbar />
       <main className="flex-grow">
         <div className="container mx-auto px-4 pt-8 pb-12 sm:pt-12 max-w-7xl">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
-import AnimatedBackground from "@/components/animated-background";
+import LogosBackground from "@/components/logos-background";
 import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
 
@@ -208,7 +208,7 @@ export default function ProjectsPage() {
           { name: 'Projects', url: '/projects' },
         ]}
       />
-      <AnimatedBackground />
+      <LogosBackground />
       <Navbar />
       <main className="flex-grow">
         <div className="container mx-auto px-4 pt-12 sm:pt-16 pb-16 max-w-6xl">

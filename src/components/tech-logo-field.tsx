@@ -181,7 +181,10 @@ function logoInnerSvg(logo: TechLogo): { body: string; title: string } | null {
   };
 }
 
-export default function TechLogoField() {
+export default function TechLogoField({
+  animate = true,
+  lite = false,
+}: { animate?: boolean; lite?: boolean } = {}) {
   const rootRef = useRef<HTMLDivElement>(null);
   // refs to each logo wrapper so the rAF loop can write transforms directly
   // (no React re-render per frame).
@@ -225,7 +228,10 @@ export default function TechLogoField() {
 
   // ---- animation loop — transforms written straight to the DOM ----
   useEffect(() => {
-    if (reduceMotion || field.length === 0) return;
+    // animate=false lets a caller force the static "resting pose" render
+    // (same arrangement as prefers-reduced-motion) for pages that can't
+    // spare main-thread time for an ambient rAF — e.g. realtime-face.
+    if (!animate || reduceMotion || field.length === 0) return;
 
     let rafId = 0;
     let startTs = 0;
@@ -291,7 +297,7 @@ export default function TechLogoField() {
       cancelAnimationFrame(rafId);
       document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [field, reduceMotion]);
+  }, [animate, field, reduceMotion]);
 
   // memoize the rendered svg markup so it isn't recomputed each render
   const items = useMemo(
@@ -330,28 +336,38 @@ export default function TechLogoField() {
               marginTop: -placed.size / 2,
               opacity: L.opacity,
               transform: initialTransform,
-              filter: L.blur > 0 ? `blur(${L.blur}px)` : undefined,
+              // `lite` mode drops the layer blur — the backdrop-filter on the
+              // chip and the SVG drop-shadow are the heavy compositor work
+              // (re-blurred per-frame when the layer behind moves), so they
+              // are conditional below.
+              filter: lite ? undefined : L.blur > 0 ? `blur(${L.blur}px)` : undefined,
             }}
           >
-            {/* frosted-glass chip behind the mark — subtle premium depth */}
-            <div
-              className="absolute inset-0 rounded-2xl"
-              style={{
-                background:
-                  'linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015))',
-                border: '1px solid rgba(255,255,255,0.06)',
-                boxShadow: `0 0 18px ${placed.tint}14`,
-                backdropFilter: 'blur(2px)',
-                WebkitBackdropFilter: 'blur(2px)',
-              }}
-            />
-            {/* the logo itself — tinted via currentColor with a soft glow */}
+            {/* frosted-glass chip behind the mark — subtle premium depth.
+                Omitted in `lite` mode: the backdrop-filter forces the
+                compositor to re-blur this region every time the content
+                behind it (e.g. a playing webcam) repaints. */}
+            {!lite && (
+              <div
+                className="absolute inset-0 rounded-2xl"
+                style={{
+                  background:
+                    'linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015))',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  boxShadow: `0 0 18px ${placed.tint}14`,
+                  backdropFilter: 'blur(2px)',
+                  WebkitBackdropFilter: 'blur(2px)',
+                }}
+              />
+            )}
+            {/* the logo itself — tinted via currentColor. `lite` mode drops
+                the drop-shadow filter (another per-frame compositor cost). */}
             <svg
               viewBox="0 0 24 24"
               className="absolute inset-0 h-full w-full p-[22%]"
               style={{
                 color: placed.tint,
-                filter: `drop-shadow(0 0 5px ${placed.tint}55)`,
+                filter: lite ? undefined : `drop-shadow(0 0 5px ${placed.tint}55)`,
               }}
               role="img"
               aria-label={svg.title}

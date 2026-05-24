@@ -181,13 +181,8 @@ export const PortfolioCaseStudy = forwardRef<HTMLElement, Props>(
                   project.kpis.length >= 3 ? 'grid-cols-3' : 'grid-cols-2'
                 }`}
               >
-                {project.kpis.map((kpi, i) => (
-                  <PortfolioKpi
-                    key={kpi.label}
-                    kpi={kpi}
-                    active={revealed}
-                    delayMs={reducedMotion ? 0 : 240 + i * 90}
-                  />
+                {project.kpis.map((kpi) => (
+                  <PortfolioKpi key={kpi.label} kpi={kpi} />
                 ))}
               </div>
 
