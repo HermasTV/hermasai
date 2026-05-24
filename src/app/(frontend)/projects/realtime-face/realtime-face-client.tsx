@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
-import AnimatedBackground from "@/components/animated-background";
+import StaticBackground from "@/components/static-background";
 import {
   OverlayCanvas,
   type FaceDetectionPayload,
@@ -14,6 +14,8 @@ import { useInferenceWorker } from "@/hooks/useInferenceWorker";
 
 const SOURCE_WIDTH = 480;
 const SOURCE_HEIGHT = 360;
+
+type WorkerKey = "faceDetector" | "faceMesh" | "handPose";
 
 const createFaceDetectorWorker = () =>
   new Worker(
@@ -40,9 +42,22 @@ export default function RealtimeFaceClient() {
   const visibleRef = useRef(true);
   const cameraReadyRef = useRef(false);
 
-  const [isWebGPUAvailable, setIsWebGPUAvailable] = useState(false);
+  // Feed-on-result scheduling state (see feedRef assignment below).
+  const feedRef = useRef<((key: WorkerKey) => void) | null>(null);
+  const prefetchRef = useRef<Record<WorkerKey, Promise<ImageBitmap | null> | null>>({
+    faceDetector: null,
+    faceMesh: null,
+    handPose: null,
+  });
+  const pendingRef = useRef<Record<WorkerKey, boolean>>({
+    faceDetector: false,
+    faceMesh: false,
+    handPose: false,
+  });
+
   const [cameraError, setCameraError] = useState<string | null>(null);
   const [cameraReady, setCameraReady] = useState(false);
+  const [blinkCount, setBlinkCount] = useState(0);
 
   const [faceDetEnabled, setFaceDetEnabled] = useState(true);
   const [faceMeshEnabled, setFaceMeshEnabled] = useState(true);
@@ -55,23 +70,20 @@ export default function RealtimeFaceClient() {
   const faceDetector = useInferenceWorker<FaceDetectionPayload>({
     workerFactory: createFaceDetectorWorker,
     enabled: faceDetEnabled,
+    onResult: () => feedRef.current?.("faceDetector"),
   });
 
   const faceMesh = useInferenceWorker<FaceMeshPayload>({
     workerFactory: createFaceMeshWorker,
     enabled: faceMeshEnabled,
+    onResult: () => feedRef.current?.("faceMesh"),
   });
 
   const handPose = useInferenceWorker<HandPosePayload>({
     workerFactory: createHandPoseWorker,
     enabled: handPoseEnabled,
+    onResult: () => feedRef.current?.("handPose"),
   });
-
-  useEffect(() => {
-    if (typeof navigator !== "undefined" && (navigator as Navigator & { gpu?: unknown }).gpu) {
-      setIsWebGPUAvailable(true);
-    }
-  }, []);
 
   useEffect(() => {
     let stream: MediaStream | null = null;
@@ -121,41 +133,63 @@ export default function RealtimeFaceClient() {
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
-  const sendFrameRef = useRef<(() => Promise<void>) | null>(null);
-  sendFrameRef.current = async () => {
+  // Feed-on-result scheduling. Each worker is re-fed the instant it returns a
+  // result (via onResult above), and the next frame is decoded — prefetched —
+  // while the worker is still busy. A worker is therefore never left idle
+  // waiting for a requestAnimationFrame tick, which is what previously capped
+  // each model at roughly half its achievable rate. Reassigned every render
+  // so the closure always sees current worker state.
+  feedRef.current = (key: WorkerKey) => {
     const video = videoRef.current;
-    if (!video || !cameraReadyRef.current || video.readyState < 2 || !visibleRef.current) {
+    if (
+      !video ||
+      !cameraReadyRef.current ||
+      video.readyState < 2 ||
+      !visibleRef.current
+    ) {
       return;
     }
-    const ts = performance.now();
-    const targets: { send: (b: ImageBitmap, t: number) => boolean }[] = [];
-    if (faceDetEnabled && faceDetector.isReady && !faceDetector.isBusy()) {
-      targets.push({ send: faceDetector.sendFrame });
-    }
-    if (faceMeshEnabled && faceMesh.isReady && !faceMesh.isBusy()) {
-      targets.push({ send: faceMesh.sendFrame });
-    }
-    if (handPoseEnabled && handPose.isReady && !handPose.isBusy()) {
-      targets.push({ send: handPose.sendFrame });
-    }
-    if (targets.length === 0) return;
-    try {
-      const bitmaps = await Promise.all(
-        targets.map(() => createImageBitmap(video)),
-      );
-      for (let i = 0; i < targets.length; i++) {
-        targets[i].send(bitmaps[i], ts);
-      }
-    } catch {
-      // video may not be ready yet on some browsers; skip this frame
-    }
+    // pendingRef guards the decode window; isBusy() guards the inference
+    // window — together they ensure exactly one frame in flight per worker.
+    if (pendingRef.current[key]) return;
+
+    const target =
+      key === "faceDetector"
+        ? { hook: faceDetector, enabled: faceDetEnabled }
+        : key === "faceMesh"
+          ? { hook: faceMesh, enabled: faceMeshEnabled }
+          : { hook: handPose, enabled: handPoseEnabled };
+    if (!target.enabled || !target.hook.isReady || target.hook.isBusy()) return;
+
+    pendingRef.current[key] = true;
+    const prefetched = prefetchRef.current[key];
+    prefetchRef.current[key] = null;
+    (prefetched ?? createImageBitmap(video).catch(() => null))
+      .then((bitmap) => {
+        if (!bitmap) return;
+        const sent = target.hook.sendFrame(bitmap, performance.now());
+        // Decode the next frame now, overlapped with this worker's inference.
+        if (sent && videoRef.current) {
+          prefetchRef.current[key] = createImageBitmap(videoRef.current).catch(
+            () => null,
+          );
+        }
+      })
+      .finally(() => {
+        pendingRef.current[key] = false;
+      });
   };
 
+  // requestAnimationFrame is only the safety net here: the feed-on-result
+  // chain sustains itself once running, but rAF kick-starts each worker and
+  // resumes feeding after the tab was hidden or the camera (re)connects.
   useEffect(() => {
     let stopped = false;
     const tick = () => {
       if (stopped) return;
-      sendFrameRef.current?.();
+      feedRef.current?.("faceDetector");
+      feedRef.current?.("faceMesh");
+      feedRef.current?.("handPose");
       rafRef.current = requestAnimationFrame(tick);
     };
     rafRef.current = requestAnimationFrame(tick);
@@ -187,7 +221,7 @@ export default function RealtimeFaceClient() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <AnimatedBackground />
+      <StaticBackground />
       <Navbar />
       <main className="flex-grow">
         <div className="container mx-auto px-4 pt-8 pb-12 sm:pt-12 max-w-7xl">
@@ -204,9 +238,9 @@ export default function RealtimeFaceClient() {
           <div className="max-w-4xl mx-auto mb-8">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
               <StatusCard label="Status" value={anyError ? "Error" : allReady ? "Live" : "Loading…"} />
-              <StatusCard label="Device" value={isWebGPUAvailable ? "WebGPU" : "CPU"} />
               <StatusCard label="Camera" value={cameraReady ? "On" : "Off"} />
               <StatusCard label="Pipeline FPS" value={pipelineFps.toFixed(1)} />
+              <StatusCard label="Blinks" value={blinkCount.toString()} />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
@@ -269,6 +303,7 @@ export default function RealtimeFaceClient() {
                       faceDetections={faceDetEnabled ? faceDetector.latestResult : null}
                       faceMesh={faceMeshEnabled ? faceMesh.latestResult : null}
                       handPose={handPoseEnabled ? handPose.latestResult : null}
+                      onBlink={() => setBlinkCount((c) => c + 1)}
                     />
                     {!allReady && !anyError && (
                       <LoadingOverlay
@@ -296,12 +331,13 @@ export default function RealtimeFaceClient() {
                   and MediaPipe Hands for two-hand 21-point pose estimation.
                 </p>
                 <p>
-                  Frames are transferred as zero-copy{" "}
-                  <code className="text-blue-300">ImageBitmap</code> per worker
-                  per tick, with frame-drop back-pressure so a slow model never
-                  stalls the others. The render loop is decoupled from
-                  inference: each worker reports its latest result and the
-                  overlay redraws on every <code>requestAnimationFrame</code>.
+                  Each worker is re-fed the instant it returns a result, with
+                  the next frame decoded while it is still busy — so a model is
+                  never left idle waiting for a frame. Frames are zero-copy{" "}
+                  <code className="text-blue-300">ImageBitmap</code> transfers,
+                  and each model paces itself independently. The overlay
+                  redraws on every <code>requestAnimationFrame</code> from the
+                  latest results.
                 </p>
               </div>
             </div>
@@ -377,17 +413,38 @@ function ModelToggle({
           : "bg-gray-900/40 border-gray-800/50 opacity-60"
       }`}
     >
-      <div className="flex items-center justify-between">
-        <div>
+      <div className="flex items-center justify-between gap-2">
+        <div className="min-w-0">
           <div className={`text-sm font-semibold ${color}`}>{label}</div>
-          <div className="text-xs text-gray-400">
-            {enabled
-              ? ready
-                ? `${fps.toFixed(1)} fps · ${backend ?? "?"}`
-                : totalBytes > 0
-                  ? `${formatBytes(loadedBytes)} / ${formatBytes(totalBytes)}`
-                  : "loading…"
-              : "off"}
+          <div className="mt-1 flex items-center gap-2 text-sm">
+            {enabled ? (
+              ready ? (
+                <>
+                  <span className="text-white tabular-nums font-medium">
+                    {fps.toFixed(1)} fps
+                  </span>
+                  <span
+                    className={`px-1.5 py-0.5 rounded text-[11px] font-semibold tracking-wide uppercase ${
+                      backend === "webgpu"
+                        ? "bg-emerald-500/20 text-emerald-300"
+                        : backend === "wasm"
+                          ? "bg-amber-500/20 text-amber-300"
+                          : "bg-gray-700/60 text-gray-300"
+                    }`}
+                  >
+                    {backend ?? "?"}
+                  </span>
+                </>
+              ) : (
+                <span className="text-xs text-gray-400">
+                  {totalBytes > 0
+                    ? `${formatBytes(loadedBytes)} / ${formatBytes(totalBytes)}`
+                    : "loading…"}
+                </span>
+              )
+            ) : (
+              <span className="text-xs text-gray-500">off</span>
+            )}
           </div>
         </div>
         <div
