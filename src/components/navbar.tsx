@@ -25,7 +25,7 @@ export function Navbar() {
 
   return (
     <nav className="mx-auto pt-4 px-4 max-w-7xl">
-      <div className="bg-gradient-to-r from-gray-900/95 via-gray-800/95 to-gray-900/95 backdrop-blur-md border border-gray-700/50 rounded-2xl shadow-2xl">
+      <div className="bg-[#080b0f] border border-cyan-400/15 rounded-2xl shadow-2xl">
         <div className="px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between gap-3">
 
@@ -52,9 +52,9 @@ export function Navbar() {
                     key={link.href}
                     href={link.href}
                     aria-current={active ? 'page' : undefined}
-                    className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 ${
+                    className={`px-4 py-2 rounded-lg transition-all duration-300 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 ${
                       active
-                        ? 'text-white bg-white/10 shadow-inner'
+                        ? 'text-white bg-cyan-400/12 shadow-inner'
                         : 'text-gray-300 hover:text-white hover:bg-white/10'
                     }`}
                   >
@@ -96,9 +96,9 @@ export function Navbar() {
                     key={link.href}
                     href={link.href}
                     aria-current={active ? 'page' : undefined}
-                    className={`block px-4 py-3 rounded-lg transition-all duration-300 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 ${
+                    className={`block px-4 py-3 rounded-lg transition-all duration-300 font-medium focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60 ${
                       active
-                        ? 'text-white bg-white/10'
+                        ? 'text-white bg-cyan-400/12'
                         : 'text-gray-300 hover:text-white hover:bg-white/10'
                     }`}
                     onClick={() => setIsMenuOpen(false)}

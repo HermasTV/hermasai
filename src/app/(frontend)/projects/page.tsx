@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
 import LogosBackground from "@/components/logos-background";
+import BloodOverlay from "@/components/blood-overlay";
 import Link from "next/link";
 import { BreadcrumbJsonLd } from "@/lib/seo/jsonld";
 
@@ -43,21 +44,29 @@ type Project = {
   tags: { label: string; color: ProjectTagColor }[];
   iconPath: React.ReactNode;
   iconStrokeWidth?: number;
+  /** When true the card is rendered as a non-interactive "Coming Soon"
+   *  placeholder — not wrapped in a <Link>, visually dimmed, not focusable. */
+  comingSoon?: boolean;
+  /** When true a decorative blood-flood/drip overlay is rendered on top of
+   *  this card (memorial-only — used by "I Am Not a Number"). */
+  bleeds?: boolean;
 };
 
+// Order matters: live projects first (Webcam → Speech → I Am Not a Number),
+// then the in-progress projects which render as disabled cards.
 const PROJECTS: Project[] = [
   {
     href: '/projects/realtime-face',
-    title: 'Real-time Face Detection',
-    badge: 'Live Demo',
+    title: 'Webcam AI Lab',
+    badge: 'Multi-Model Live',
     badgeColor: 'green',
     iconColor: 'bg-blue-600',
     description:
-      'Browser-based face detection using ONNX.js and the UltraFace model. Runs completely client-side with real-time performance.',
+      'Three TensorFlow.js models running in parallel Web Workers off your webcam — BlazeFace, FaceMesh (468 landmarks), and MediaPipe Hands — each on its own WebGPU device with zero-copy frame transfer.',
     tags: [
-      { label: 'ONNX.js', color: 'blue' },
-      { label: 'Computer Vision', color: 'purple' },
-      { label: 'WebRTC', color: 'green' },
+      { label: 'TensorFlow.js', color: 'blue' },
+      { label: 'WebGPU', color: 'purple' },
+      { label: 'Multi-Model', color: 'green' },
     ],
     iconPath: (
       <path
@@ -70,16 +79,16 @@ const PROJECTS: Project[] = [
   },
   {
     href: '/projects/speech-to-text',
-    title: 'Speech-to-Text',
-    badge: 'Record & Process',
+    title: 'Speech Lab',
+    badge: 'Whisper + Moonshine',
     badgeColor: 'green',
     iconColor: 'bg-green-600',
     description:
-      "Browser-based speech recognition using OpenAI's Whisper Tiny model. Record audio and get accurate transcriptions completely client-side.",
+      'Two on-device ASR pipelines side by side: Whisper for files, URLs and recordings, and Moonshine for live mic transcription with Silero VAD splitting phrases at natural pauses.',
     tags: [
       { label: 'Whisper', color: 'green' },
-      { label: 'Speech Recognition', color: 'purple' },
-      { label: 'Audio Processing', color: 'blue' },
+      { label: 'Moonshine', color: 'purple' },
+      { label: 'Silero VAD', color: 'blue' },
     ],
     iconPath: (
       <path
@@ -91,11 +100,36 @@ const PROJECTS: Project[] = [
     ),
   },
   {
+    href: '/projects/i-am-not-a-number',
+    title: 'I Am Not a Number',
+    badge: 'Memorial',
+    badgeColor: 'gray',
+    iconColor: 'bg-gray-900 border border-gray-700',
+    bleeds: true,
+    description:
+      'An interactive WebGL particle memorial for the 72,000+ Palestinians killed in Gaza. Original work done by [Bader Alhafi]',
+    tags: [
+      { label: 'WebGL', color: 'gray' },
+      { label: 'Vanilla JS', color: 'gray' },
+      { label: '60,199 names', color: 'gray' },
+    ],
+    iconStrokeWidth: 1.5,
+    iconPath: (
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={1.5}
+        d="M12 3v1m0 16v1M4.22 4.22l.707.707m12.02 12.02.707.707M1 12h2m18 0h2M4.22 19.78l.707-.707M18.95 5.05l.707-.707M12 7a5 5 0 100 10A5 5 0 0012 7z"
+      />
+    ),
+  },
+  {
     href: '/projects/ai-meeting-summary',
     title: 'AI Meeting Summary',
     badge: 'Upload & Transcribe',
     badgeColor: 'orange',
     iconColor: 'bg-orange-600',
+    comingSoon: true,
     description:
       "Upload audio files and get AI-powered transcriptions using OpenAI's Whisper model. Perfect for meeting notes and audio content analysis.",
     tags: [
@@ -118,6 +152,7 @@ const PROJECTS: Project[] = [
     badge: 'AI Analysis',
     badgeColor: 'purple',
     iconColor: 'bg-purple-600',
+    comingSoon: true,
     description:
       'Upload your resume and LinkedIn job URL to get AI-powered matching analysis, gap identification, and improvement suggestions.',
     tags: [
@@ -140,6 +175,7 @@ const PROJECTS: Project[] = [
     badge: 'Image Segmentation',
     badgeColor: 'pink',
     iconColor: 'bg-pink-600',
+    comingSoon: true,
     description:
       'AI-powered semantic segmentation using deep learning. Upload images and get pixel-level object classification with real-time inference.',
     tags: [
@@ -153,29 +189,6 @@ const PROJECTS: Project[] = [
         strokeLinejoin="round"
         strokeWidth={2}
         d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-      />
-    ),
-  },
-  {
-    href: '/projects/i-am-not-a-number',
-    title: 'I Am Not a Number',
-    badge: 'Memorial',
-    badgeColor: 'gray',
-    iconColor: 'bg-gray-900 border border-gray-700',
-    description:
-      'An interactive WebGL particle memorial for the 72,000+ Palestinians killed in Gaza. Each light is a name — hover to remember them.',
-    tags: [
-      { label: 'WebGL', color: 'gray' },
-      { label: 'Vanilla JS', color: 'gray' },
-      { label: '60,199 names', color: 'gray' },
-    ],
-    iconStrokeWidth: 1.5,
-    iconPath: (
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={1.5}
-        d="M12 3v1m0 16v1M4.22 4.22l.707.707m12.02 12.02.707.707M1 12h2m18 0h2M4.22 19.78l.707-.707M18.95 5.05l.707-.707M12 7a5 5 0 100 10A5 5 0 0012 7z"
       />
     ),
   },
@@ -199,6 +212,73 @@ const BADGE_STYLES: Record<ProjectTagColor, string> = {
   gray: 'bg-gray-100 text-gray-800',
 };
 
+function ProjectCardInner({ p }: { p: Project }) {
+  const dim = p.comingSoon === true;
+  return (
+    <div
+      // `relative` + `overflow-hidden` + `isolate` only on the bleeding card.
+      // `overflow-hidden` clips the flood pool to the card's rounded corners.
+      // `isolate` creates a stacking context so the flood's negative z-index
+      // stays contained — without it, -z-10 would escape and paint behind the
+      // card itself, hiding the blood entirely.
+      className={`bg-[#11151d] border border-gray-700/50 rounded-xl p-6 h-full flex flex-col transition-all duration-300 ${
+        p.bleeds ? 'relative overflow-hidden isolate' : ''
+      } ${
+        dim
+          ? 'opacity-60'
+          : 'group-hover:-translate-y-1 group-hover:shadow-2xl group-hover:border-gray-500/60'
+      }`}
+    >
+      {/* Flood layer (pool + gloss) lives INSIDE the rounded clip so the
+          surface conforms to the card's rounded top corners. */}
+      {p.bleeds ? <BloodOverlay.Flood /> : null}
+      <div className="flex items-start gap-4 mb-4">
+        <div
+          className={`w-12 h-12 ${
+            dim ? 'bg-gray-700' : p.iconColor
+          } rounded-lg flex items-center justify-center flex-shrink-0 shadow-md`}
+        >
+          <svg
+            className={`w-6 h-6 ${dim ? 'text-gray-400' : 'text-white'}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            {p.iconPath}
+          </svg>
+        </div>
+        <div className="min-w-0 flex-1">
+          <h3 className="text-lg sm:text-xl font-semibold text-white leading-snug">
+            {p.title}
+          </h3>
+          <span
+            className={`inline-block mt-2 ${
+              dim
+                ? 'bg-gray-700 text-gray-300 border border-gray-600/60'
+                : BADGE_STYLES[p.badgeColor]
+            } text-xs px-2 py-1 rounded-full font-medium`}
+          >
+            {dim ? 'Coming Soon' : p.badge}
+          </span>
+        </div>
+      </div>
+      <p className="text-gray-300 text-sm leading-relaxed mb-5 flex-1">
+        {p.description}
+      </p>
+      <div className="flex flex-wrap gap-2 mt-auto">
+        {p.tags.map((tag) => (
+          <span
+            key={tag.label}
+            className={`${TAG_STYLES[tag.color]} text-xs px-2 py-1 rounded font-medium`}
+          >
+            {tag.label}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function ProjectsPage() {
   return (
     <div className="min-h-screen flex flex-col">
@@ -219,50 +299,35 @@ export default function ProjectsPage() {
             </p>
           </header>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-fr">
-            {PROJECTS.map((p) => (
-              <Link
-                key={p.href}
-                href={p.href}
-                className="block group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 rounded-xl"
-              >
-                <div className="bg-gray-800/80 border border-gray-700/50 backdrop-blur-sm rounded-xl p-6 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-2xl group-hover:border-gray-500/60 h-full flex flex-col">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className={`w-12 h-12 ${p.iconColor} rounded-lg flex items-center justify-center flex-shrink-0 shadow-md`}>
-                      <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        {p.iconPath}
-                      </svg>
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <h3 className="text-lg sm:text-xl font-semibold text-white leading-snug">
-                        {p.title}
-                      </h3>
-                      <span className={`inline-block mt-2 ${BADGE_STYLES[p.badgeColor]} text-xs px-2 py-1 rounded-full font-medium`}>
-                        {p.badge}
-                      </span>
-                    </div>
-                  </div>
-                  <p className="text-gray-300 text-sm leading-relaxed mb-5 flex-1">
-                    {p.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 mt-auto">
-                    {p.tags.map((tag) => (
-                      <span key={tag.label} className={`${TAG_STYLES[tag.color]} text-xs px-2 py-1 rounded font-medium`}>
-                        {tag.label}
-                      </span>
-                    ))}
-                  </div>
+            {PROJECTS.map((p) =>
+              p.comingSoon ? (
+                <div
+                  key={p.href}
+                  aria-disabled="true"
+                  title="Coming soon"
+                  className="block rounded-xl cursor-not-allowed select-none"
+                >
+                  <ProjectCardInner p={p} />
                 </div>
-              </Link>
-            ))}
+              ) : (
+                <Link
+                  key={p.href}
+                  href={p.href}
+                  className="relative block group focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/60 rounded-xl"
+                >
+                  <ProjectCardInner p={p} />
+                </Link>
+              )
+            )}
 
-            {/* Coming Soon placeholder card */}
-            <div className="bg-gray-800/30 border border-dashed border-gray-700/60 backdrop-blur-sm rounded-xl p-6 h-full flex flex-col items-start justify-center min-h-[180px]">
+            {/* Generic "more projects to come" placeholder */}
+            <div className="bg-[#0c0f15] border border-dashed border-gray-700/60 rounded-xl p-6 h-full flex flex-col items-start justify-center min-h-[180px]">
               <div className="w-12 h-12 rounded-lg border border-dashed border-gray-600/60 flex items-center justify-center mb-4 text-gray-500">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
                 </svg>
               </div>
-              <h3 className="text-lg font-semibold mb-2 text-gray-200">Coming Soon</h3>
+              <h3 className="text-lg font-semibold mb-2 text-gray-200">More to Come</h3>
               <p className="text-gray-500 text-sm">
                 More AI projects and demos will be showcased here.
               </p>

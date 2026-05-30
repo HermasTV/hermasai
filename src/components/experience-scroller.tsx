@@ -170,7 +170,7 @@ function ProgressRail({
                 onClick={() => onJump(i)}
                 aria-label={`Go to panel ${i + 1} of ${count}: ${labels[i]}`}
                 aria-current={isActive ? 'true' : undefined}
-                className="group relative flex h-6 w-6 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70"
+                className="group relative flex h-6 w-6 items-center justify-center rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70"
               >
                 {/* Dot / active tick */}
                 <span
@@ -182,14 +182,14 @@ function ProgressRail({
                   }`}
                   style={
                     isActive
-                      ? { backgroundImage: 'var(--grad-brand-cta)' }
+                      ? { backgroundImage: 'linear-gradient(180deg,#22d3ee,#fb3b53)' }
                       : undefined
                   }
                 />
                 {/* Tooltip label — desktop pointer users only */}
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-lg border border-white/10 bg-gray-900/90 px-2.5 py-1 text-xs font-medium text-gray-200 opacity-0 backdrop-blur-sm transition-opacity duration-200 group-hover:opacity-100 lg:block"
+                  className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-lg border border-white/10 bg-[#0a0d12] px-2.5 py-1 text-xs font-medium text-gray-200 opacity-0 transition-opacity duration-200 group-hover:opacity-100 lg:block"
                 >
                   {labels[i]}
                 </span>

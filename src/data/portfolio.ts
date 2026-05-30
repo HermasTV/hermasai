@@ -20,12 +20,35 @@ export type PortfolioMedia =
   | { kind: 'gif'; src: string; alt: string }
   | { kind: 'video'; src: string; poster?: string; alt: string };
 
+/**
+ * Visualization that animates the KPI when its panel becomes active. Each one
+ * has its own micro-animation tuned to what the KPI represents:
+ *
+ *   counter      — odometer count-up to a numeric target (10×, 500+, 8 …)
+ *   percent-ring — radial progress arc filling 0 → value (95%, 95%+)
+ *   progress-bar — horizontal bar growing 0 → value (70% less, 30%)
+ *   gauge        — speedometer needle sweeping to value (<1 km/h)
+ *   stamp        — rubber-stamp scale + rotate settling onto the value (ISO)
+ *   pulse        — pulsing dot for live/uptime states (Real-time, 24/7)
+ *   check        — animated checkmark stroke draw (0 false negatives)
+ */
+export type KpiViz =
+  | 'counter'
+  | 'percent-ring'
+  | 'progress-bar'
+  | 'gauge'
+  | 'stamp'
+  | 'pulse'
+  | 'check';
+
 export type PortfolioKpi = {
   /** Display label, e.g. "Roll-call time", "Speed-estimation error". */
   label: string;
-  /** Final string shown after the counter (or static if numeric is omitted). */
+  /** Final string shown after the animation (or static value). */
   value: string;
-  /** Numeric target for the count-up animation. Omit for static KPIs. */
+  /** Which animation to play. Defaults to `counter` if numeric, else `pulse`. */
+  viz?: KpiViz;
+  /** Numeric target for counter / ring / bar / gauge animations. */
   numeric?: number;
   /** Decimal places when interpolating numeric values. */
   decimals?: number;
@@ -33,6 +56,8 @@ export type PortfolioKpi = {
   prefix?: string;
   /** Optional suffix (e.g. "%", "×", " km/h"). */
   suffix?: string;
+  /** Upper bound for the `gauge` viz. Default 100. */
+  max?: number;
 };
 
 export type PortfolioProject = {
@@ -66,9 +91,9 @@ export const PORTFOLIO: PortfolioProject[] = [
       'Optimized the on-device inference path for low-specification mobile units in the field.',
     ],
     kpis: [
-      { label: 'Standard', value: 'ISO 30107' },
-      { label: 'Transactions Daily', value: '5000+', numeric: 5000, suffix: 'k' },
-      { label: 'Accuracy', value: '99.2%', numeric: 99.2, decimals: 1, suffix: '%' },
+      { label: 'Standard', value: 'ISO 30107', viz: 'stamp' },
+      { label: 'Transactions Daily', value: '5000+', viz: 'counter', numeric: 5000, suffix: '+' },
+      { label: 'Accuracy', value: '99.2%', viz: 'percent-ring', numeric: 99.2, decimals: 1, suffix: '%' },
     ],
     tags: ['Face Recognition', 'Anti-Spoofing', 'ISO 30107', 'Edge ML'],
     media: {
@@ -93,9 +118,9 @@ export const PORTFOLIO: PortfolioProject[] = [
       'Sustained real-time processing throughput in demanding, multi-lane environments.',
     ],
     kpis: [
-      { label: 'False Negatives', value: '0', numeric: 0 },
-      { label: 'wait time reduction', value: '30%' },
-      { label: 'Vehicles Processed Daily', value: '500+', numeric: 500 },
+      { label: 'False Negatives', value: '0', viz: 'check', numeric: 0 },
+      { label: 'Wait time reduction', value: '30%', viz: 'progress-bar', numeric: 30, suffix: '%' },
+      { label: 'Vehicles Processed Daily', value: '500+', viz: 'counter', numeric: 500, suffix: '+' },
     ],
     tags: ['Edge AI', 'Object Tracking', 'IoT', 'Site Reliability'],
     media: {
@@ -118,8 +143,8 @@ export const PORTFOLIO: PortfolioProject[] = [
       'Successfully compressed and re-validated eight distinct models for the Jetson AGX environment.',
     ],
     kpis: [
-      { label: 'Speed-estimation error', value: '<3 km/h', numeric: 1, prefix: '<', suffix: ' km/h' },
-      { label: 'In-cabin behavior accuracy', value: '95%', numeric: 95, suffix: '%' },
+      { label: 'Speed-estimation error', value: '<3 km/h', viz: 'gauge', numeric: 3, max: 60, prefix: '<', suffix: ' km/h' },
+      { label: 'In-cabin behavior accuracy', value: '95%', viz: 'percent-ring', numeric: 95, suffix: '%' },
     ],
     tags: ['Multi-Camera Tracking', 'Edge Optimization', 'Jetson AGX', 'Speed Estimation'],
     media: {
@@ -141,9 +166,9 @@ export const PORTFOLIO: PortfolioProject[] = [
       'Real-time heatmaps & dwell analytics for ops and security teams.',
     ],
     kpis: [
-      { label: 'Daily Entities', value: '1000+', numeric: 1000, suffix: '+' },
-      { label: 'Uptime', value: '24/7' },
-      { label: 'Accuracy ', value: '95%+ re-ID' },
+      { label: 'Daily Entities', value: '1000+', viz: 'counter', numeric: 1000, suffix: '+' },
+      { label: 'Uptime', value: '24/7', viz: 'pulse' },
+      { label: 'Re-ID accuracy', value: '95%+', viz: 'percent-ring', numeric: 95, suffix: '%' },
     ],
     tags: ['Re-Identification', 'Multi-Camera', 'Analytics', 'Security'],
     media: {
@@ -169,9 +194,9 @@ export const PORTFOLIO: PortfolioProject[] = [
       'Validated the underlying technology as a scalable foundation for future remote inspection workflows.',
     ],
     kpis: [
-      { label: 'Manual Effort', value: '70% less', numeric: 70, suffix: '%' },
-      { label: 'Scan Time', value: '<5 min', numeric: 5, prefix: '<', suffix: ' min' },
-      { label: 'PSNR', value: '<30db', numeric: 30, prefix: '<', suffix: ' db' }, 
+      { label: 'Manual Effort', value: '70% less', viz: 'progress-bar', numeric: 70, suffix: '%' },
+      { label: 'Scan Time', value: '<5 min', viz: 'gauge', numeric: 5, max: 30, prefix: '<', suffix: ' min' },
+      { label: 'PSNR', value: '<30 dB', viz: 'gauge', numeric: 30, max: 50, prefix: '<', suffix: ' dB' }, 
     ],
     tags: ['Gaussian Splatting', '3D Reconstruction', 'Inspection'],
     media: {

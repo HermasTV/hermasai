@@ -15,7 +15,7 @@ const SERIF_STYLE: React.CSSProperties = {
 };
 
 const GRADIENT_TEXT: React.CSSProperties = {
-  backgroundImage: 'var(--grad-brand-text)',
+  backgroundImage: 'linear-gradient(90deg,#a5f3fc 0%,#22d3ee 55%,#0891b2 100%)',
   WebkitBackgroundClip: 'text',
   backgroundClip: 'text',
   color: 'transparent',
@@ -53,7 +53,7 @@ export const ExperienceContactPanel = forwardRef<HTMLElement, Props>(
           <div
             className="absolute left-1/2 top-[18%] h-[55vmin] w-[55vmin] -translate-x-1/2 rounded-full opacity-20 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #a78bfa 0%, transparent 65%)',
+              background: 'radial-gradient(circle, #22d3ee 0%, transparent 65%)',
             }}
           />
         </div>
@@ -78,9 +78,8 @@ export const ExperienceContactPanel = forwardRef<HTMLElement, Props>(
               <span style={GRADIENT_TEXT}>Let&rsquo;s build something</span>
             </h2>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-gray-300 sm:text-base">
-              Open to senior CV / AI Forward Engineering roles, advisory work,
-              and interesting collaborations. The fastest way to reach me is
-              email.
+              Open to interesting opportunities, advisory work,
+              and collaborations. The fastest way to reach me is email.
             </p>
           </div>
 
@@ -95,13 +94,12 @@ export const ExperienceContactPanel = forwardRef<HTMLElement, Props>(
               icon={<MailIcon />}
               label="Email"
               value="a7medhermas@gmail.com"
-              href="mailto:a7medhermas@gmail.com"
             />
             <ContactCard
               icon={<PhoneIcon />}
               label="Phone"
-              value="+971 52 290 2006"
-              subValue="+20 1112 44 0020"
+              value="+971-522902006"
+              subValue="+20-1112440020"
             />
             <ContactCard
               icon={<PinIcon />}
@@ -168,19 +166,24 @@ function ContactCard({
   href?: string;
 }) {
   const inner = (
-    <div className="group flex h-full items-center gap-3.5 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3.5 transition-all duration-300 hover:border-white/20 hover:bg-white/[0.06]">
-      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] text-gray-300 transition-colors duration-300 group-hover:text-white">
+    <div className="group flex h-full items-center gap-3.5 rounded-2xl border border-white/10 bg-[#0d1118] px-4 py-3.5 transition-all duration-300 hover:border-cyan-400/30 hover:bg-[#11161e]">
+      <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-[#11161e] text-gray-300 transition-colors duration-300 group-hover:text-white">
         {icon}
       </div>
-      <div className="min-w-0">
+      <div className="min-w-0 flex-1">
         <div className="text-[10px] font-semibold uppercase tracking-[0.18em] text-gray-500">
           {label}
         </div>
-        <div className="truncate text-sm font-medium text-gray-100">
+        <div
+          className="truncate text-[13px] font-medium leading-snug text-gray-100"
+          title={value}
+        >
           {value}
         </div>
         {subValue ? (
-          <div className="truncate text-xs text-gray-400">{subValue}</div>
+          <div className="truncate text-xs text-gray-400" title={subValue}>
+            {subValue}
+          </div>
         ) : null}
       </div>
     </div>
@@ -190,7 +193,7 @@ function ContactCard({
       {href ? (
         <a
           href={href}
-          className="block h-full rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70"
+          className="block h-full rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70"
         >
           {inner}
         </a>
@@ -216,14 +219,11 @@ function SocialLink({
       target="_blank"
       rel="noopener noreferrer"
       aria-label={label}
-      className="group relative inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-gray-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/20 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70"
+      className="group inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-[#0f141b] transition-all duration-300 hover:-translate-y-0.5 hover:border-cyan-400/30 hover:bg-[#141a22] focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70"
     >
-      <span
-        aria-hidden
-        className="pointer-events-none absolute inset-0 rounded-full opacity-0 blur-md transition-opacity duration-300 group-hover:opacity-60"
-        style={{ background: 'var(--grad-brand-cta)' }}
-      />
-      <span className="relative">{icon}</span>
+      <span className="transition-transform duration-300 group-hover:scale-110">
+        {icon}
+      </span>
     </a>
   );
 }
@@ -286,9 +286,13 @@ function PinIcon() {
   );
 }
 
+/* Brand-original social icons. GitHub Octocat: pure white (its standard
+   dark-mode treatment). LinkedIn: brand blue "#0A66C2". Instagram: official
+   orange→pink→purple→blue gradient applied to the camera glyph. */
+
 function GithubIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#ffffff" aria-hidden>
       <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
     </svg>
   );
@@ -296,7 +300,7 @@ function GithubIcon() {
 
 function LinkedinIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#0A66C2" aria-hidden>
       <path d="M23.994 24v-.001H24v-8.802c0-4.306-.927-7.623-5.961-7.623-2.42 0-4.044 1.328-4.707 2.587h-.07V7.976H8.489v16.023h4.97v-7.934c0-2.089.396-4.109 2.983-4.109 2.549 0 2.587 2.384 2.587 4.243V24zM.396 7.977h4.976V24H.396zM2.882 0C1.291 0 0 1.291 0 2.882s1.291 2.909 2.882 2.909 2.882-1.318 2.882-2.909A2.884 2.884 0 002.882 0z" />
     </svg>
   );
@@ -304,10 +308,28 @@ function LinkedinIcon() {
 
 function InstagramIcon() {
   return (
-    <svg width="18" height="18" viewBox="0 0 512 512" fill="currentColor" aria-hidden>
-      <path d="M301 256c0 24.852-20.148 45-45 45s-45-20.148-45-45 20.148-45 45-45 45 20.148 45 45zm0 0" />
-      <path d="M332 120H180c-33.086 0-60 26.914-60 60v152c0 33.086 26.914 60 60 60h152c33.086 0 60-26.914 60-60V180c0-33.086-26.914-60-60-60zm-76 211c-41.355 0-75-33.645-75-75s33.645-75 75-75 75 33.645 75 75-33.645 75-75 75zm86-146c-8.285 0-15-6.715-15-15s6.715-15 15-15 15 6.715 15 15-6.715 15-15 15zm0 0" />
-      <path d="M377 0H135C60.562 0 0 60.563 0 135v242c0 74.438 60.563 135 135 135h242c74.438 0 135-60.563 135-135V135C512 60.562 451.437 0 377 0zm45 332c0 49.625-40.375 90-90 90H180c-49.625 0-90-40.375-90-90V180c0-49.625 40.375-90 90-90h152c49.625 0 90 40.375 90 90zm0 0" />
+    <svg width="18" height="18" viewBox="0 0 512 512" aria-hidden>
+      <defs>
+        {/* Official IG brand gradient: yellow → orange → pink → purple → blue */}
+        <radialGradient
+          id="ig-grad"
+          cx="0.3"
+          cy="1.05"
+          r="1.3"
+          gradientUnits="objectBoundingBox"
+        >
+          <stop offset="0" stopColor="#FFD776" />
+          <stop offset="0.18" stopColor="#F58529" />
+          <stop offset="0.42" stopColor="#DD2A7B" />
+          <stop offset="0.72" stopColor="#8134AF" />
+          <stop offset="1" stopColor="#515BD4" />
+        </radialGradient>
+      </defs>
+      <g fill="url(#ig-grad)">
+        <path d="M301 256c0 24.852-20.148 45-45 45s-45-20.148-45-45 20.148-45 45-45 45 20.148 45 45zm0 0" />
+        <path d="M332 120H180c-33.086 0-60 26.914-60 60v152c0 33.086 26.914 60 60 60h152c33.086 0 60-26.914 60-60V180c0-33.086-26.914-60-60-60zm-76 211c-41.355 0-75-33.645-75-75s33.645-75 75-75 75 33.645 75 75-33.645 75-75 75zm86-146c-8.285 0-15-6.715-15-15s6.715-15 15-15 15 6.715 15 15-6.715 15-15 15zm0 0" />
+        <path d="M377 0H135C60.562 0 0 60.563 0 135v242c0 74.438 60.563 135 135 135h242c74.438 0 135-60.563 135-135V135C512 60.562 451.437 0 377 0zm45 332c0 49.625-40.375 90-90 90H180c-49.625 0-90-40.375-90-90V180c0-49.625 40.375-90 90-90h152c49.625 0 90 40.375 90 90zm0 0" />
+      </g>
     </svg>
   );
 }

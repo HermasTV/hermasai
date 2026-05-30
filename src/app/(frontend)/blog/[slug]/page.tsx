@@ -225,7 +225,7 @@ export default async function BlogPostPage({ params }: Props) {
 
           {/* Author Bio */}
           {post.author && typeof post.author === 'object' && post.author.bio && (
-            <div className="mt-16 p-6 bg-gray-800/50 rounded-xl border border-gray-700">
+            <div className="mt-16 p-6 bg-gray-800 rounded-xl border border-gray-700">
               <div className="flex items-start gap-4">
                 {post.author.avatar && typeof post.author.avatar === 'object' && (
                   <div className="relative w-20 h-20 rounded-full overflow-hidden flex-shrink-0">
@@ -306,14 +306,14 @@ export default async function BlogPostPage({ params }: Props) {
                 <p className="text-gray-300">Failed to load blog post: {slug}</p>
                 <div>
                   <h2 className="font-bold text-lg mb-2">Error:</h2>
-                  <pre className="bg-black/50 p-4 rounded overflow-x-auto text-sm">
+                  <pre className="bg-black p-4 rounded overflow-x-auto text-sm">
                     <code>{error instanceof Error ? error.message : String(error)}</code>
                   </pre>
                 </div>
                 {error instanceof Error && error.stack && (
                   <div>
                     <h2 className="font-bold text-lg mb-2">Stack Trace:</h2>
-                    <pre className="bg-black/50 p-4 rounded overflow-x-auto text-xs max-h-96">
+                    <pre className="bg-black p-4 rounded overflow-x-auto text-xs max-h-96">
                       <code>{error.stack}</code>
                     </pre>
                   </div>

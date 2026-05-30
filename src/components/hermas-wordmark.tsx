@@ -23,7 +23,7 @@ export default function HermasWordmark({
       : monochrome === 'dark'
         ? { color: '#ffffff' }
         : {
-            background: 'linear-gradient(90deg,#60a5fa 0%,#a78bfa 50%,#f472b6 100%)',
+            background: 'linear-gradient(90deg,#67e8f9 0%,#22d3ee 55%,#0e7490 100%)',
             WebkitBackgroundClip: 'text',
             backgroundClip: 'text',
             color: 'transparent',
@@ -34,7 +34,7 @@ export default function HermasWordmark({
       ? { background: '#0f172a', color: '#ffffff' }
       : monochrome === 'dark'
         ? { background: '#ffffff', color: '#0f172a' }
-        : { background: 'linear-gradient(90deg,#60a5fa,#a78bfa)', color: '#0a0f1f' };
+        : { background: 'linear-gradient(90deg,#fb3b53,#e11d48)', color: '#ffffff' };
 
   return (
     <span

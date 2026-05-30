@@ -76,7 +76,7 @@ export default function AIMeetingSummaryPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
             {/* Left Panel - About Section */}
-            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-5 sm:p-6 backdrop-blur-sm">
+            <div className="bg-gray-800 border border-gray-700/50 rounded-xl p-5 sm:p-6">
               <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <span className="text-blue-400">🎯</span>
                 About
@@ -116,15 +116,15 @@ export default function AIMeetingSummaryPage() {
                 <div>
                   <h4 className="text-base font-semibold text-emerald-400 mb-3">Available Models</h4>
                   <div className="space-y-2">
-                    <div className="bg-gray-900/50 rounded-lg p-3 border border-gray-600/30">
+                    <div className="bg-gray-900 rounded-lg p-3 border border-gray-600/30">
                       <span className="text-blue-300 font-medium text-sm">Whisper-1:</span>
                       <p className="text-sm text-gray-400">Standard speech recognition</p>
                     </div>
-                    <div className="bg-gray-900/50 rounded-lg p-3 border border-gray-600/30">
+                    <div className="bg-gray-900 rounded-lg p-3 border border-gray-600/30">
                       <span className="text-purple-300 font-medium text-sm">GPT-4o Mini:</span>
                       <p className="text-sm text-gray-400">Advanced transcription</p>
                     </div>
-                    <div className="bg-gray-900/50 rounded-lg p-3 border border-gray-600/30">
+                    <div className="bg-gray-900 rounded-lg p-3 border border-gray-600/30">
                       <span className="text-emerald-300 font-medium text-sm">GPT-4o:</span>
                       <p className="text-sm text-gray-400">Premium quality & multilingual</p>
                     </div>
@@ -144,7 +144,7 @@ export default function AIMeetingSummaryPage() {
             {/* Center Panel - Controls and Transcription */}
             <div className="flex flex-col gap-4 lg:gap-6 min-w-0">
               {/* Input Controls */}
-              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 sm:p-5 backdrop-blur-sm space-y-4">
+              <div className="bg-gray-800 border border-gray-700/50 rounded-xl p-4 sm:p-5 space-y-4">
                 {/* API Key Input */}
                 <div>
                   <label htmlFor="apiKey" className="block text-sm font-medium text-gray-200 mb-2">
@@ -156,7 +156,7 @@ export default function AIMeetingSummaryPage() {
                     value={apiKey}
                     onChange={(e) => setApiKey(e.target.value)}
                     placeholder="sk-..."
-                    className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                   />
                   <p className="text-xs text-gray-400 mt-1">
                     Your API key is only used for this request and not stored
@@ -172,7 +172,7 @@ export default function AIMeetingSummaryPage() {
                     id="model"
                     value={selectedModel}
                     onChange={(e) => setSelectedModel(e.target.value)}
-                    className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600/50 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
                   >
                     <option value="whisper-1" className="bg-gray-800 text-white">
                       Whisper-1 (Standard)
@@ -196,7 +196,7 @@ export default function AIMeetingSummaryPage() {
                     id="audioFile"
                     accept="audio/*"
                     onChange={handleFileUpload}
-                    className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:bg-blue-600 file:text-white file:cursor-pointer hover:file:bg-blue-700 file:text-sm"
+                    className="w-full px-3 py-2 bg-gray-700 border border-gray-600/50 rounded-lg text-white file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:bg-blue-600 file:text-white file:cursor-pointer hover:file:bg-blue-700 file:text-sm"
                   />
                   {audioFile && (
                     <p className="text-xs text-green-400 mt-1">
@@ -223,14 +223,14 @@ export default function AIMeetingSummaryPage() {
               </div>
 
               {/* Transcription Results */}
-              <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 sm:p-5 backdrop-blur-sm flex-1 min-h-[280px] flex flex-col">
+              <div className="bg-gray-800 border border-gray-700/50 rounded-xl p-4 sm:p-5 flex-1 min-h-[280px] flex flex-col">
                 <h3 className="text-lg font-semibold text-white mb-3 flex items-center gap-2">
                   <span className="text-green-400">📝</span>
                   Transcription
                 </h3>
                 {transcription ? (
                   <div className="flex flex-col flex-1 min-h-0">
-                    <div className="bg-gray-900/50 border border-gray-600/30 rounded-lg p-4 flex-1 overflow-y-auto">
+                    <div className="bg-gray-900 border border-gray-600/30 rounded-lg p-4 flex-1 overflow-y-auto">
                       <p className="text-gray-200 whitespace-pre-wrap leading-relaxed text-sm">
                         {transcription}
                       </p>
@@ -251,7 +251,7 @@ export default function AIMeetingSummaryPage() {
             </div>
 
             {/* Right Panel - Roadmap */}
-            <div className="bg-gradient-to-br from-green-500/10 to-blue-500/10 border border-green-500/20 rounded-xl p-5 sm:p-6 backdrop-blur-sm">
+            <div className="bg-gray-800 border border-green-500/20 rounded-xl p-5 sm:p-6">
               <h3 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
                 <span className="text-green-400">🚀</span>
                 Roadmap
@@ -275,7 +275,7 @@ export default function AIMeetingSummaryPage() {
                 <div>
                   <h4 className="text-base font-semibold text-gray-400 mb-3">⏳ Planned</h4>
                   <div className="space-y-2">
-                    <div className="text-sm text-gray-300 bg-gray-500/10 px-3 py-2 rounded-md">Develop summarization feature</div>
+                    <div className="text-sm text-gray-300 bg-gray-700 px-3 py-2 rounded-md">Develop summarization feature</div>
                   </div>
                 </div>
               </div>

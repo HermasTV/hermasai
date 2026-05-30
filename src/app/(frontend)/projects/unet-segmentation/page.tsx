@@ -351,7 +351,7 @@ export default function UNetSegmentationPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
 
             {/* Left Panel - Image Upload */}
-            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-6 backdrop-blur-sm">
+            <div className="bg-gray-800 border border-gray-700/50 rounded-xl p-6">
               <h3 className="text-xl font-semibold text-white mb-4 flex items-center gap-2">
                 <span className="text-purple-400">📁</span>
                 Original Image
@@ -363,14 +363,14 @@ export default function UNetSegmentationPage() {
                   type="file"
                   accept="image/*"
                   onChange={handleImageUpload}
-                  className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:bg-purple-600 file:text-white file:cursor-pointer hover:file:bg-purple-700 file:text-sm"
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600/50 rounded-lg text-white file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:bg-purple-600 file:text-white file:cursor-pointer hover:file:bg-purple-700 file:text-sm"
                 />
               </div>
 
               {/* Image Display */}
               {uploadedImage ? (
                 <div className="space-y-4">
-                  <div className="relative bg-gray-900/50 rounded-lg border border-gray-600/30 p-2">
+                  <div className="relative bg-gray-900 rounded-lg border border-gray-600/30 p-2">
                     <img
                       src={uploadedImage}
                       alt="Uploaded"
@@ -387,7 +387,7 @@ export default function UNetSegmentationPage() {
                     </button>
 
                     {/* Layer Visualization Toggle */}
-                    <div className="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg border border-gray-600/30">
+                    <div className="flex items-center justify-between p-3 bg-gray-700 rounded-lg border border-gray-600/30">
                       <label className="text-sm text-gray-300 flex items-center gap-2">
                         <span className="text-orange-400">🔍</span>
                         Layer Visualization
@@ -402,7 +402,7 @@ export default function UNetSegmentationPage() {
 
                     {/* Layer Selection Controls */}
                     {showLayerViz && modelRef.current && (
-                      <div className="space-y-2 p-3 bg-gray-700/30 rounded-lg border border-gray-600/30">
+                      <div className="space-y-2 p-3 bg-gray-700 rounded-lg border border-gray-600/30">
                         <div>
                           <label className="block text-xs text-gray-400 mb-1">Output Layer</label>
                           <select
@@ -439,7 +439,7 @@ export default function UNetSegmentationPage() {
                   </div>
                 </div>
               ) : (
-                <div className="min-h-[300px] flex items-center justify-center bg-gray-900/50 rounded-lg border border-gray-600/30">
+                <div className="min-h-[300px] flex items-center justify-center bg-gray-900 rounded-lg border border-gray-600/30">
                   <p className="text-gray-400 text-center">
                     Upload an image to start segmentation
                   </p>
@@ -448,7 +448,7 @@ export default function UNetSegmentationPage() {
             </div>
 
             {/* Right Panel - Results */}
-            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-6 backdrop-blur-sm">
+            <div className="bg-gray-800 border border-gray-700/50 rounded-xl p-6">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-xl font-semibold text-white flex items-center gap-2">
                   {showLayerViz && layerVisualization ? (
@@ -473,7 +473,7 @@ export default function UNetSegmentationPage() {
 
               {showLayerViz && layerVisualization ? (
                 <div className="space-y-4">
-                  <div className="relative bg-gray-900/50 rounded-lg border border-gray-600/30 p-2">
+                  <div className="relative bg-gray-900 rounded-lg border border-gray-600/30 p-2">
                     <canvas
                       ref={layerCanvasRef}
                       className="w-full max-h-80 object-contain rounded-lg"
@@ -492,7 +492,7 @@ export default function UNetSegmentationPage() {
                 </div>
               ) : segmentationResult ? (
                 <div className="space-y-4">
-                  <div className="relative bg-gray-900/50 rounded-lg border border-gray-600/30 p-2">
+                  <div className="relative bg-gray-900 rounded-lg border border-gray-600/30 p-2">
                     <canvas
                       ref={canvasRef}
                       width={513}
@@ -512,7 +512,7 @@ export default function UNetSegmentationPage() {
                   </div>
                 </div>
               ) : (
-                <div className="min-h-[300px] flex items-center justify-center bg-gray-900/50 rounded-lg border border-gray-600/30">
+                <div className="min-h-[300px] flex items-center justify-center bg-gray-900 rounded-lg border border-gray-600/30">
                   <p className="text-gray-400 text-center">
                     {showLayerViz ? "Layer visualizations will appear here" : "Segmentation results will appear here"}
                   </p>
@@ -525,7 +525,7 @@ export default function UNetSegmentationPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
             {/* About Section */}
-            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-6 backdrop-blur-sm">
+            <div className="bg-gray-800 border border-gray-700/50 rounded-xl p-6">
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                 <span className="text-blue-400">🎯</span>
                 About This Project
@@ -565,11 +565,11 @@ export default function UNetSegmentationPage() {
                 <div>
                   <h4 className="text-base font-semibold text-emerald-400 mb-2">Model Specifications</h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
+                    <div className="bg-gray-900 rounded-lg p-2 border border-gray-600/30">
                       <span className="text-blue-300 font-medium text-xs">Architecture:</span>
                       <p className="text-xs text-gray-400">DeepLabV3+ + MobileNet</p>
                     </div>
-                    <div className="bg-gray-900/50 rounded-lg p-2 border border-gray-600/30">
+                    <div className="bg-gray-900 rounded-lg p-2 border border-gray-600/30">
                       <span className="text-purple-300 font-medium text-xs">Input Size:</span>
                       <p className="text-xs text-gray-400">513x513 RGB</p>
                     </div>
@@ -579,7 +579,7 @@ export default function UNetSegmentationPage() {
             </div>
 
             {/* Roadmap Section */}
-            <div className="bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-xl p-6 backdrop-blur-sm">
+            <div className="bg-gray-800 border border-purple-500/20 rounded-xl p-6">
               <h3 className="text-xl font-bold text-white mb-4 flex items-center gap-2">
                 <span className="text-purple-400">🚀</span>
                 Development Roadmap
@@ -607,9 +607,9 @@ export default function UNetSegmentationPage() {
                 <div>
                   <h4 className="text-base font-semibold text-gray-400 mb-2">⏳ Planned</h4>
                   <div className="space-y-1">
-                    <div className="text-sm text-gray-300 bg-gray-500/10 px-2 py-1 rounded-md">Overlay blend modes</div>
-                    <div className="text-sm text-gray-300 bg-gray-500/10 px-2 py-1 rounded-md">Batch processing</div>
-                    <div className="text-sm text-gray-300 bg-gray-500/10 px-2 py-1 rounded-md">Custom color schemes</div>
+                    <div className="text-sm text-gray-300 bg-gray-700 px-2 py-1 rounded-md">Overlay blend modes</div>
+                    <div className="text-sm text-gray-300 bg-gray-700 px-2 py-1 rounded-md">Batch processing</div>
+                    <div className="text-sm text-gray-300 bg-gray-700 px-2 py-1 rounded-md">Custom color schemes</div>
                   </div>
                 </div>
               </div>
@@ -624,7 +624,7 @@ export default function UNetSegmentationPage() {
       <LogosBackground />
       <Navbar />
       <main className="flex-grow flex items-center justify-center px-4 py-16">
-        <div className='flex flex-col justify-center items-center text-center max-w-md bg-gray-800/60 border border-gray-700/50 rounded-2xl p-8 backdrop-blur-sm'>
+        <div className='flex flex-col justify-center items-center text-center max-w-md bg-gray-800 border border-gray-700/50 rounded-2xl p-8'>
           <h1 className='text-3xl sm:text-4xl font-bold text-white mb-3'>WebGPU Not Supported</h1>
           <p className='text-base sm:text-lg text-gray-300 leading-relaxed'>WebGPU is not supported by this browser. Please use Chrome or Edge with WebGPU enabled.</p>
         </div>

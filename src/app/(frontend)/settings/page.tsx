@@ -55,7 +55,7 @@ export default function AdminControlPanel() {
       <div className="min-h-screen flex flex-col bg-gradient-to-br from-gray-900 via-purple-900/20 to-blue-900/30">
         <Navbar />
         <main className="flex-grow flex items-center justify-center">
-          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 w-full max-w-md">
+          <div className="bg-gray-800 border border-gray-700/50 rounded-xl p-8 w-full max-w-md">
             <div className="text-center mb-8">
               <h1 className="text-3xl font-bold text-white mb-2">Admin Control Panel</h1>
               <p className="text-gray-300">Enter your credentials to access system information</p>
@@ -70,7 +70,7 @@ export default function AdminControlPanel() {
                   type="text"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="Enter username"
                   required
                 />
@@ -84,7 +84,7 @@ export default function AdminControlPanel() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-3 py-2 bg-gray-700/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                  className="w-full px-3 py-2 bg-gray-700 border border-gray-600/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
                   placeholder="Enter password"
                   required
                 />
@@ -130,13 +130,13 @@ export default function AdminControlPanel() {
           </div>
 
           {/* Environment Configuration Display */}
-          <div className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-8 mb-8">
+          <div className="bg-gray-800 border border-gray-700/50 rounded-xl p-8 mb-8">
             <h2 className="text-2xl font-semibold text-white mb-6 flex items-center gap-2">
               <span className="text-green-400">📊</span>
               Current Configuration
             </h2>
 
-            <div className="bg-gray-900/50 rounded-lg p-6 space-y-4">
+            <div className="bg-gray-900 rounded-lg p-6 space-y-4">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div>
                   <h3 className="text-lg font-semibold text-blue-400 mb-3">🔗 Service URLs</h3>
@@ -178,7 +178,7 @@ export default function AdminControlPanel() {
               <li>• Current values are shown above for reference</li>
               <li>• Environment variables needed:</li>
             </ul>
-            <div className="mt-4 bg-gray-900/50 rounded-lg p-4">
+            <div className="mt-4 bg-gray-900 rounded-lg p-4">
               <pre className="text-xs text-green-400 font-mono">
 {`NEXT_PUBLIC_PYTHON_SERVICES_URL=http://your-backend.com
 NEXT_PUBLIC_ADMIN_USERNAME=admin

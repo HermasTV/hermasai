@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Navbar } from '@/components/navbar';
-import LogosBackground from '@/components/logos-background';
+import StaticBackground from '@/components/static-background';
 import { ExperienceScroller } from '@/components/experience-scroller';
 import { BreadcrumbJsonLd } from '@/lib/seo/jsonld';
 
@@ -54,7 +54,7 @@ export default function ExperiencePage() {
           { name: 'Experience', url: '/experience' },
         ]}
       />
-      <LogosBackground />
+      <StaticBackground />
 
       {/* Navbar floats above the panels — does not consume layout height. */}
       <div className="pointer-events-none fixed inset-x-0 top-0 z-50">
@@ -87,6 +87,18 @@ export default function ExperiencePage() {
         .hero-underline { transform-origin: left; animation: underlineGrow 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) 0.6s both; }
         .experience-scroll-bob { animation: scrollBob 1.8s ease-in-out infinite; }
 
+        /* HUD "vision display" motifs on the active project monitor. */
+        @keyframes hudSweep {
+          0% { transform: translateY(-120%); }
+          100% { transform: translateY(320%); }
+        }
+        .hud-sweep { animation: hudSweep 3.4s linear infinite; }
+        @keyframes hudRec {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.25; }
+        }
+        .hud-rec { animation: hudRec 1.3s ease-in-out infinite; }
+
         /* Slim, on-brand scrollbar for the snap container. */
         .experience-snap { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.18) transparent; }
         .experience-snap::-webkit-scrollbar { width: 6px; }
@@ -97,6 +109,8 @@ export default function ExperiencePage() {
           .hero-orb-a, .hero-orb-b { animation: none; }
           .hero-underline { animation: none; transform: scaleX(1); }
           .experience-scroll-bob { animation: none; }
+          .hud-sweep { animation: none; opacity: 0; }
+          .hud-rec { animation: none; }
           .experience-snap { scroll-behavior: auto; }
         }
       `}</style>

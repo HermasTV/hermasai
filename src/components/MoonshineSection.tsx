@@ -64,10 +64,10 @@ export function MoonshineSection({ model, setModel, onTranscript, onBackendChang
                             type="button"
                             disabled={isActive || isLoading}
                             onClick={() => setModel(m.id)}
-                            className={`text-left rounded-lg border px-3 py-2.5 transition-colors backdrop-blur-sm ${
+                            className={`text-left rounded-lg border px-3 py-2.5 transition-colors ${
                                 model === m.id
                                     ? "bg-blue-500/10 border-blue-500/40"
-                                    : "bg-gray-800/40 border-gray-700/50 hover:border-gray-600/70"
+                                    : "bg-gray-800 border-gray-700/50 hover:border-gray-600/70"
                             } ${isActive || isLoading ? "opacity-60 cursor-not-allowed" : ""}`}
                         >
                             <div className="flex items-baseline justify-between gap-2">
@@ -100,7 +100,7 @@ export function MoonshineSection({ model, setModel, onTranscript, onBackendChang
                     disabled={isLoading}
                     className={`group inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 ${
                         isLoading
-                            ? "bg-gray-700/60 text-gray-300 cursor-not-allowed"
+                            ? "bg-gray-700 text-gray-300 cursor-not-allowed"
                             : isActive
                               ? "bg-red-500/90 hover:bg-red-500 text-white shadow-lg shadow-red-900/30 focus:ring-red-400/40"
                               : "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white shadow-lg shadow-blue-900/30 active:scale-[0.98] focus:ring-blue-400/40"
@@ -134,7 +134,7 @@ export function MoonshineSection({ model, setModel, onTranscript, onBackendChang
                                     <span className="truncate pr-2 font-mono">{p.file}</span>
                                     <span className="tabular-nums">{p.progress.toFixed(0)}%</span>
                                 </div>
-                                <div className="h-1 rounded-full bg-gray-700/60 overflow-hidden">
+                                <div className="h-1 rounded-full bg-gray-700 overflow-hidden">
                                     <div
                                         className="h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all"
                                         style={{ width: `${p.progress}%` }}

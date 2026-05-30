@@ -279,7 +279,7 @@ export default function RealtimeFaceClient() {
               />
             </div>
 
-            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-4 sm:p-6 backdrop-blur-sm">
+            <div className="bg-gray-800 border border-gray-700/50 rounded-xl p-4 sm:p-6">
               {anyError ? (
                 <div className="bg-red-500/20 border border-red-500/30 rounded-lg p-4">
                   <p className="text-red-200 text-sm">{anyError}</p>
@@ -321,7 +321,7 @@ export default function RealtimeFaceClient() {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="bg-gray-800/50 border border-gray-700/50 rounded-xl p-6 backdrop-blur-sm">
+            <div className="bg-gray-800 border border-gray-700/50 rounded-xl p-6">
               <h3 className="text-xl font-bold text-white mb-4">About</h3>
               <div className="space-y-4 text-sm text-gray-300 leading-relaxed">
                 <p>
@@ -342,7 +342,7 @@ export default function RealtimeFaceClient() {
               </div>
             </div>
 
-            <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-xl p-6 backdrop-blur-sm">
+            <div className="bg-gray-800 border border-green-500/20 rounded-xl p-6">
               <h3 className="text-xl font-bold text-white mb-4">Tech Stack</h3>
               <ul className="space-y-2 text-sm text-gray-300">
                 <li>
@@ -373,7 +373,7 @@ export default function RealtimeFaceClient() {
 
 function StatusCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4 backdrop-blur-sm">
+    <div className="bg-gray-800 border border-gray-700/50 rounded-lg p-4">
       <div className="text-xs text-gray-400">{label}</div>
       <div className="text-sm font-semibold text-white">{value}</div>
     </div>
@@ -407,10 +407,10 @@ function ModelToggle({
     <button
       type="button"
       onClick={onToggle}
-      className={`rounded-lg p-3 border backdrop-blur-sm transition-colors text-left ${
+      className={`rounded-lg p-3 border transition-colors text-left ${
         enabled
-          ? "bg-gray-800/70 border-gray-600/70"
-          : "bg-gray-900/40 border-gray-800/50 opacity-60"
+          ? "bg-gray-800 border-gray-600/70"
+          : "bg-gray-900 border-gray-800/50 opacity-60"
       }`}
     >
       <div className="flex items-center justify-between gap-2">
@@ -429,7 +429,7 @@ function ModelToggle({
                         ? "bg-emerald-500/20 text-emerald-300"
                         : backend === "wasm"
                           ? "bg-amber-500/20 text-amber-300"
-                          : "bg-gray-700/60 text-gray-300"
+                          : "bg-gray-700 text-gray-300"
                     }`}
                   >
                     {backend ?? "?"}
@@ -460,7 +460,7 @@ function ModelToggle({
         </div>
       </div>
       {loading && (
-        <div className="mt-2 h-1 w-full bg-gray-700/60 rounded-full overflow-hidden">
+        <div className="mt-2 h-1 w-full bg-gray-700 rounded-full overflow-hidden">
           <div
             className="h-full bg-blue-500 transition-all duration-150"
             style={{ width: `${pct}%` }}
@@ -482,11 +482,11 @@ function LoadingOverlay({
   const readyCount = active.filter((w) => w.ready).length;
   const pct = totalSize > 0 ? Math.min(100, (totalLoaded / totalSize) * 100) : 0;
   return (
-    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-sm gap-3 px-6">
+    <div className="absolute inset-0 flex flex-col items-center justify-center bg-black gap-3 px-6">
       <div className="text-sm text-gray-200">
         Loading models · {readyCount} / {active.length}
       </div>
-      <div className="h-2 w-64 max-w-full bg-gray-700/60 rounded-full overflow-hidden">
+      <div className="h-2 w-64 max-w-full bg-gray-700 rounded-full overflow-hidden">
         <div
           className="h-full bg-blue-500 transition-all duration-150"
           style={{ width: `${pct}%` }}

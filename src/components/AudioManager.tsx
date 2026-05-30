@@ -248,7 +248,7 @@ export function AudioManager(props: { transcriber: Transcriber }) {
     return (
         <>
         <div className="relative">
-            <div className='flex flex-col justify-center items-center rounded-xl bg-gray-800/30 border border-gray-600/50 backdrop-blur-sm'>
+            <div className='flex flex-col justify-center items-center rounded-xl bg-gray-800 border border-gray-600/50'>
                 <div className='flex flex-row gap-2 py-3 w-full px-3'>
                     <UrlTile
                         icon={<AnchorIcon />}
@@ -359,7 +359,7 @@ function SettingsTile(props: {
         <div className={props.className}>
             <button
                 onClick={onClick}
-                className='w-8 h-8 flex items-center justify-center rounded-full bg-gray-700/80 border border-gray-600/50 text-gray-300 hover:text-white hover:bg-gray-600/80 hover:border-gray-500/50 transition-all duration-200 backdrop-blur-sm shadow-lg'
+                className='w-8 h-8 flex items-center justify-center rounded-full bg-gray-700 border border-gray-600/50 text-gray-300 hover:text-white hover:bg-gray-600 hover:border-gray-500/50 transition-all duration-200 shadow-lg'
             >
                 <div className='w-4 h-4'>{props.icon}</div>
             </button>
@@ -482,7 +482,7 @@ function AudioDataBar(props: { progress: number }) {
 
 function ProgressBar(props: { progress: string }) {
     return (
-        <div className='w-full rounded-full h-1 bg-gray-600/50'>
+        <div className='w-full rounded-full h-1 bg-gray-600'>
             <div
                 className='bg-gradient-to-r from-blue-500 to-purple-500 h-1 rounded-full transition-all duration-100'
                 style={{ width: props.progress }}
@@ -694,7 +694,7 @@ function Tile(props: {
     return (
         <button
             onClick={props.onClick}
-            className='flex-1 flex flex-col items-center justify-center rounded-lg p-3 bg-gray-700/50 border border-gray-600/30 text-gray-300 hover:text-white hover:bg-gray-600/50 hover:border-gray-500/50 transition-all duration-200 backdrop-blur-sm'
+            className='flex-1 flex flex-col items-center justify-center rounded-lg p-3 bg-gray-700 border border-gray-600/30 text-gray-300 hover:text-white hover:bg-gray-600 hover:border-gray-500/50 transition-all duration-200'
         >
             <div className='w-5 h-5 mb-1'>{props.icon}</div>
             {props.text && (

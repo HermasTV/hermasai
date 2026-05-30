@@ -109,7 +109,7 @@ export default function SpeechToTextPage() {
                 <LogosBackground />
                 <Navbar />
                 <main className="flex-grow flex items-center justify-center px-4 py-16">
-                    <div className="max-w-md w-full bg-gray-800/60 border border-gray-700/50 rounded-2xl p-8 backdrop-blur-sm text-center">
+                    <div className="max-w-md w-full bg-gray-800 border border-gray-700/50 rounded-2xl p-8 text-center">
                         <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-500/15 border border-amber-500/30 mb-4">
                             <svg className="w-6 h-6 text-amber-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
@@ -181,7 +181,7 @@ export default function SpeechToTextPage() {
 
                     {/* Tabbed engine card */}
                     <section className="max-w-4xl mx-auto mb-10">
-                        <div className="bg-gray-800/50 border border-gray-700/50 rounded-2xl backdrop-blur-sm shadow-xl shadow-black/20 overflow-hidden">
+                        <div className="bg-gray-800 border border-gray-700/50 rounded-2xl shadow-xl shadow-black/20 overflow-hidden">
                             {/* Tab bar */}
                             <div role="tablist" aria-label="ASR engine" className="flex border-b border-gray-700/50">
                                 <Tab
@@ -238,7 +238,7 @@ export default function SpeechToTextPage() {
                                     actionLabel={transcriptCount > 0 ? "Clear" : undefined}
                                     onAction={() => setChunks([])}
                                 />
-                                <div className="rounded-xl bg-gray-900/40 border border-gray-700/40 min-h-[240px]">
+                                <div className="rounded-xl bg-gray-900 border border-gray-700/40 min-h-[240px]">
                                     {transcriptCount === 0 ? (
                                         <EmptyTranscript tab={tab} />
                                     ) : (
@@ -269,8 +269,6 @@ export default function SpeechToTextPage() {
                         <InfoCard
                             accent="bg-purple-400"
                             title="Tech Stack"
-                            gradient="from-blue-500/10 to-purple-500/10"
-                            border="border-blue-500/20"
                         >
                             <StackRow label="Runtime" value="Transformers.js 3.x · ONNX Runtime Web" tone="text-blue-300" />
                             <StackRow label="Acceleration" value="WebGPU (WASM fallback)" tone="text-emerald-300" />
@@ -293,7 +291,7 @@ export default function SpeechToTextPage() {
 
 function TechBadge({ children }: { children: React.ReactNode }) {
     return (
-        <span className="px-2.5 py-1 rounded-md bg-gray-800/60 border border-gray-700/60 text-xs font-medium text-gray-300 backdrop-blur-sm">
+        <span className="px-2.5 py-1 rounded-md bg-gray-800 border border-gray-700/60 text-xs font-medium text-gray-300">
             {children}
         </span>
     );
@@ -329,7 +327,7 @@ function StatusCard({
     pulse?: boolean;
 }) {
     return (
-        <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg px-4 py-3 backdrop-blur-sm">
+        <div className="bg-gray-800 border border-gray-700/50 rounded-lg px-4 py-3">
             <div className="text-[11px] uppercase tracking-wider text-gray-400 font-medium">
                 {label}
             </div>
@@ -374,7 +372,7 @@ function Tab({
             className={`flex-1 px-5 py-4 text-left transition-colors border-b-2 ${
                 active
                     ? "border-blue-400/80 bg-blue-500/5"
-                    : "border-transparent hover:bg-gray-700/20"
+                    : "border-transparent hover:bg-gray-700"
             }`}
         >
             <div className={`text-sm font-semibold tracking-tight ${active ? "text-white" : "text-gray-300"}`}>
@@ -423,7 +421,7 @@ function SectionHeader({
 function EmptyTranscript({ tab }: { tab: EngineTab }) {
     return (
         <div className="flex flex-col items-center justify-center text-center px-6 py-12 text-gray-400">
-            <div className="w-12 h-12 rounded-full bg-gray-800/60 border border-gray-700/60 flex items-center justify-center mb-3">
+            <div className="w-12 h-12 rounded-full bg-gray-800 border border-gray-700/60 flex items-center justify-center mb-3">
                 <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" strokeWidth="1.6" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19 11a7 7 0 01-14 0m7 7v3m-3.5 0h7M12 14a3 3 0 01-3-3V6a3 3 0 016 0v5a3 3 0 01-3 3z" />
                 </svg>
@@ -497,9 +495,9 @@ function InfoCard({
 }) {
     const base = gradient
         ? `bg-gradient-to-br ${gradient} ${border ?? "border-white/10"}`
-        : "bg-gray-800/50 border-gray-700/50";
+        : "bg-gray-800 border-gray-700/50";
     return (
-        <div className={`rounded-2xl p-5 sm:p-6 backdrop-blur-sm border ${base}`}>
+        <div className={`rounded-2xl p-5 sm:p-6 border ${base}`}>
             <SectionHeader accent={accent} title={title} />
             <div className="space-y-3 text-sm text-gray-300 leading-relaxed">{children}</div>
         </div>

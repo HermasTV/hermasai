@@ -15,11 +15,13 @@ const SERIF_STYLE: React.CSSProperties = {
 };
 
 const GRADIENT_TEXT: React.CSSProperties = {
-  backgroundImage: 'var(--grad-brand-text)',
+  backgroundImage: 'linear-gradient(90deg,#a5f3fc 0%,#22d3ee 55%,#0891b2 100%)',
   WebkitBackgroundClip: 'text',
   backgroundClip: 'text',
   color: 'transparent',
 };
+
+const ACCENT_LINE = 'linear-gradient(90deg,#22d3ee,#fb3b53)';
 
 type Props = {
   panelIndex: number;
@@ -66,19 +68,19 @@ export const ExperienceHeroPanel = forwardRef<HTMLElement, Props>(
           <div
             className="hero-orb-a absolute -left-32 top-[8%] h-[44vmin] w-[44vmin] rounded-full opacity-30 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #60a5fa 0%, transparent 60%)',
+              background: 'radial-gradient(circle, #22d3ee 0%, transparent 60%)',
             }}
           />
           <div
             className="hero-orb-b absolute -right-24 top-[26%] h-[48vmin] w-[48vmin] rounded-full opacity-25 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #ec4899 0%, transparent 60%)',
+              background: 'radial-gradient(circle, #fb3b53 0%, transparent 60%)',
             }}
           />
           <div
             className="absolute left-1/2 top-[40%] h-[40vmin] w-[40vmin] -translate-x-1/2 rounded-full opacity-20 blur-3xl"
             style={{
-              background: 'radial-gradient(circle, #a78bfa 0%, transparent 60%)',
+              background: 'radial-gradient(circle, #0891b2 0%, transparent 60%)',
             }}
           />
         </div>
@@ -98,7 +100,7 @@ export const ExperienceHeroPanel = forwardRef<HTMLElement, Props>(
             <span
               aria-hidden
               className="hero-underline mt-2 h-[2px] w-28 rounded-full sm:w-32"
-              style={{ background: 'var(--grad-brand-cta)' }}
+              style={{ background: ACCENT_LINE }}
             />
           </div>
 
@@ -130,10 +132,9 @@ export const ExperienceHeroPanel = forwardRef<HTMLElement, Props>(
             }`}
             style={reveal(250)}
           >
-            Seven years leading teams and building real-world computer-vision
-            systems — from ISO-certified biometrics to city-scale traffic AI to
-            Agentic AI to 3D vehicle reconstruction. Below are the projects I
-            led, hardened, and shipped.
+            Seven years colaborating and leading teams, building real-world computer-vision
+            systems, from ISO-certified biometrics to city-scale traffic AI to
+            Agentic AI to 3D vehicle reconstruction. Below are the projects I shipped.
           </p>
 
           {/* Pills */}
@@ -146,7 +147,7 @@ export const ExperienceHeroPanel = forwardRef<HTMLElement, Props>(
             {PILLS.map((pill) => (
               <span
                 key={pill}
-                className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 font-medium text-gray-300 backdrop-blur-sm"
+                className="rounded-full border border-white/10 bg-[#0f141b] px-3 py-1.5 font-medium text-gray-300"
               >
                 {pill}
               </span>
@@ -159,7 +160,7 @@ export const ExperienceHeroPanel = forwardRef<HTMLElement, Props>(
           type="button"
           onClick={onScrollHint}
           aria-label="Scroll to projects"
-          className={`group absolute bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-1/2 flex -translate-x-1/2 flex-col items-center gap-1.5 rounded-full px-3 py-2 text-gray-400 transition-colors duration-300 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400/70 ${base} ${
+          className={`group absolute bottom-[max(1.25rem,env(safe-area-inset-bottom))] left-1/2 flex -translate-x-1/2 flex-col items-center gap-1.5 rounded-full px-3 py-2 text-gray-400 transition-colors duration-300 hover:text-cyan-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/70 ${base} ${
             revealed ? on : off
           }`}
           style={reveal(440)}

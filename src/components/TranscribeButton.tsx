@@ -15,7 +15,7 @@ export function TranscribeButton(props: Props): React.JSX.Element {
             disabled={disabled}
             className={`group inline-flex items-center justify-center gap-2 text-sm font-semibold rounded-lg px-6 py-2.5 transition-all focus:outline-none focus:ring-2 focus:ring-blue-400/40 focus:ring-offset-2 focus:ring-offset-gray-900 ${
                 disabled
-                    ? "bg-gray-700/60 text-gray-300 cursor-not-allowed"
+                    ? "bg-gray-700 text-gray-300 cursor-not-allowed"
                     : "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg shadow-blue-900/30 hover:from-blue-500 hover:to-purple-500 hover:shadow-blue-800/40 active:scale-[0.98]"
             }`}
         >
