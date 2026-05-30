@@ -20,7 +20,7 @@ self.addEventListener("message", async (e) => {
 
   if (type === "init") {
     try {
-      const backend = await pickBackend(tf);
+      const backend = await pickBackend(tf, e.data.backend);
       detector = await faceDetection.createDetector(
         faceDetection.SupportedModels.MediaPipeFaceDetector,
         {

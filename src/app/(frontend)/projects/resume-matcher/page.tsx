@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Navbar } from "@/components/navbar";
 import Footer from "@/components/footer";
-import AnimatedBackground from "@/components/animated-background";
+import LogosBackground from "@/components/logos-background";
 import { getApiUrl, API_CONFIG } from "@/utils/apiConfig";
 
 interface AnalysisResult {
@@ -156,7 +156,7 @@ export default function ResumeMatchPage() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <AnimatedBackground />
+      <LogosBackground />
       <Navbar />
       <main className="flex-grow">
         <div className="container mx-auto px-4 pt-8 pb-12 sm:pt-12">
@@ -202,7 +202,7 @@ export default function ResumeMatchPage() {
             </div>
 
 
-            <div className="bg-white/10 backdrop-blur-lg rounded-lg p-8 space-y-6">
+            <div className="bg-gray-800 rounded-lg p-8 space-y-6">
               {/* API Key */}
               <div>
                 <label className="block text-sm font-medium text-gray-200 mb-2">OpenAI API Key</label>
@@ -211,7 +211,7 @@ export default function ResumeMatchPage() {
                   value={apiKey}
                   onChange={(e) => setApiKey(e.target.value)}
                   placeholder="sk-..."
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  className="w-full px-4 py-3 bg-gray-800 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                 />
               </div>
 
@@ -237,7 +237,7 @@ export default function ResumeMatchPage() {
                   value={jobUrl}
                   onChange={(e) => setJobUrl(e.target.value)}
                   placeholder="https://www.linkedin.com/jobs/view/..."
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  className="w-full px-4 py-3 bg-gray-800 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                 />
               </div>
 
@@ -248,7 +248,7 @@ export default function ResumeMatchPage() {
                   type="file"
                   accept=".pdf,.txt,.doc,.docx"
                   onChange={handleFileUpload}
-                  className="w-full px-4 py-3 bg-white/5 border border-white/20 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-purple-600 file:text-white file:cursor-pointer hover:file:bg-purple-700"
+                  className="w-full px-4 py-3 bg-gray-800 border border-white/20 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-purple-600 file:text-white file:cursor-pointer hover:file:bg-purple-700"
                 />
                 {resumeFile && (
                   <p className="text-sm text-green-400 mt-2">
@@ -302,7 +302,7 @@ export default function ResumeMatchPage() {
                   <h3 className="text-2xl font-semibold text-white mb-4">📊 Analysis Results</h3>
                   
                   {/* Match Score */}
-                  <div className="bg-white/5 border border-white/20 rounded-lg p-6">
+                  <div className="bg-gray-800 border border-white/20 rounded-lg p-6">
                     <div className="flex items-center justify-between mb-4">
                       <h4 className="text-xl font-semibold text-white">Match Score</h4>
                       <div className="text-right">
@@ -381,7 +381,7 @@ export default function ResumeMatchPage() {
                   )}
 
                   {/* Copy Raw Results */}
-                  <div className="bg-white/5 border border-white/20 rounded-lg p-4">
+                  <div className="bg-gray-800 border border-white/20 rounded-lg p-4">
                     <div className="flex justify-between items-center mb-2">
                       <h4 className="text-sm font-medium text-gray-400">Raw Analysis</h4>
                       <button
@@ -405,7 +405,7 @@ export default function ResumeMatchPage() {
                   <h4 className="text-xl font-semibold text-red-400 mb-4">📝 Grammar & Language Corrections</h4>
                   <div className="space-y-4">
                     {parsedResult.grammar_corrections.map((correction, index) => (
-                      <div key={index} className="bg-white/5 border border-white/10 rounded-lg p-4">
+                      <div key={index} className="bg-gray-800 border border-white/10 rounded-lg p-4">
                         <div className="mb-2">
                           <span className="text-red-300 text-sm font-medium">Original:</span>
                           <div className="bg-red-900/30 p-2 rounded mt-1 text-gray-200">
@@ -439,7 +439,7 @@ export default function ResumeMatchPage() {
                   <h4 className="text-xl font-semibold text-purple-400 mb-4">✨ Section Enhancements</h4>
                   <div className="space-y-6">
                     {parsedResult.section_enhancements.map((enhancement, index) => (
-                      <div key={index} className="bg-white/5 border border-white/10 rounded-lg p-4">
+                      <div key={index} className="bg-gray-800 border border-white/10 rounded-lg p-4">
                         <h5 className="text-lg font-medium text-purple-300 mb-3">{enhancement.section}</h5>
                         
                         <div className="mb-3">
@@ -477,7 +477,7 @@ export default function ResumeMatchPage() {
                   <h4 className="text-xl font-semibold text-blue-400 mb-4">🎯 Skills to Develop</h4>
                   <div className="space-y-4">
                     {parsedResult.skill_recommendations.map((skillGroup, index) => (
-                      <div key={index} className="bg-white/5 border border-white/10 rounded-lg p-4">
+                      <div key={index} className="bg-gray-800 border border-white/10 rounded-lg p-4">
                         <div className="flex items-center justify-between mb-2">
                           <h5 className="text-lg font-medium text-blue-300">{skillGroup.category}</h5>
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${
@@ -511,7 +511,7 @@ export default function ResumeMatchPage() {
                     <h4 className="text-xl font-semibold text-yellow-400 mb-4">💼 Experience to Highlight</h4>
                     <ul className="space-y-3">
                       {parsedResult.experience_suggestions.map((suggestion, index) => (
-                        <li key={index} className="text-gray-200 bg-white/5 p-3 rounded border-l-4 border-yellow-500 relative">
+                        <li key={index} className="text-gray-200 bg-gray-800 p-3 rounded border-l-4 border-yellow-500 relative">
                           {suggestion}
                           <button
                             onClick={() => navigator.clipboard.writeText(suggestion)}
@@ -531,7 +531,7 @@ export default function ResumeMatchPage() {
                     <h4 className="text-xl font-semibold text-indigo-400 mb-4">🎓 Recommended Courses</h4>
                     <div className="space-y-3">
                       {parsedResult.course_recommendations.map((course, index) => (
-                        <div key={index} className="bg-white/5 p-3 rounded border border-white/10">
+                        <div key={index} className="bg-gray-800 p-3 rounded border border-white/10">
                           <div className="font-medium text-indigo-300 mb-1">{course.course}</div>
                           {course.provider && (
                             <div className="text-sm text-gray-400 mb-2">Provider: {course.provider}</div>
@@ -579,7 +579,7 @@ export default function ResumeMatchPage() {
               {result && !parsedResult && (
                 <div>
                   <h3 className="text-lg font-semibold text-white mb-3">Analysis Result:</h3>
-                  <div className="bg-white/5 border border-white/20 rounded-lg p-4 max-h-96 overflow-y-auto">
+                  <div className="bg-gray-800 border border-white/20 rounded-lg p-4 max-h-96 overflow-y-auto">
                     <pre className="text-gray-200 whitespace-pre-wrap leading-relaxed">{result}</pre>
                   </div>
                   <button

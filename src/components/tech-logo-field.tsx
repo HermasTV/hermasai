@@ -13,10 +13,10 @@ import { TECH_LOGOS, getSimpleIcon, type TechLogo } from '@/data/tech-logos';
  * the whole viewport. Replaces the old AmbientScene point-cloud.
  *
  * Design intent:
- *  - UNIFIED MONOCHROME / GLASS: every logo (brand mark + hand-drawn hardware
- *    line-icon) is rendered in ONE brand tint, never real brand colors. This
- *    keeps 30 logos cohesive rather than a multicolor sponsor wall, and
- *    sidesteps brand-color trademark concerns.
+ *  - ORIGINAL BRAND COLORS (experiment): each logo is drawn in its own
+ *    official brand color (simple-icons `hex`); the frosted-glass chip + glow
+ *    behind each mark keeps the multicolor field cohesive. Near-black marks
+ *    are lightened (see readableColor) so they stay visible on the dark page.
  *  - DEPTH VIA PARALLAX: each logo is assigned a depth layer. Far logos are
  *    large, blurred, dim and drift slowly; near logos are small, crisp,
  *    brighter and drift faster. Reads as a field with real depth.
@@ -39,9 +39,34 @@ import { TECH_LOGOS, getSimpleIcon, type TechLogo } from '@/data/tech-logos';
  *  - Decorative: aria-hidden + pointer-events:none on the root.
  */
 
-/* Brand tint — the homepage triad. The whole field is drawn in these three
-   hues only; which hue a given logo gets is fixed per logo at layout time. */
-const TINTS = ['#60a5fa', '#a78bfa', '#f472b6'] as const;
+/* Original-brand-color mode (experiment): each logo is drawn in its own
+   official brand color (from simple-icons `hex`), not a unified tint. Hardware
+   line-icons have no brand color, so they fall back to a soft cyan. */
+const LINE_FALLBACK = '#7dd3fc'; // sky-300 — for hardware line-icons
+
+/* Many brand marks are near-black (GitHub, etc.) and would vanish on the dark
+   page. Lighten any color below a luminance floor toward white so every logo
+   stays visible while keeping its hue. */
+function readableColor(hex: string): string {
+  if (!/^#[0-9a-fA-F]{6}$/.test(hex)) return hex;
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  const lum = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
+  if (lum >= 0.22) return hex;
+  const mix = (c: number) => Math.round(c + (255 - c) * 0.72);
+  const h = (c: number) => c.toString(16).padStart(2, '0');
+  return `#${h(mix(r))}${h(mix(g))}${h(mix(b))}`;
+}
+
+/** The brand/original color for a logo — used for both fill and glow. */
+function colorFor(logo: TechLogo): string {
+  if (logo.kind === 'brand') {
+    const icon = getSimpleIcon(logo.iconKey);
+    if (icon?.hex) return readableColor(`#${icon.hex}`);
+  }
+  return LINE_FALLBACK;
+}
 
 /** Per-depth-layer visual + motion tuning. 0 = far, 2 = near. */
 const LAYERS = [
@@ -151,7 +176,7 @@ function buildField(w: number, h: number): Placed[] {
       bx,
       by,
       size: baseSize * (0.82 + rng() * 0.5),
-      tint: TINTS[i % TINTS.length],
+      tint: colorFor(logo),
       driftPhase: rng() * Math.PI * 2,
       driftRate: 0.05 + rng() * 0.07,
       driftAmpX: 14 + rng() * 26,
@@ -181,7 +206,10 @@ function logoInnerSvg(logo: TechLogo): { body: string; title: string } | null {
   };
 }
 
-export default function TechLogoField() {
+export default function TechLogoField({
+  animate = true,
+  lite = false,
+}: { animate?: boolean; lite?: boolean } = {}) {
   const rootRef = useRef<HTMLDivElement>(null);
   // refs to each logo wrapper so the rAF loop can write transforms directly
   // (no React re-render per frame).
@@ -225,7 +253,10 @@ export default function TechLogoField() {
 
   // ---- animation loop — transforms written straight to the DOM ----
   useEffect(() => {
-    if (reduceMotion || field.length === 0) return;
+    // animate=false lets a caller force the static "resting pose" render
+    // (same arrangement as prefers-reduced-motion) for pages that can't
+    // spare main-thread time for an ambient rAF — e.g. realtime-face.
+    if (!animate || reduceMotion || field.length === 0) return;
 
     let rafId = 0;
     let startTs = 0;
@@ -291,7 +322,7 @@ export default function TechLogoField() {
       cancelAnimationFrame(rafId);
       document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [field, reduceMotion]);
+  }, [animate, field, reduceMotion]);
 
   // memoize the rendered svg markup so it isn't recomputed each render
   const items = useMemo(
@@ -330,28 +361,38 @@ export default function TechLogoField() {
               marginTop: -placed.size / 2,
               opacity: L.opacity,
               transform: initialTransform,
-              filter: L.blur > 0 ? `blur(${L.blur}px)` : undefined,
+              // `lite` mode drops the layer blur — the backdrop-filter on the
+              // chip and the SVG drop-shadow are the heavy compositor work
+              // (re-blurred per-frame when the layer behind moves), so they
+              // are conditional below.
+              filter: lite ? undefined : L.blur > 0 ? `blur(${L.blur}px)` : undefined,
             }}
           >
-            {/* frosted-glass chip behind the mark — subtle premium depth */}
-            <div
-              className="absolute inset-0 rounded-2xl"
-              style={{
-                background:
-                  'linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015))',
-                border: '1px solid rgba(255,255,255,0.06)',
-                boxShadow: `0 0 18px ${placed.tint}14`,
-                backdropFilter: 'blur(2px)',
-                WebkitBackdropFilter: 'blur(2px)',
-              }}
-            />
-            {/* the logo itself — tinted via currentColor with a soft glow */}
+            {/* frosted-glass chip behind the mark — subtle premium depth.
+                Omitted in `lite` mode: the backdrop-filter forces the
+                compositor to re-blur this region every time the content
+                behind it (e.g. a playing webcam) repaints. */}
+            {!lite && (
+              <div
+                className="absolute inset-0 rounded-2xl"
+                style={{
+                  background:
+                    'linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.015))',
+                  border: '1px solid rgba(255,255,255,0.06)',
+                  boxShadow: `0 0 18px ${placed.tint}14`,
+                  backdropFilter: 'blur(2px)',
+                  WebkitBackdropFilter: 'blur(2px)',
+                }}
+              />
+            )}
+            {/* the logo itself — tinted via currentColor. `lite` mode drops
+                the drop-shadow filter (another per-frame compositor cost). */}
             <svg
               viewBox="0 0 24 24"
               className="absolute inset-0 h-full w-full p-[22%]"
               style={{
                 color: placed.tint,
-                filter: `drop-shadow(0 0 5px ${placed.tint}55)`,
+                filter: lite ? undefined : `drop-shadow(0 0 5px ${placed.tint}55)`,
               }}
               role="img"
               aria-label={svg.title}

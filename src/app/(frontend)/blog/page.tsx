@@ -90,21 +90,21 @@ function renderBlogPage(posts: any[], error: any = null) {
               <div className="space-y-4 text-white">
                 <div>
                   <h2 className="font-bold text-lg mb-2">Error Details:</h2>
-                  <pre className="bg-black/50 p-4 rounded overflow-x-auto text-sm">
+                  <pre className="bg-black p-4 rounded overflow-x-auto text-sm">
                     <code>{error instanceof Error ? error.message : String(error)}</code>
                   </pre>
                 </div>
                 {error instanceof Error && error.stack && (
                   <div>
                     <h2 className="font-bold text-lg mb-2">Stack Trace:</h2>
-                    <pre className="bg-black/50 p-4 rounded overflow-x-auto text-xs">
+                    <pre className="bg-black p-4 rounded overflow-x-auto text-xs">
                       <code>{error.stack}</code>
                     </pre>
                   </div>
                 )}
                 <div>
                   <h2 className="font-bold text-lg mb-2">Environment Check:</h2>
-                  <pre className="bg-black/50 p-4 rounded overflow-x-auto text-sm">
+                  <pre className="bg-black p-4 rounded overflow-x-auto text-sm">
                     <code>{JSON.stringify({
                       nodeEnv: process.env.NODE_ENV,
                       hasMongoUri: !!process.env.MONGODB_URI,
@@ -155,7 +155,7 @@ function renderBlogPage(posts: any[], error: any = null) {
               <Link
                 key={post.id}
                 href={`/blog/${post.slug}`}
-                className="group bg-gray-800/50 border border-gray-700/50 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105"
+                className="group bg-gray-800 border border-gray-700/50 rounded-xl overflow-hidden hover:border-blue-500/50 transition-all duration-300 hover:transform hover:scale-105"
               >
                 {/* Featured Image */}
                 {post.featuredImage && typeof post.featuredImage === 'object' && (

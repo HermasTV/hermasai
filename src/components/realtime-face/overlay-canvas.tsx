@@ -1,6 +1,10 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import {
+  util as faceLandmarksUtil,
+  SupportedModels,
+} from "@tensorflow-models/face-landmarks-detection";
 
 export interface FaceDetection {
   box: { xMin: number; yMin: number; xMax: number; yMax: number; width: number; height: number } | null;
@@ -36,17 +40,47 @@ export interface HandPosePayload {
   sourceHeight: number;
 }
 
-const FACE_OVAL = [
-  10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378,
-  400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21,
-  54, 103, 67, 109, 10,
-];
-const LEFT_EYE = [33, 133, 160, 158, 153, 144, 33];
-const RIGHT_EYE = [263, 362, 387, 385, 380, 373, 263];
-const LIPS_OUTER = [61, 146, 91, 181, 84, 17, 314, 405, 321, 375, 291, 61];
-const LEFT_BROW = [70, 63, 105, 66, 107];
-const RIGHT_BROW = [336, 296, 334, 293, 300];
-const NOSE_BRIDGE = [168, 6, 197, 195, 5, 4];
+// Full MediaPipe FaceMesh tessellation (≈2.5k edges). Pulled from the
+// package's public util so we draw the canonical mesh wireframe.
+const FACE_MESH_PAIRS = faceLandmarksUtil.getAdjacentPairs(
+  SupportedModels.MediaPipeFaceMesh,
+) as [number, number][];
+
+// EAR (Eye Aspect Ratio) — Soukupová & Čech, 2016 — used for blink detection.
+// EAR = (|p2-p6| + |p3-p5|) / (2 · |p1-p4|), where p1/p4 are the eye corners
+// and p2,p3 / p6,p5 are vertical lid pairs. Drops sharply when the eye closes.
+// 6-point eye landmarks (outer, upper-outer, upper-inner, inner, lower-inner,
+// lower-outer). These are *not* drawn as polylines anymore — they're only
+// used to compute EAR.
+const LEFT_EYE_EAR = [33, 160, 158, 133, 153, 144];
+const RIGHT_EYE_EAR = [263, 387, 385, 362, 380, 373];
+const EAR_CLOSE_THRESHOLD = 0.21; // eye considered closed below this
+const EAR_OPEN_THRESHOLD = 0.26; // eye considered open above this (hysteresis)
+
+function distance(
+  a: { x: number; y: number },
+  b: { x: number; y: number },
+): number {
+  const dx = a.x - b.x;
+  const dy = a.y - b.y;
+  return Math.sqrt(dx * dx + dy * dy);
+}
+
+function eyeAspectRatio(
+  pts: { x: number; y: number }[],
+  indices: number[],
+): number | null {
+  const p1 = pts[indices[0]];
+  const p2 = pts[indices[1]];
+  const p3 = pts[indices[2]];
+  const p4 = pts[indices[3]];
+  const p5 = pts[indices[4]];
+  const p6 = pts[indices[5]];
+  if (!p1 || !p2 || !p3 || !p4 || !p5 || !p6) return null;
+  const horiz = distance(p1, p4);
+  if (horiz < 1e-6) return null;
+  return (distance(p2, p6) + distance(p3, p5)) / (2 * horiz);
+}
 
 const HAND_CONNECTIONS: [number, number][] = [
   [0, 1], [1, 2], [2, 3], [3, 4],
@@ -55,29 +89,6 @@ const HAND_CONNECTIONS: [number, number][] = [
   [9, 13], [13, 14], [14, 15], [15, 16],
   [13, 17], [0, 17], [17, 18], [18, 19], [19, 20],
 ];
-
-function drawPolyline(
-  ctx: CanvasRenderingContext2D,
-  pts: { x: number; y: number }[],
-  indices: number[],
-  sx: number,
-  sy: number,
-  color: string,
-  lineWidth: number,
-) {
-  ctx.beginPath();
-  ctx.strokeStyle = color;
-  ctx.lineWidth = lineWidth;
-  for (let i = 0; i < indices.length; i++) {
-    const p = pts[indices[i]];
-    if (!p) continue;
-    const x = p.x * sx;
-    const y = p.y * sy;
-    if (i === 0) ctx.moveTo(x, y);
-    else ctx.lineTo(x, y);
-  }
-  ctx.stroke();
-}
 
 function drawConnections(
   ctx: CanvasRenderingContext2D,
@@ -123,6 +134,7 @@ interface Props {
   faceDetections: FaceDetectionPayload | null;
   faceMesh: FaceMeshPayload | null;
   handPose: HandPosePayload | null;
+  onBlink?: () => void;
 }
 
 export function OverlayCanvas({
@@ -131,8 +143,15 @@ export function OverlayCanvas({
   faceDetections,
   faceMesh,
   handPose,
+  onBlink,
 }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  // Hysteretic blink state machine: only counts on the rising edge of
+  // closed → open. `eyesClosed` flips when both eyes' EAR cross the close
+  // threshold; the next time they cross the open threshold, a blink fires.
+  const eyesClosedRef = useRef(false);
+  const onBlinkRef = useRef(onBlink);
+  onBlinkRef.current = onBlink;
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -147,8 +166,6 @@ export function OverlayCanvas({
       const sy = canvas.height / (faceDetections.sourceHeight || canvas.height);
       ctx.strokeStyle = "#3b82f6";
       ctx.lineWidth = 2;
-      ctx.font = "12px ui-sans-serif, system-ui";
-      ctx.fillStyle = "#3b82f6";
       for (const det of faceDetections.detections) {
         const b = det.box;
         if (!b) continue;
@@ -162,13 +179,42 @@ export function OverlayCanvas({
       for (const face of faceMesh.faces) {
         const k = face.keypoints;
         if (!k) continue;
-        drawPolyline(ctx, k, FACE_OVAL, sx, sy, "#a855f7", 1);
-        drawPolyline(ctx, k, LEFT_EYE, sx, sy, "#10b981", 1);
-        drawPolyline(ctx, k, RIGHT_EYE, sx, sy, "#10b981", 1);
-        drawPolyline(ctx, k, LEFT_BROW, sx, sy, "#10b981", 1);
-        drawPolyline(ctx, k, RIGHT_BROW, sx, sy, "#10b981", 1);
-        drawPolyline(ctx, k, LIPS_OUTER, sx, sy, "#f97316", 1);
-        drawPolyline(ctx, k, NOSE_BRIDGE, sx, sy, "#a855f7", 1);
+
+        // Translucent mesh wireframe — single batched stroke, full tessellation.
+        ctx.save();
+        ctx.globalAlpha = 0.35;
+        drawConnections(ctx, k, FACE_MESH_PAIRS, sx, sy, "#67e8f9", 1);
+        ctx.restore();
+
+        // Blink detection on this face. Both eyes must be closed to count
+        // as a blink; this avoids triggering on winks and on lone-eye noise.
+        const leftEar = eyeAspectRatio(k, LEFT_EYE_EAR);
+        const rightEar = eyeAspectRatio(k, RIGHT_EYE_EAR);
+        if (leftEar != null && rightEar != null) {
+          const avgEar = (leftEar + rightEar) / 2;
+          if (!eyesClosedRef.current && avgEar < EAR_CLOSE_THRESHOLD) {
+            eyesClosedRef.current = true;
+          } else if (eyesClosedRef.current && avgEar > EAR_OPEN_THRESHOLD) {
+            eyesClosedRef.current = false;
+            onBlinkRef.current?.();
+          }
+        }
+
+        // Tint the eye region when closed so the user can see the detector
+        // is reacting in real time, not just incrementing a hidden counter.
+        if (eyesClosedRef.current) {
+          ctx.save();
+          ctx.globalAlpha = 0.5;
+          ctx.fillStyle = "#fbbf24";
+          for (const idx of [...LEFT_EYE_EAR, ...RIGHT_EYE_EAR]) {
+            const p = k[idx];
+            if (!p) continue;
+            ctx.beginPath();
+            ctx.arc(p.x * sx, p.y * sy, 3, 0, Math.PI * 2);
+            ctx.fill();
+          }
+          ctx.restore();
+        }
       }
     }
 

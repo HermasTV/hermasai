@@ -29,8 +29,8 @@ export const metadata: Metadata = {
  * browser chrome can't introduce scroll or jump) with overflow hidden.
  * It renders ONLY three things:
  *   - a static dark-gradient base layer (the TechLogoField draws on top of
- *     it; the site-wide AnimatedBackground is intentionally NOT used here —
- *     the homepage has exactly one visual system),
+ *     it; the homepage owns the tech-logo field directly via HomeHero rather
+ *     than going through the site-wide StaticBackground wrapper),
  *   - the Navbar (so Projects / Experience / Blog stay reachable),
  *   - the full-viewport HomeHero (the tech-logo field + minimal centered
  *     text).
@@ -48,11 +48,15 @@ export default function Home() {
         className="fixed inset-0 -z-10"
         style={{
           background:
-            "radial-gradient(ellipse 90% 70% at 50% 38%, #1a1630 0%, #11101c 45%, #0a0a10 100%)",
+            "radial-gradient(ellipse 70% 55% at 50% 30%, rgba(8,51,68,0.5) 0%, transparent 62%), radial-gradient(ellipse 55% 45% at 82% 88%, rgba(70,12,20,0.4) 0%, transparent 60%), #060709",
         }}
       />
 
-      <Navbar />
+      {/* Navbar floats as an overlay so the hero can center within the full
+          viewport (not just the space below the nav). */}
+      <div className="absolute inset-x-0 top-0 z-50">
+        <Navbar />
+      </div>
 
       <main className="relative flex min-h-0 flex-1 flex-col">
         <HomeHero />

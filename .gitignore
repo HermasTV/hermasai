@@ -50,3 +50,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# realtime-face standalone benchmark (local R&D)
+bench/dist/
+bench/test_vid.mp4
+bench/last-result.json
+bench/results.log
+
+# large local test media (kept out of git history)
+docs/test_vid.mp4

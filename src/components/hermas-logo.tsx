@@ -23,7 +23,7 @@ export default function HermasLogo({
 
   const railStroke = monochrome === 'light' ? '#0f172a' : monochrome === 'dark' ? '#ffffff' : `url(#${gradId})`;
   const hubFill = monochrome === 'light' ? '#ffffff' : '#0f172a';
-  const hubStroke = monochrome === 'light' ? '#0f172a' : monochrome === 'dark' ? '#ffffff' : '#a78bfa';
+  const hubStroke = monochrome === 'light' ? '#0f172a' : monochrome === 'dark' ? '#ffffff' : '#fb3b53';
 
   return (
     <svg
@@ -36,9 +36,9 @@ export default function HermasLogo({
     >
       <defs>
         <linearGradient id={gradId} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#60a5fa" />
-          <stop offset="55%" stopColor="#8b5cf6" />
-          <stop offset="100%" stopColor="#ec4899" />
+          <stop offset="0%" stopColor="#67e8f9" />
+          <stop offset="55%" stopColor="#22d3ee" />
+          <stop offset="100%" stopColor="#0e7490" />
         </linearGradient>
       </defs>
 
@@ -68,14 +68,14 @@ export default function HermasLogo({
           strokeLinecap="round"
           strokeLinejoin="round"
           style={{
-            filter: 'drop-shadow(0 0 6px #60a5fa) drop-shadow(0 0 12px #a78bfa)',
+            filter: 'drop-shadow(0 0 6px #22d3ee) drop-shadow(0 0 12px #0891b2)',
             strokeDasharray: '220 220',
           }}
         />
       )}
 
       {/* Motor LED pins */}
-      <g fill="#f472b6">
+      <g fill="#fb3b53">
         <circle cx="26" cy="16" r="1.6" />
         <circle cx="66" cy="16" r="1.6" />
         <circle cx="26" cy="76" r="1.6" />

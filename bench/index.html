@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Realtime-Face Benchmark — React</title>
+    <style>
+      :root { color-scheme: dark; }
+      body {
+        margin: 0;
+        padding: 24px;
+        background: #0a0a0f;
+        color: #e5e7eb;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 13px;
+      }
+      h1 { font-size: 18px; margin: 0 0 2px; }
+      .sub { color: #9ca3af; font-size: 12px; margin-bottom: 16px; }
+      .row { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start; }
+      /* Large display stage — the production "larger scale" view. */
+      .stage {
+        position: relative;
+        width: 960px;
+        height: 540px;
+        max-width: 62vw;
+        background: #000;
+        border-radius: 8px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .stage video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .panel { flex: 1; min-width: 300px; line-height: 1.7; }
+      .big { font-size: 22px; font-weight: 700; color: #34d399; margin: 14px 0 6px; }
+      .small { color: #9ca3af; font-size: 11px; margin-top: 6px; }
+      pre {
+        background: #111827; padding: 14px; border-radius: 8px;
+        font-size: 12px; overflow: auto;
+      }
+      /* minimal shims for the Tailwind classes the imported components use,
+         so they position correctly when run outside the Next.js app. The
+         performance cost of the components is unaffected by these classes. */
+      .absolute { position: absolute; }
+      .fixed { position: fixed; }
+      .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
+      .w-full { width: 100%; }
+      .h-full { height: 100%; }
+      .pointer-events-none { pointer-events: none; }
+      .-scale-x-100 { transform: scaleX(-1); }
+      .-z-10 { z-index: -10; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="./dist/app.js"></script>
+  </body>
+</html>
