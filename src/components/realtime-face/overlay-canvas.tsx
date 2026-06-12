@@ -1,10 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import {
-  util as faceLandmarksUtil,
-  SupportedModels,
-} from "@tensorflow-models/face-landmarks-detection";
+import { FACE_MESH_PAIRS } from "./face-mesh-pairs";
 
 export interface FaceDetection {
   box: { xMin: number; yMin: number; xMax: number; yMax: number; width: number; height: number } | null;
@@ -39,12 +36,6 @@ export interface HandPosePayload {
   sourceWidth: number;
   sourceHeight: number;
 }
-
-// Full MediaPipe FaceMesh tessellation (≈2.5k edges). Pulled from the
-// package's public util so we draw the canonical mesh wireframe.
-const FACE_MESH_PAIRS = faceLandmarksUtil.getAdjacentPairs(
-  SupportedModels.MediaPipeFaceMesh,
-) as [number, number][];
 
 // EAR (Eye Aspect Ratio) — Soukupová & Čech, 2016 — used for blink detection.
 // EAR = (|p2-p6| + |p3-p5|) / (2 · |p1-p4|), where p1/p4 are the eye corners
@@ -128,6 +119,51 @@ function drawPoints(
   }
 }
 
+// Animated face-detection reticle: a glowing oval that gently pulses, with a
+// pair of opposed arcs sweeping around it (a "scanning" ring). `t` is a
+// monotonic timestamp in ms — the only thing that needs to vary per frame for
+// the animation, so the effect can stay result-driven.
+function drawAnimatedFaceOval(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  rx: number,
+  ry: number,
+  t: number,
+) {
+  ctx.save();
+  ctx.lineCap = "round";
+
+  // Gentle breathing pulse on the radii (~±2.5%).
+  const pulse = 1 + Math.sin(t / 600) * 0.025;
+  const erx = rx * pulse;
+  const ery = ry * pulse;
+
+  // Soft base oval.
+  ctx.shadowColor = "#22d3ee";
+  ctx.shadowBlur = 14;
+  ctx.strokeStyle = "rgba(34, 211, 238, 0.4)";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, erx, ery, 0, 0, Math.PI * 2);
+  ctx.stroke();
+
+  // Two bright opposed arcs rotating around the oval.
+  const phase = (t / 900) % (Math.PI * 2);
+  const arcLen = Math.PI * 0.45;
+  ctx.shadowBlur = 10;
+  ctx.strokeStyle = "rgba(56, 189, 248, 0.95)";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, erx, ery, 0, phase, phase + arcLen);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.ellipse(cx, cy, erx, ery, 0, phase + Math.PI, phase + Math.PI + arcLen);
+  ctx.stroke();
+
+  ctx.restore();
+}
+
 interface Props {
   width: number;
   height: number;
@@ -164,12 +200,17 @@ export function OverlayCanvas({
     if (faceDetections?.detections?.length) {
       const sx = canvas.width / (faceDetections.sourceWidth || canvas.width);
       const sy = canvas.height / (faceDetections.sourceHeight || canvas.height);
-      ctx.strokeStyle = "#3b82f6";
-      ctx.lineWidth = 2;
+      const t = performance.now();
       for (const det of faceDetections.detections) {
         const b = det.box;
         if (!b) continue;
-        ctx.strokeRect(b.xMin * sx, b.yMin * sy, b.width * sx, b.height * sy);
+        const cx = (b.xMin + b.width / 2) * sx;
+        const cy = (b.yMin + b.height / 2) * sy;
+        // Faces extend a little beyond the tight detection box vertically
+        // (forehead/chin), so the oval is padded more on the y-axis.
+        const rx = (b.width / 2) * sx * 1.04;
+        const ry = (b.height / 2) * sy * 1.14;
+        drawAnimatedFaceOval(ctx, cx, cy, rx, ry, t);
       }
     }
 
@@ -235,7 +276,7 @@ export function OverlayCanvas({
       ref={canvasRef}
       width={width}
       height={height}
-      className="absolute inset-0 w-full h-full pointer-events-none transform -scale-x-100"
+      className="absolute inset-0 w-full h-full object-cover pointer-events-none transform -scale-x-100"
     />
   );
 }
