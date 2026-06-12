@@ -58,6 +58,9 @@ export default function RealtimeFaceClient() {
   const [cameraError, setCameraError] = useState<string | null>(null);
   const [cameraReady, setCameraReady] = useState(false);
   const [blinkCount, setBlinkCount] = useState(0);
+  // Actual frame the camera delivers — may differ from what we request, so we
+  // size the container + overlay from this to keep video and mesh aligned.
+  const [videoDims, setVideoDims] = useState({ w: SOURCE_WIDTH, h: SOURCE_HEIGHT });
 
   const [faceDetEnabled, setFaceDetEnabled] = useState(true);
   const [faceMeshEnabled, setFaceMeshEnabled] = useState(true);
@@ -108,6 +111,9 @@ export default function RealtimeFaceClient() {
             v.onloadedmetadata = () => resolve();
           });
           await videoRef.current.play();
+          const vw = videoRef.current.videoWidth;
+          const vh = videoRef.current.videoHeight;
+          if (vw > 0 && vh > 0) setVideoDims({ w: vw, h: vh });
           setCameraReady(true);
         }
       } catch (err) {
@@ -288,7 +294,8 @@ export default function RealtimeFaceClient() {
                 <div className="bg-gray-900 rounded-lg p-3 sm:p-4 shadow-xl">
                   <div
                     ref={containerRef}
-                    className="relative bg-black rounded-lg overflow-hidden aspect-video"
+                    className="relative bg-black rounded-lg overflow-hidden mx-auto"
+                    style={{ aspectRatio: `${videoDims.w} / ${videoDims.h}` }}
                   >
                     <video
                       ref={videoRef}
@@ -298,8 +305,8 @@ export default function RealtimeFaceClient() {
                       className="w-full h-full object-cover transform -scale-x-100"
                     />
                     <OverlayCanvas
-                      width={SOURCE_WIDTH}
-                      height={SOURCE_HEIGHT}
+                      width={videoDims.w}
+                      height={videoDims.h}
                       faceDetections={faceDetEnabled ? faceDetector.latestResult : null}
                       faceMesh={faceMeshEnabled ? faceMesh.latestResult : null}
                       handPose={handPoseEnabled ? handPose.latestResult : null}
